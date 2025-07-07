@@ -12,9 +12,9 @@ const Button = ({
     "px-4 py-1.5 rounded font-medium transition duration-200 focus:outline-none ";
 
   if (variant === "primary") {
-    styles += "bg-primary";
+    styles += "bg-primary text-white";
   } else if (variant === "secondary") {
-    styles += "bg-white bg-primary";
+    styles += "bg-white bg-primary ";
   } else if (variant === "outline") {
     styles += "border border-primary text-primary hover:bg-indigo-50";
   } else if (variant === "danger") {
