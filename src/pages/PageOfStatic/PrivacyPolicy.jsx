@@ -40,7 +40,7 @@ const PrivacyPolicy = () => {
 
             {/* Main Content */}
             <div className="max-w-4xl mx-auto px-4 py-12">
-                <div className="space-y-12">
+                <div className="space-y-10">
 
                     {/* Information We Collect */}
                     <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-up">

@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 import Button from "../../components/ui/Button";
 import useAuth from "../../hooks/useAuth";
+import { FaEnvelope, FaTimesCircle, FaUserCircle, FaCheckCircle, FaCopy, FaCalendarAlt, FaSignOutAlt } from "react-icons/fa";
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const MyProfile = () => {
+  const [copied, setCopied]=useState(false)
   const { user, signOutUser } = useAuth();
   // logout user
   const handleLogOut = () => {
@@ -35,62 +38,84 @@ const MyProfile = () => {
       }
     });
   };
+
   return (
-    <div className="flex justify-center items-center min-h-[70vh]">
-      <title>Profile || Career Code</title>
-      <div className="card w-full max-w-md bg-base-100 shadow-sm border-t-4 border-primary p-6">
-        <div className="flex flex-col items-center gap-3">
-          <div className="avatar">
-            <div className="w-24 h-24 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
-              <img
-                src={user.photoURL || "/src/assets/user-logo.png"}
-                alt="User"
-              />
+    <div className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+      <div className="relative z-10 w-full max-w-lg shadow-md">
+        <div
+          className="rounded-md shadow-md border border-base-300 bg-base-100 p-8 flex flex-col items-center gap-4 animate-fade-in"
+          data-aos="zoom-in"
+        >
+          {/* Avatar */}
+          <div className="relative mb-2">
+            <div className="w-28 h-28 rounded-full border-4 border-primary bg-base-200 flex items-center justify-center overflow-hidden shadow-md">
+              {user.photoURL ? (
+                <img
+                  src={user.photoURL}
+                  alt="User"
+                  className="w-full h-full object-cover"
+                />
+              ) : (
+                <FaUserCircle className="w-24 h-24 text-base-content/40" />
+              )}
             </div>
+            {user.emailVerified ? (
+              <FaCheckCircle className="absolute bottom-2 right-2 text-success bg-base-100 rounded-full text-xl border-2 border-base-100" title="Email Verified" />
+            ) : (
+              <FaTimesCircle className="absolute bottom-2 right-2 text-error bg-base-100 rounded-full text-xl border-2 border-base-100" title="Email Not Verified" />
+            )}
           </div>
-          <h2 className="text-2xl font-bold text-primary mb-1">
+          {/* Name & Email */}
+          <h2 className="text-2xl font-bold text-primary flex items-center gap-2">
             {user.displayName || "User Name"}
           </h2>
-          <span className="badge badge-outline badge-primary mb-2">
-            {user.email}
-          </span>
-        </div>
-        <div className="divider">Profile Details</div>
-        <div className="space-y-2">
-          <div className="flex items-center gap-2">
-            <span className="font-semibold">Account Created:</span>
-            <span className="text-base-content/70">
-              {user.metadata?.creationTime
-                ? new Date(user.metadata.creationTime).toLocaleDateString()
-                : "N/A"}
-            </span>
+          <div className="flex items-center gap-2 text-base-content/80">
+            <FaEnvelope className="text-primary" />
+            <span className="break-all">{user.email}</span>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="font-semibold">Last Sign In:</span>
-            <span className="text-base-content/70">
-              {user.metadata?.lastSignInTime
-                ? new Date(user.metadata.lastSignInTime).toLocaleString()
-                : "N/A"}
-            </span>
+          {/* Details */}
+          <div className="w-full mt-4 space-y-3">
+            <div className="flex items-center gap-2 text-base-content/80">
+              <FaCalendarAlt className="text-primary" />
+              <span className="font-semibold">Account Created:</span>
+              <span>
+                {user.metadata?.creationTime
+                  ? new Date(user.metadata.creationTime).toLocaleDateString()
+                  : "N/A"}
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-base-content/80">
+              <FaCalendarAlt className="text-primary" />
+              <span className="font-semibold">Last Sign In:</span>
+              <span>
+                {user.metadata?.lastSignInTime
+                  ? new Date(user.metadata.lastSignInTime).toLocaleString()
+                  : "N/A"}
+              </span>
+            </div>
+            <div className="flex items-center gap-2 text-base-content/80">
+              <FaUserCircle className="text-primary" />
+              <span className="font-semibold">User ID:</span>
+              <span className="break-all">{user.uid}</span>
+              <CopyToClipboard text={user.uid} onCopy={() => { setCopied(true); setTimeout(() => setCopied(false), 1500); }}>
+                <button className="ml-2 text-primary hover:text-secondary transition-colors" title="Copy User ID">
+                  <FaCopy />
+                </button>
+              </CopyToClipboard>
+              {copied && <span className="ml-1 text-success text-xs">Copied!</span>}
+            </div>
+            <div className="flex items-center gap-2 text-base-content/80">
+              <span className="font-semibold">Email Verified:</span>
+              <span className={user.emailVerified ? "text-success" : "text-error"}>
+                {user.emailVerified ? "Yes" : "No"}
+              </span>
+            </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="font-semibold">User ID:</span>
-            <span className="text-base-content/70 break-all">{user.uid}</span>
+          <div className="w-full flex flex-col gap-2 items-center mt-6">
+            <Button onClick={handleLogOut} variant="danger" className="w-full flex items-center justify-center gap-2">
+              <FaSignOutAlt /> Sign Out
+            </Button>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="font-semibold">Email Verified:</span>
-            <span
-              className={user.emailVerified ? "text-green-600" : "text-red-500"}
-            >
-              {user.emailVerified ? "Yes" : "No"}
-            </span>
-          </div>
-        </div>
-        <div className="divider"></div>
-        <div className="flex flex-col gap-2 items-center">
-          <Button onClick={handleLogOut} variant="danger">
-            Sign Out
-          </Button>
         </div>
       </div>
     </div>

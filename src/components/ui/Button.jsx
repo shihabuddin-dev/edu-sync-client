@@ -18,7 +18,7 @@ const Button = ({
   } else if (variant === "outline") {
     styles += "text-primary border-primary";
   } else if (variant === "danger") {
-    styles += "bg-red-400 hover:bg-red-500 border-red-400 text-base-content ";
+    styles += "bg-red-500 text-white border-0 border-red-500 hover:shadow-md";
   } else {
     styles += "bg-gray-200 text-black";
   }
