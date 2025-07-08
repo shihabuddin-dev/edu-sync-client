@@ -6,6 +6,7 @@ import SignUp from "../pages/auth/SignUp";
 import ResetPassword from "../pages/auth/ResetPassword";
 import MyProfile from "../pages/myprofile/MyProfile";
 import PrivateRoutes from "./PrivateRoutes";
+import PrivacyPolicy from "../pages/PageOfStatic/PrivacyPolicy";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       { path: "/signup", Component: SignUp },
       { path: "/reset-password", Component: ResetPassword },
       // { path: '/blogs', Component: Blogs },
+      
+      // static page 
+      { path: "/privacy", Component: PrivacyPolicy },
+      
 
       //  loader: () => fetch(`${import.meta.env.VITE_API_URL}/recipes`),
 

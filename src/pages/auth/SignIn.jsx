@@ -7,7 +7,7 @@ import Swal from "sweetalert2";
 import { MdLogin } from "react-icons/md";
 import Spinner from "../../components/ui/Spinner";
 import Lottie from "lottie-react";
-import signIn from "../../assets/lotti/signIn.json";
+import signIn from "../../assets/lotti/education.json";
 import useAuth from "../../hooks/useAuth";
 
 const inputBase =
@@ -108,11 +108,11 @@ const SignIn = () => {
 
   return (
     <div className="flex gap-4 flex-col md:flex-row justify-center items-center max-w-5xl">
-      <title>Sign In || Career Code</title>
+      <title>Sign In | Edu Sync</title>
       <div className="flex-1">
         <Lottie
           animationData={signIn}
-          className="w-full h-[200px] md:h-[300px]"
+          className="w-full h-[300px] md:h-[400px]"
         />
       </div>{" "}
       <div className="flex-1 max-w-md p-6 bg-base-100 rounded shadow border-2 border-secondary">
