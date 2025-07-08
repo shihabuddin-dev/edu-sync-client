@@ -9,7 +9,7 @@ const Button = ({
   ...props
 }) => {
   let styles =
-    "px-4 py-1.5 border-2 rounded-md font-medium transition duration-300 hover:scale-105 hover:shadow-md hover:shadow-primary ";
+    "px-4 py-1.5 border-[1.5px] rounded-md font-medium transition duration-300 hover:scale-105 hover:shadow-md hover:shadow-primary ";
 
   if (variant === "primary") {
     styles += " bg-primary text-white border-primary";

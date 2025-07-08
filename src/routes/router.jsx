@@ -7,6 +7,8 @@ import ResetPassword from "../pages/auth/ResetPassword";
 import MyProfile from "../pages/myprofile/MyProfile";
 import PrivateRoutes from "./PrivateRoutes";
 import PrivacyPolicy from "../pages/PageOfStatic/PrivacyPolicy";
+import TermsOfService from "../pages/PageOfStatic/TermsOfService";
+import CookiePolicy from "../pages/PageOfStatic/CookiePolicy";
 
 const router = createBrowserRouter([
   {
@@ -21,10 +23,12 @@ const router = createBrowserRouter([
       { path: "/signup", Component: SignUp },
       { path: "/reset-password", Component: ResetPassword },
       // { path: '/blogs', Component: Blogs },
-      
+
       // static page 
       { path: "/privacy", Component: PrivacyPolicy },
-      
+      { path: "/terms", Component: TermsOfService },
+      { path: "/cookies", Component: CookiePolicy },
+
 
       //  loader: () => fetch(`${import.meta.env.VITE_API_URL}/recipes`),
 

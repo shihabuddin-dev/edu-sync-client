@@ -20,9 +20,9 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-base-200 border-t border-base-300">
+    <footer className="bg-base-200 border-t border-base-300 ">
       {/* Main Footer Content */}
-      <div className="mx-auto py-12 px-4 md:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto py-12 px-4 md:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
           {/* Company Info */}

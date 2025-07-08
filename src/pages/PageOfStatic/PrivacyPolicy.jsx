@@ -16,22 +16,18 @@ import {
 } from 'react-icons/fa';
 import Button from '../../components/ui/Button';
 import { Link } from 'react-router';
+import SectionTitle from '../../components/shared/SectionTitle';
 
 const PrivacyPolicy = () => {
     const currentYear = new Date().getFullYear();
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-base-100 to-base-200 pt-20">
+        <div className="min-h-screen bg-gradient-to-br from-base-100 to-base-200 ">
             {/* Header Section */}
-            <div className="bg-base-100 shadow-lg border-b border-base-300">
-                <div className="max-w-4xl mx-auto px-4 py-12 text-center">
-                    <div className="flex items-center justify-center gap-3 mb-6">
-                        <FaShieldAlt className="w-12 h-12 text-primary" />
-                        <h1 className="text-4xl md:text-5xl font-bold text-base-content">
-                            Privacy Policy
-                        </h1>
-                    </div>
-                    <p className="text-lg text-base-content/70 max-w-2xl mx-auto leading-relaxed">
+            <div className="bg-base-100 shadow-md" data-aos="fade-up-right">
+                <div className="max-w-4xl mx-auto px-4 py-4 text-center">
+                    <SectionTitle title="Privacy Policy" icon={<FaShieldAlt />} />
+                    <p className="text-base-content/70 max-w-2xl mx-auto leading-relaxed">
                         At Edu Sync, we are committed to protecting your privacy and ensuring the security of your personal information.
                         This policy outlines how we collect, use, and safeguard your data.
                     </p>
@@ -47,12 +43,12 @@ const PrivacyPolicy = () => {
                 <div className="space-y-12">
 
                     {/* Information We Collect */}
-                    <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300">
+                    <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-up">
                         <div className="flex items-center gap-3 mb-6">
                             <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
                                 <FaDatabase className="w-6 h-6 text-primary" />
                             </div>
-                            <h2 className="text-2xl md:text-3xl font-bold text-base-content">
+                            <h2 className="text-2xl md:text-3xl font-semibold text-base-content">
                                 Information We Collect
                             </h2>
                         </div>
@@ -91,12 +87,12 @@ const PrivacyPolicy = () => {
                     </section>
 
                     {/* How We Use Your Information */}
-                    <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300">
+                    <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-left" >
                         <div className="flex items-center gap-3 mb-6">
                             <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
                                 <FaUserSecret className="w-6 h-6 text-primary" />
                             </div>
-                            <h2 className="text-2xl md:text-3xl font-bold text-base-content">
+                            <h2 className="text-2xl md:text-3xl font-semibold text-base-content">
                                 How We Use Your Information
                             </h2>
                         </div>
@@ -145,12 +141,12 @@ const PrivacyPolicy = () => {
                     </section>
 
                     {/* Data Protection */}
-                    <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300">
+                    <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="flip-right">
                         <div className="flex items-center gap-3 mb-6">
                             <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
                                 <FaLock className="w-6 h-6 text-primary" />
                             </div>
-                            <h2 className="text-2xl md:text-3xl font-bold text-base-content">
+                            <h2 className="text-2xl md:text-3xl font-semibold text-base-content">
                                 Data Protection & Security
                             </h2>
                         </div>
@@ -199,12 +195,12 @@ const PrivacyPolicy = () => {
                     </section>
 
                     {/* Cookies Policy */}
-                    <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300">
+                    <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-up">
                         <div className="flex items-center gap-3 mb-6">
                             <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
                                 <FaCookieBite className="w-6 h-6 text-primary" />
                             </div>
-                            <h2 className="text-2xl md:text-3xl font-bold text-base-content">
+                            <h2 className="text-2xl md:text-3xl font-semibold text-base-content">
                                 Cookies & Tracking
                             </h2>
                         </div>
@@ -235,12 +231,12 @@ const PrivacyPolicy = () => {
                     </section>
 
                     {/* Your Rights */}
-                    <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300">
+                    <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-up">
                         <div className="flex items-center gap-3 mb-6">
                             <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
                                 <FaHandshake className="w-6 h-6 text-primary" />
                             </div>
-                            <h2 className="text-2xl md:text-3xl font-bold text-base-content">
+                            <h2 className="text-2xl md:text-3xl font-semibold text-base-content">
                                 Your Rights & Choices
                             </h2>
                         </div>
@@ -277,9 +273,9 @@ const PrivacyPolicy = () => {
                     </section>
 
                     {/* Contact Information */}
-                    <section className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg p-6 md:p-8 border border-primary/20">
+                    <section className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg p-6 md:p-8 border border-primary/20" data-aos="zoom-in">
                         <div className="text-center">
-                            <h2 className="text-2xl md:text-3xl font-bold text-base-content mb-4">
+                            <h2 className="text-2xl md:text-3xl font-semibold text-base-content mb-4">
                                 Questions About Privacy?
                             </h2>
                             <p className="text-base-content/80 mb-6 max-w-2xl mx-auto">
@@ -288,7 +284,7 @@ const PrivacyPolicy = () => {
                             </p>
                             <div className="flex flex-col sm:flex-row gap-4 justify-center">
                                 <Button variant='primary' > <a
-                                    href="mailto:privacy@edusync.com" className='flex items-center gap-2'>  <FaEnvelope />
+                                    href="mailto:privacy@edusync.com" className='inline-flex items-center gap-2'>  <FaEnvelope />
                                     Email Us</a>
                                 </Button>
                                 <Button variant='secondary' >
