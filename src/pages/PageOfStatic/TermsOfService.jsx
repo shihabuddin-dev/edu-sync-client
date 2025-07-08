@@ -30,8 +30,8 @@ const TermsOfService = () => {
           {/* Acceptance of Terms */}
           <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-up">
             <div className="flex items-center gap-3 mb-6">
-              <FaRegCheckCircle className="w-8 h-8 text-primary" />
-              <h2 className="text-2xl md:text-3xl font-semibold text-base-content">
+              <FaRegCheckCircle className="w-6 h-6 text-primary" />
+              <h2 className="text-2xl font-semibold text-base-content">
                 Acceptance of Terms
               </h2>
             </div>
@@ -43,8 +43,8 @@ const TermsOfService = () => {
           {/* User Responsibilities */}
           <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-left">
             <div className="flex items-center gap-3 mb-6">
-              <FaUserShield className="w-8 h-8 text-primary" />
-              <h2 className="text-2xl md:text-3xl font-semibold text-base-content">
+              <FaUserShield className="w-6 h-6 text-primary" />
+              <h2 className="text-2xl font-semibold text-base-content">
                 User Responsibilities
               </h2>
             </div>
@@ -71,8 +71,8 @@ const TermsOfService = () => {
           {/* Prohibited Activities */}
           <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="flip-right">
             <div className="flex items-center gap-3 mb-6">
-              <FaExclamationTriangle className="w-8 h-8 text-error" />
-              <h2 className="text-2xl md:text-3xl font-semibold text-base-content">
+              <FaExclamationTriangle className="w-6 h-6 text-error" />
+              <h2 className="text-2xl font-semibold text-base-content">
                 Prohibited Activities
               </h2>
             </div>
@@ -99,8 +99,8 @@ const TermsOfService = () => {
           {/* Termination */}
           <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-up">
             <div className="flex items-center gap-3 mb-6">
-              <FaHandshake className="w-8 h-8 text-primary" />
-              <h2 className="text-2xl md:text-3xl font-semibold text-base-content">
+              <FaHandshake className="w-6 h-6 text-primary" />
+              <h2 className="text-2xl font-semibold text-base-content">
                 Termination
               </h2>
             </div>
@@ -112,8 +112,8 @@ const TermsOfService = () => {
           {/* Changes to Terms */}
           <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-up">
             <div className="flex items-center gap-3 mb-6">
-              <FaArrowRight className="w-8 h-8 text-primary" />
-              <h2 className="text-2xl md:text-3xl font-semibold text-base-content">
+              <FaArrowRight className="w-6 h-6 text-primary" />
+              <h2 className="text-2xl font-semibold text-base-content">
                 Changes to Terms
               </h2>
             </div>
@@ -124,7 +124,7 @@ const TermsOfService = () => {
 
           {/* Contact Section */}
           <section className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg p-6 md:p-8 border border-primary/20 text-center" data-aos="zoom-in">
-            <h2 className="text-2xl md:text-3xl font-semibold text-base-content mb-4">
+            <h2 className="text-2xl font-semibold text-base-content mb-4">
               Questions About These Terms?
             </h2>
             <p className="text-base-content/80 mb-6 max-w-2xl mx-auto">

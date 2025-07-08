@@ -62,7 +62,7 @@ const CookiePolicy = () => {
                             <div className="absolute -left-7 top-0 bg-base-100 border-2 border-primary w-12 h-12 rounded-full flex items-center justify-center shadow-md group-hover:bg-primary/10 group-hover:scale-110 transition-all duration-300">
                                 {step.icon}
                             </div>
-                            <h3 className="text-xl md:text-2xl font-semibold text-base-content mb-2 mt-1 group-hover:text-primary transition-colors duration-400">
+                            <h3 className="text-xl font-semibold text-base-content mb-2 mt-1 group-hover:text-primary transition-colors duration-400">
                                 {step.title}
                             </h3>
                             <p className="text-base-content/80 text-sm leading-relaxed">
@@ -76,7 +76,7 @@ const CookiePolicy = () => {
             {/* Call to Action */}
             <div className="max-w-3xl mx-auto px-4 pb-12" data-aos="zoom-in-up">
                 <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg shadow-md p-6 md:p-8 border border-base-300 text-center">
-                    <h2 className="text-2xl md:text-3xl font-semibold text-base-content mb-4">
+                    <h2 className="text-2xl font-semibold text-base-content mb-4">
                         Have Questions About Cookies?
                     </h2>
                     <p className="text-base-content/80 mb-6 max-w-xl mx-auto">

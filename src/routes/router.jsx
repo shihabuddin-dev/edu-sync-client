@@ -9,6 +9,7 @@ import PrivateRoutes from "./PrivateRoutes";
 import PrivacyPolicy from "../pages/PageOfStatic/PrivacyPolicy";
 import TermsOfService from "../pages/PageOfStatic/TermsOfService";
 import CookiePolicy from "../pages/PageOfStatic/CookiePolicy";
+import AboutUs from "../pages/PageOfStatic/AboutUs";
 
 const router = createBrowserRouter([
   {
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
       // { path: '/blogs', Component: Blogs },
 
       // static page 
+      { path: "/about-us", Component: AboutUs },
       { path: "/privacy", Component: PrivacyPolicy },
       { path: "/terms", Component: TermsOfService },
       { path: "/cookies", Component: CookiePolicy },
