@@ -1,3 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100..900;1,100..900&display=swap');
+
+
+*{
+  font-family: "Jost", sans-serif;
+}
+
 @import "tailwindcss";
 
 @plugin "daisyui" {
@@ -8,17 +15,19 @@
   name: "light";
   default: true;
   --color-primary: #D51F63;
-  --color-secondary: #A4194C;
-  --bg-base-100: #F9FAFB;
-  --bg-base-200: #E5E7EB;
+  --color-secondary: #E86A92; 
+  --bg-base-100: #FFFFFF; 
+  --bg-base-200: #F3F4F6; 
+  --bg-base-300: #E5E7EB; 
 }
 
 @plugin "daisyui/theme" {
   name: "dark";
-  --color-primary: #00D4FF;
-  --color-secondary: #A259FF;
-  --bg-base-100: #1F1F2E;
-  --bg-base-200: #2C2C3A;
+  --color-primary: #00B4D8; 
+  --color-secondary: #7C3AED; 
+  --bg-base-100: #181825; 
+  --bg-base-200: #232336;
+  --bg-base-300: #2C2C3A; 
 }
 
 

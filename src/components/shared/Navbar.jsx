@@ -1,4 +1,4 @@
-import { NavLink, Link } from "react-router";
+import { NavLink, Link, useNavigate } from "react-router";
 import { useEffect, useRef, useState } from "react";
 import {
   MdSchool,
@@ -18,6 +18,7 @@ import userLogo from "../../assets/user-logo.png";
 import { PiStudentFill } from "react-icons/pi";
 
 import useAuth from "../../hooks/useAuth";
+import { FaUser } from "react-icons/fa";
 // import Logo from "./Logo";
 
 const Navbar = () => {
@@ -26,8 +27,9 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
   const toggleMenu = () => setIsOpen(!isOpen);
+  const navigate=useNavigate()
 
-  // logout user
+  //Sign Out user
   const handleLogOut = () => {
     Swal.fire({
       title: "Are you sure?",
@@ -59,7 +61,7 @@ const Navbar = () => {
   };
 
   const linksClass =
-    "hover:text-primary text-base-content flex items-center gap-1";
+    "hover:text-primary text-base-content/85 flex items-center gap-1";
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -74,7 +76,7 @@ const Navbar = () => {
     };
   }, []);
   return (
-    <nav className="bg-primary/4 drop-shadow-2xl border-b-1 border-base-300 fixed top-0 left-0 right-0 z-50 w-full">
+    <nav className="bg-base-200 shadow-xs border-b-1 border-base-300 fixed top-0 left-0 right-0 z-50 w-full">
       <div className="max-w-7xl mx-auto py-2 px-4 md:px-6 lg:px-8 flex justify-between items-center">
         {/* Logo */}
         <Link to="/" className="flex items-center gap-2">
@@ -117,12 +119,17 @@ const Navbar = () => {
               Contact Us
             </NavLink>
           </li>
+          {user && <li>
+            <NavLink to="/dashboard" className={linksClass}>
+              <MdDashboard /> Dashboard
+            </NavLink>
+          </li>}
         </ul>
 
-        {/* Login / Avatar */}
+        {/* Sign In / Avatar */}
         <div className="hidden space-x-2 lg:flex items-center">
           {user ? (
-            <div className="relative cursor-pointer z-10" ref={dropdownRef}>
+            <div className="relative cursor-pointer z-10 " onClick={toggleMenu} ref={dropdownRef}>
               <img
                 src={user?.photoURL ? user?.photoURL : userLogo}
                 alt="profile"
@@ -131,29 +138,35 @@ const Navbar = () => {
                 onClick={() => setShowDropdown(!showDropdown)}
               />
               <div
-                className={`absolute right-0 mt-2 w-40 bg-base-100 border border-primary rounded-md shadow-lg transition-opacity duration-200 ${showDropdown ? "opacity-100" : "opacity-0 pointer-events-none"
+                className={`absolute right-0 mt-2 w-40 bg-base-200 rounded-md shadow-md transition-opacity duration-200 ${showDropdown ? "opacity-100" : "opacity-0 pointer-events-none"
                   }`}
               >
-                <p className="px-4 py-2 text-sm font-medium text-primary">
-                  {user?.displayName}
+                <p className="px-4 py-2 text-sm font-medium">
+                  Hi, {user?.displayName}
                 </p>
-                <hr className="text-primary" />
-                <Link to="/dashboard">
-                  <p className="px-4 py-2 text-sm font-medium flex items-center gap-2"><MdDashboard size={20} className="text-primary" /> Dashboard</p>
-                </Link>
-                <hr className=" border-dashed" />
+                <p>
+                  <NavLink
+                    to='/my-profile'
+                    className="px-4 py-2 text-sm font-medium hover:text-primary flex items-center gap-1"
+                    onClick={() => setShowDropdown(false)}
+                  >
+                    <FaUser />
+                    My Profile
+                  </NavLink>
+                </p>
+
                 <button
                   onClick={handleLogOut}
                   className="flex items-center gap-2 px-4 py-2 text-sm text-primary w-full text-left cursor-pointer"
                 >
-                  <MdLogout size={20} className="text-primary" /> Logout
+                  <MdLogout size={20} className="text-primary" />Sign Out
                 </button>
               </div>
             </div>
           ) : (
             <>
               <Link to="/signin">
-                <Button variant="outline">Login</Button>
+                <Button variant="outline">Sign In</Button>
               </Link>
               <Link to="/signup">
                 <Button>Sign Up</Button>
@@ -227,28 +240,30 @@ const Navbar = () => {
             }
             <li className="space-x-2">
               {user ? (
-                <div className="flex gap-4 items-center">
+                <div className="flex gap-4 items-center" onClick={toggleMenu}>
                   <img
+                  onClick={()=>navigate('/my-profile')}
                     src={user?.photoURL ? user?.photoURL : userLogo}
                     alt="profile"
+                    title="click and go Your profile"
                     className="w-9 h-9 rounded-full border border-secondary"
                   />
                   <div>
-                    <p className="text-sm text-primary font-medium">
-                      {user?.displayName}
+                    <p className=" text-primary font-medium">
+                      Hi, {user?.displayName}
                     </p>
                     <button
                       onClick={handleLogOut}
                       className="flex items-center gap-2 text-sm text-primary w-full mt-2"
                     >
-                      <MdLogout size={20} className="text-primary" /> Logout
+                      <MdLogout size={20} className="text-primary" />Sign Out
                     </button>
                   </div>
                 </div>
               ) : (
                 <>
                   <Link to="/signin" onClick={toggleMenu}>
-                    <Button variant="outline">Login</Button>
+                    <Button variant="outline">Sign In</Button>
                   </Link>
                   <Link to="/signup" onClick={toggleMenu}>
                     <Button>Sign Up</Button>

@@ -3,22 +3,22 @@ import React from "react";
 const Button = ({
   children,
   type = "button",
-  onClick = () => {},
+  onClick = () => { },
   variant = "primary",
   className = "",
   ...props
 }) => {
   let styles =
-    "px-4 py-1.5 rounded font-medium transition duration-200 focus:outline-none ";
+    "px-4 py-1.5 border-2 border-primary rounded-md font-medium transition duration-300 hover:scale-105 hover:shadow-md hover:shadow-primary ";
 
   if (variant === "primary") {
-    styles += "bg-primary text-white";
+    styles += " bg-primary text-white";
   } else if (variant === "secondary") {
-    styles += "bg-white bg-primary ";
+    styles += "bg-white";
   } else if (variant === "outline") {
-    styles += "border border-primary text-primary hover:bg-indigo-50";
+    styles += "text-primary ";
   } else if (variant === "danger") {
-    styles += "bg-red-600 hover:bg-red-500";
+    styles += "bg-red-400 hover:bg-red-500 border-red-400 text-base-content ";
   } else {
     styles += "bg-gray-200 text-black";
   }
