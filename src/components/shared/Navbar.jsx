@@ -27,7 +27,7 @@ const Navbar = () => {
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
   const toggleMenu = () => setIsOpen(!isOpen);
-  const navigate=useNavigate()
+  const navigate = useNavigate()
 
   //Sign Out user
   const handleLogOut = () => {
@@ -119,11 +119,11 @@ const Navbar = () => {
               Support
             </NavLink>
           </li>
-          {user && <li>
+          {/* {user && <li>
             <NavLink to="/dashboard" className={linksClass}>
               <MdDashboard /> Dashboard
             </NavLink>
-          </li>}
+          </li>} */}
         </ul>
 
         {/* Sign In / Avatar */}
@@ -145,13 +145,22 @@ const Navbar = () => {
                   Hi, {user?.displayName}
                 </p>
                 <p>
+                  <p>
+                    <NavLink
+                      to='/my-profile'
+                      className="px-4 py-2 text-sm font-medium hover:text-primary flex items-center gap-1"
+                      onClick={() => setShowDropdown(false)}
+                    >
+                      <FaUser />
+                      My Profile
+                    </NavLink>
+                  </p>
                   <NavLink
-                    to='/my-profile'
+                    to='/dashboard'
                     className="px-4 py-2 text-sm font-medium hover:text-primary flex items-center gap-1"
                     onClick={() => setShowDropdown(false)}
                   >
-                    <FaUser />
-                    My Profile
+                    <MdDashboard /> Dashboard
                   </NavLink>
                 </p>
 
@@ -229,7 +238,7 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink to="/support" onClick={toggleMenu} className={linksClass}>
-                <MdContactSupport  />
+                <MdContactSupport />
                 Support
               </NavLink>
             </li>
@@ -242,7 +251,7 @@ const Navbar = () => {
               {user ? (
                 <div className="flex gap-4 items-center" onClick={toggleMenu}>
                   <img
-                  onClick={()=>navigate('/my-profile')}
+                    onClick={() => navigate('/my-profile')}
                     src={user?.photoURL ? user?.photoURL : userLogo}
                     alt="profile"
                     title="click and go Your profile"

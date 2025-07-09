@@ -11,6 +11,7 @@ import TermsOfService from "../pages/PageOfStatic/TermsOfService";
 import CookiePolicy from "../pages/PageOfStatic/CookiePolicy";
 import AboutUs from "../pages/PageOfStatic/AboutUs";
 import Support from "../pages/PageOfStatic/Support";
+import DashboardLayout from "../layout/DashboardLayout";
 
 const router = createBrowserRouter([
   {
@@ -47,6 +48,16 @@ const router = createBrowserRouter([
       },
     ],
   },
+  {
+    path: "/dashboard",
+    element: <PrivateRoutes><DashboardLayout /></PrivateRoutes>,
+    children: [
+      // {
+      //   index: true,
+      //   Component: 
+      // }
+    ]
+  }
 ]);
 
 export default router;
