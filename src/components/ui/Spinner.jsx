@@ -1,31 +1,45 @@
 import React from "react";
+import { PiStudentFill } from "react-icons/pi";
 
 const Spinner = () => {
   return (
-    <div className="flex justify-center pt-6">
-      <button
-        type="button"
-        className="px-5 py-2.5 flex items-center justify-center green text-sm tracking-wider font-medium border-none outline-none"
-      >
+    <div className="flex justify-center items-center py-8">
+      <div className="relative w-16 h-16 flex items-center justify-center">
+        {/* Animated ring */}
         <svg
-          width="40px"
-          fill="#0EA106"
-          className="mr-2 inline animate-spin"
-          viewBox="0 0 26.349 26.35"
+          className="animate-spin absolute inset-0"
+          width="64"
+          height="64"
+          viewBox="0 0 64 64"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
         >
-          <circle cx="13.792" cy="3.082" r="3.082" data-original="#000000" />
-          <circle cx="13.792" cy="24.501" r="1.849" data-original="#000000" />
-          <circle cx="6.219" cy="6.218" r="2.774" data-original="#000000" />
-          <circle cx="21.365" cy="21.363" r="1.541" data-original="#000000" />
-          <circle cx="3.082" cy="13.792" r="2.465" data-original="#000000" />
-          <circle cx="24.501" cy="13.791" r="1.232" data-original="#000000" />
-          <path
-            d="M4.694 19.84a2.155 2.155 0 0 0 0 3.05 2.155 2.155 0 0 0 3.05 0 2.155 2.155 0 0 0 0-3.05 2.146 2.146 0 0 0-3.05 0z"
-            data-original="#000000"
+          <circle
+            className="opacity-20"
+            cx="32"
+            cy="32"
+            r="28"
+            stroke="currentColor"
+            strokeWidth="8"
           />
-          <circle cx="21.364" cy="6.218" r=".924" data-original="#000000" />
+          <path
+            d="M60 32c0-15.464-12.536-28-28-28"
+            stroke="url(#spinner-gradient)"
+            strokeWidth="8"
+            strokeLinecap="round"
+          />
+          <defs>
+            <linearGradient id="spinner-gradient" x1="32" y1="4" x2="60" y2="32" gradientUnits="userSpaceOnUse">
+              <stop stopColor="#D51F63" />
+              <stop offset="1" stopColor="#E86A92" />
+            </linearGradient>
+          </defs>
         </svg>
-      </button>
+        {/* Education icon in the center */}
+        <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-primary text-3xl md:text-4xl drop-shadow-lg">
+          <PiStudentFill />
+        </span>
+      </div>
     </div>
   );
 };

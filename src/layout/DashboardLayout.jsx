@@ -1,16 +1,33 @@
 import React, { useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router";
-import { FaBars, FaTimes, FaUserCircle, FaSignOutAlt, FaUsers, FaBook, FaChalkboardTeacher, FaBullhorn } from "react-icons/fa";
+import { FaBars, FaTimes, FaUserCircle, FaSignOutAlt, FaUsers, FaBook, FaChalkboardTeacher, FaBullhorn, FaLayerGroup } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
 import useUserRole from "../hooks/useUserRole";
 import Spinner from "../components/ui/Spinner";
+import Logo from "../components/shared/Logo";
 
 const adminLinks = [
-  { to: "/dashboard/admin/users", label: "Manage Users", icon: <FaUsers /> },
-  { to: "/dashboard/admin/sessions", label: "Manage Sessions", icon: <FaBook /> },
-  { to: "/dashboard/admin/materials", label: "Manage Materials", icon: <FaChalkboardTeacher /> },
-  { to: "/dashboard/admin/announcements", label: "Announcements", icon: <FaBullhorn /> },
+  {
+    to: "/dashboard/admin/users",
+    label: "All Users",
+    icon: <FaUsers />,
+  },
+  {
+    to: "/dashboard/admin/sessions",
+    label: "All Study Sessions",
+    icon: <FaBook />,
+  },
+  {
+    to: "/dashboard/admin/materials",
+    label: "All Materials",
+    icon: <FaLayerGroup />,
+  },
+  {
+    to: "/dashboard/admin/announcements",
+    label: "Announcements",
+    icon: <FaBullhorn />,
+  },
 ];
 
 const tutorLinks = [
@@ -50,23 +67,18 @@ const DashboardLayout = () => {
   };
 
   if (roleLoading) {
-    return (
-     <Spinner/>
-    );
+    return <Spinner />;
   }
 
   return (
     <div className="flex min-h-screen bg-base-200">
       {/* Sidebar */}
       <aside
-        className={`fixed z-30 inset-y-0 left-0 w-64 bg-base-100 shadow-lg transform ${
-          sidebarOpen ? "translate-x-0" : "-translate-x-full"
-        } transition-transform duration-200 ease-in-out md:relative md:translate-x-0 md:w-64`}
+        className={`fixed z-30 inset-y-0 left-0 w-64 bg-base-100 shadow-lg transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+          } transition-transform duration-200 ease-in-out md:relative md:translate-x-0 md:w-64`}
       >
         <div className="flex items-center justify-between px-6 py-4 border-b">
-          <Link to="/" className="text-xl font-bold text-primary">
-            EduSync
-          </Link>
+          <Logo />
           <button
             className="md:hidden text-2xl"
             onClick={() => setSidebarOpen(false)}
@@ -80,10 +92,9 @@ const DashboardLayout = () => {
               key={link.to}
               to={link.to}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-6 py-3 text-base font-medium transition-colors ${
-                  isActive
-                    ? "bg-primary text-white"
-                    : "text-base-content hover:bg-primary/10"
+                `flex items-center gap-3 px-6 py-3 text-base font-medium transition-colors ${isActive
+                  ? "bg-primary text-white"
+                  : "text-base-content hover:bg-primary/10"
                 }`
               }
               onClick={() => setSidebarOpen(false)}
@@ -120,16 +131,16 @@ const DashboardLayout = () => {
           </div>
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
-              {user?.photo ? (
+              {user?.photoURL ? (
                 <img
-                  src={user.photo}
+                  src={user.photoURL}
                   alt="User"
                   className="w-8 h-8 rounded-full object-cover border"
                 />
               ) : (
                 <FaUserCircle className="w-8 h-8 text-base-content" />
               )}
-              <span className="font-medium">{user?.name}</span>
+              <span className="font-medium">{user?.displayName || user?.name}</span>
               <span className="badge badge-outline">{role}</span>
             </div>
             <button

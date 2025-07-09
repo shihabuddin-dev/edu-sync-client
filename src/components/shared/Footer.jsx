@@ -15,6 +15,7 @@ import {
   FaChartLine,
   FaHeart
 } from 'react-icons/fa';
+import Logo from './Logo';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -27,10 +28,7 @@ const Footer = () => {
 
           {/* Company Info */}
           <div className="space-y-4">
-            <div className="flex items-center gap-2">
-              <FaGraduationCap className="w-8 h-8 text-primary" />
-              <span className="text-2xl font-bold text-primary">Edu Sync</span>
-            </div>
+            <Logo/>
             <p className="text-base-content/80 leading-relaxed">
               Empowering students and tutors to connect, collaborate, and excel together.
               Join our community of learners and educators.

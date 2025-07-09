@@ -15,10 +15,10 @@ import Button from "../ui/Button";
 import Swal from "sweetalert2";
 import ThemeToggle from "../ui/ThemeToggle";
 import userLogo from "../../assets/user-logo.png";
-import { PiStudentFill } from "react-icons/pi";
 
 import useAuth from "../../hooks/useAuth";
 import { FaUser } from "react-icons/fa";
+import Logo from "./Logo";
 // import Logo from "./Logo";
 
 const Navbar = () => {
@@ -78,15 +78,8 @@ const Navbar = () => {
   return (
     <nav className="bg-base-200 shadow-xs border-b-1 border-base-300 fixed top-0 left-0 right-0 z-50 w-full">
       <div className="max-w-7xl mx-auto py-2 px-4 md:px-6 lg:px-8 flex justify-between items-center">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          {/* <Logo/> */}
-          <PiStudentFill className="w-8 h-8 text-primary" />
-          <span className="text-2xl -ml-1 font-bold text-primary">
-            Edu Sync
-          </span>
-        </Link>
 
+        <Logo />
         {/* Desktop Nav */}
         <ul className="hidden lg:flex gap-5 font-semibold text-[#1a1a1a]">
           <li>
