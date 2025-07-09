@@ -77,7 +77,7 @@ const Navbar = () => {
   }, []);
   return (
     <nav className="bg-base-200 shadow-xs border-b-1 border-base-300 fixed top-0 left-0 right-0 z-50 w-full">
-      <div className="max-w-7xl mx-auto py-2 px-4 md:px-6 lg:px-8 flex justify-between items-center">
+      <div className="max-w-7xl mx-auto py-2 md:py-3 px-4 md:px-6 lg:px-8 flex justify-between items-center">
 
         <Logo />
         {/* Desktop Nav */}
@@ -168,10 +168,10 @@ const Navbar = () => {
           ) : (
             <>
               <Link to="/signin">
-                <Button variant="outline">Sign In</Button>
+                <Button variant="outline" className="btn btn-sm">Sign In</Button>
               </Link>
               <Link to="/signup">
-                <Button>Sign Up</Button>
+                <Button className="btn btn-sm">Sign Up</Button>
               </Link>
             </>
           )}
@@ -192,14 +192,14 @@ const Navbar = () => {
 
       {/* Mobile Menu */}
       <div
-        className={`lg:hidden fixed left-0 right-0 top-[64px] z-40 transition-all duration-300 ${isOpen
+        className={`lg:hidden fixed left-0 right-0 top-[48px] z-40 transition-all duration-300 ${isOpen
           ? "opacity-100 translate-y-0 pointer-events-auto"
           : "opacity-0 -translate-y-8 pointer-events-none"
           }`}
         style={{ minHeight: isOpen ? "calc(100vh - 72px)" : 0 }}
         aria-hidden={!isOpen}
       >
-        <div className="px-4 pt-2 pb-4 bg-base-100 border-b border-base-300 shadow-lg rounded-b-xl">
+        <div className="px-4 pt-2 pb-4 bg-base-100 border-b border-base-300 shadow-lg rounded-b-md">
           <ul className="flex flex-col gap-4 font-semibold text-[#1a1a1a]">
             <li>
               <NavLink to="/tutors" onClick={toggleMenu} className={linksClass}>
@@ -265,10 +265,10 @@ const Navbar = () => {
               ) : (
                 <>
                   <Link to="/signin" onClick={toggleMenu}>
-                    <Button variant="outline">Sign In</Button>
+                    <Button variant="outline" className="btn btn-sm">Sign In</Button>
                   </Link>
                   <Link to="/signup" onClick={toggleMenu}>
-                    <Button>Sign Up</Button>
+                    <Button className="btn btn-sm">Sign Up</Button>
                   </Link>
                 </>
               )}

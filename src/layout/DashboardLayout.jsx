@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link, NavLink, Outlet, useNavigate } from "react-router";
+import { Link, NavLink, Outlet } from "react-router";
 import { FaBars, FaTimes, FaUserCircle, FaSignOutAlt, FaUsers, FaBook, FaChalkboardTeacher, FaBullhorn, FaLayerGroup, FaStickyNote, FaClipboardList, FaGraduationCap } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
 import useUserRole from "../hooks/useUserRole";
 import Spinner from "../components/ui/Spinner";
 import Logo from "../components/shared/Logo";
+import Button from "../components/ui/Button";
 
 const adminLinks = [
   {
@@ -63,7 +64,6 @@ const DashboardLayout = () => {
   const { role, roleLoading } = useUserRole();
   const { user, signOutUser } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const navigate = useNavigate();
 
   // Determine links based on role
   let navLinks = [];
@@ -71,15 +71,37 @@ const DashboardLayout = () => {
   else if (role === "tutor") navLinks = tutorLinks;
   else if (role === "student") navLinks = studentLinks;
 
-  const handleLogout = async () => {
-    await signOutUser();
+
+
+  //Sign Out user
+  const handleLogOut = () => {
     Swal.fire({
-      icon: "success",
-      title: "Logged out!",
-      showConfirmButton: false,
-      timer: 1200,
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, Sign out!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        signOutUser();
+        Swal.fire({
+          title: "Sign out!",
+          text: "You have been Sign out.",
+          icon: "success",
+        })
+          .then(() => { })
+          .catch((error) => {
+            console.log(error);
+            Swal.fire({
+              title: "Error!",
+              text: "Sign failed.",
+              icon: "error",
+            });
+          });
+      }
     });
-    navigate("/signin");
   };
 
   if (roleLoading) {
@@ -87,13 +109,13 @@ const DashboardLayout = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-base-200">
+    <div className="flex min-h-screen bg-base-200 max-w-7xl mx-auto">
       {/* Sidebar */}
       <aside
         className={`fixed z-30 inset-y-0 left-0 w-64 bg-base-100 shadow-lg transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
           } transition-transform duration-200 ease-in-out md:relative md:translate-x-0 md:w-64`}
       >
-        <div className="flex items-center justify-between px-6 py-4 border-b">
+        <div className="flex items-center justify-between px-6 py-4">
           <Logo />
           <button
             className="md:hidden text-2xl"
@@ -120,6 +142,12 @@ const DashboardLayout = () => {
             </NavLink>
           ))}
         </nav>
+        <Button
+          className="btn btn-sm flex mx-auto mt-4 lg:hidden items-center gap-2"
+          onClick={handleLogOut}
+        >
+          <FaSignOutAlt /> Sign Out
+        </Button>
       </aside>
 
       {/* Overlay for mobile */}
@@ -131,9 +159,9 @@ const DashboardLayout = () => {
       )}
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col min-h-screen">
+      <div className="w-full max-w-7xl mx-auto flex-1 fixed flex flex-col min-h-screen">
         {/* Top Navbar */}
-        <header className="flex items-center justify-between bg-base-100 px-4 py-3 shadow md:ml-64">
+        <header className=" flex items-center justify-between bg-base-100 px-4 py-3 shadow md:ml-64">
           <div className="flex items-center gap-2">
             <button
               className="md:hidden text-2xl"
@@ -144,7 +172,9 @@ const DashboardLayout = () => {
             <span className="text-lg font-semibold text-primary">
               Dashboard
             </span>
+
           </div>
+
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               {user?.photoURL ? (
@@ -156,15 +186,15 @@ const DashboardLayout = () => {
               ) : (
                 <FaUserCircle className="w-8 h-8 text-base-content" />
               )}
-              <span className="font-medium">{user?.displayName || user?.name}</span>
-              <span className="badge badge-outline">{role}</span>
+              <span className="font-medium hidden lg:inline">{user?.displayName || user?.name}</span>
+              <span className="badge badge-outline hidden lg:inline">{role}</span>
             </div>
-            <button
-              className="btn btn-sm btn-error flex items-center gap-2"
-              onClick={handleLogout}
+            <Button
+              className="btn btn-sm lg:flex items-center gap-2 hidden"
+              onClick={handleLogOut}
             >
-              <FaSignOutAlt /> Logout
-            </button>
+              <FaSignOutAlt /> Sign Out
+            </Button>
           </div>
         </header>
         {/* Main Content */}

@@ -6,24 +6,20 @@ import { FaEnvelope } from "react-icons/fa";
 import resetAnimation from "../../assets/lotti/reset-password.json";
 import Lottie from "lottie-react";
 import useAuth from "../../hooks/useAuth";
+import { useForm } from "react-hook-form";
 
 const inputBase =
   "w-full border-b-2 border-base-content/30 px-4 py-3 pl-10 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50";
 
 const ResetPassword = () => {
   const { resetPassword } = useAuth();
+  const { register, handleSubmit, formState: { errors }, setError, clearErrors } = useForm();
 
-  const handleResetPassword = (e) => {
-    e.preventDefault();
-    const email = e.target.email.value.trim();
-
+  const onSubmit = (data) => {
+    clearErrors();
+    const email = data.email.trim();
     if (!email) {
-      Swal.fire({
-        icon: "error",
-        title: "Please enter your email address.",
-        showConfirmButton: false,
-        timer: 1500,
-      });
+      setError("email", { message: "Please enter your email address." });
       return;
     }
     resetPassword(email)
@@ -45,6 +41,7 @@ const ResetPassword = () => {
           errorCode === "auth/user-not-found" ||
           errorCode === "auth/invalid-email"
         ) {
+          setError("email", { message: "This email address is not registered or is invalid." });
           Swal.fire({
             icon: "error",
             title: "This email address is not registered or is invalid.",
@@ -52,6 +49,7 @@ const ResetPassword = () => {
             timer: 1500,
           });
         } else {
+          setError("email", { message: "Failed to send reset email." });
           Swal.fire({
             icon: "error",
             title: "Failed to send reset email.",
@@ -81,7 +79,7 @@ const ResetPassword = () => {
           Enter your email address below and we'll send you a link to reset your
           password.
         </p>
-        <form onSubmit={handleResetPassword} className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-2">
             <label htmlFor="email" className="block text-sm font-medium text-base-content">
               Email Address
@@ -94,8 +92,10 @@ const ResetPassword = () => {
                 name="email"
                 placeholder="Enter Your Email"
                 className={inputBase}
+                {...register("email", { required: "Email is required" })}
               />
             </div>
+            {errors.email && <span className="text-error text-xs">{errors.email.message}</span>}
           </div>
 
           <Button type="submit" className="w-full">
