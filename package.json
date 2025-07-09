@@ -16,6 +16,7 @@
     "react-copy-to-clipboard": "^5.1.0",
     "react-countup": "^6.5.3",
     "react-dom": "^19.1.0",
+    "react-hook-form": "^7.60.0",
     "react-slick": "^0.30.3",
     "react-vertical-timeline-component": "^3.5.3",
     "slick-carousel": "^1.8.1"

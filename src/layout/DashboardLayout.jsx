@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router";
-import { FaBars, FaTimes, FaUserCircle, FaSignOutAlt, FaUsers, FaBook, FaChalkboardTeacher, FaBullhorn, FaLayerGroup } from "react-icons/fa";
+import { FaBars, FaTimes, FaUserCircle, FaSignOutAlt, FaUsers, FaBook, FaChalkboardTeacher, FaBullhorn, FaLayerGroup, FaStickyNote, FaClipboardList, FaGraduationCap } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
 import useUserRole from "../hooks/useUserRole";
@@ -37,10 +37,26 @@ const tutorLinks = [
 ];
 
 const studentLinks = [
-  { to: "/dashboard/student/booked-sessions", label: "Booked Sessions", icon: <FaBook /> },
-  { to: "/dashboard/student/create-note", label: "Create Note", icon: <FaBook /> },
-  { to: "/dashboard/student/manage-notes", label: "Manage Notes", icon: <FaBook /> },
-  { to: "/dashboard/student/study-materials", label: "Study Materials", icon: <FaChalkboardTeacher /> },
+  {
+    to: "/dashboard/student/booked-sessions",
+    label: "Booked Sessions",
+    icon: <FaGraduationCap />,
+  },
+  {
+    to: "/dashboard/student/create-note",
+    label: "Create Note",
+    icon: <FaStickyNote />,
+  },
+  {
+    to: "/dashboard/student/manage-notes",
+    label: "Manage Notes",
+    icon: <FaClipboardList />,
+  },
+  {
+    to: "/dashboard/student/study-materials",
+    label: "Study Materials",
+    icon: <FaChalkboardTeacher />,
+  },
 ];
 
 const DashboardLayout = () => {
