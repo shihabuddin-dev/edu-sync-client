@@ -13,6 +13,7 @@ import AboutUs from "../pages/PageOfStatic/AboutUs";
 import Support from "../pages/PageOfStatic/Support";
 import DashboardLayout from "../layout/DashboardLayout";
 import CreateNote from "../pages/dashboard/student/CreateNote";
+import ManageNotes from "../pages/dashboard/student/ManageNotes";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +57,10 @@ const router = createBrowserRouter([
       {
         path: 'student/create-note',
         Component: CreateNote
+      },
+      {
+        path: 'student/manage-notes',
+        Component: ManageNotes
       }
     ]
   }

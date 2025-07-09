@@ -46,6 +46,8 @@ const Navbar = () => {
           title: "Sign out!",
           text: "You have been Sign out.",
           icon: "success",
+          showConfirmButton: false,
+          timer: 1500
         })
           .then(() => { })
           .catch((error) => {

@@ -90,6 +90,8 @@ const DashboardLayout = () => {
           title: "Sign out!",
           text: "You have been Sign out.",
           icon: "success",
+          showConfirmButton: false,
+          timer: 1500
         })
           .then(() => { })
           .catch((error) => {
@@ -198,7 +200,7 @@ const DashboardLayout = () => {
           </div>
         </header>
         {/* Main Content */}
-        <main className="flex-1 p-4 md:ml-64">
+        <main className=" flex-1 p-4 md:ml-64 h-full overflow-y-auto">
           <Outlet />
         </main>
       </div>

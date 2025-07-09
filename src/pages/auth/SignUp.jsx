@@ -140,7 +140,8 @@ const SignUp = () => {
         icon: "success",
         title: "Registration Successful!",
         text: "Your account has been created successfully.",
-        confirmButtonText: "OK"
+        showConfirmButton: false,
+        timer: 1500
       });
       reset();
       setSelectedImage(null);

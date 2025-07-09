@@ -34,7 +34,8 @@ const Social = () => {
                 icon: 'success',
                 title: 'Sign In Successful!',
                 text: 'You have signed in with Google.',
-                confirmButtonText: 'OK'
+                showConfirmButton: false,
+                timer: 1500,
             });
             // Redirect to the desired route after sign in
             const from = location.state?.from?.pathname || "/";
