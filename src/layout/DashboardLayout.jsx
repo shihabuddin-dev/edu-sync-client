@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { Link, NavLink, Outlet } from "react-router";
-import { FaBars, FaTimes, FaUserCircle, FaSignOutAlt, FaUsers, FaBook, FaChalkboardTeacher, FaBullhorn, FaLayerGroup, FaStickyNote, FaClipboardList, FaGraduationCap } from "react-icons/fa";
+import { useState } from "react";
+import { NavLink, Outlet } from "react-router";
+import { FaBars, FaTimes, FaUserCircle, FaSignOutAlt, FaUsers, FaBook, FaChalkboardTeacher, FaBullhorn, FaLayerGroup, FaGraduationCap, FaRegCalendarPlus, FaListAlt, FaCloudUploadAlt, FaFolderOpen } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
 import useUserRole from "../hooks/useUserRole";
 import Spinner from "../components/ui/Spinner";
 import Logo from "../components/shared/Logo";
 import Button from "../components/ui/Button";
+import { MdNoteAdd, MdNoteAlt } from "react-icons/md";
 
 const adminLinks = [
   {
@@ -32,9 +33,26 @@ const adminLinks = [
 ];
 
 const tutorLinks = [
-  { to: "/dashboard/tutor/create-session", label: "Create Session", icon: <FaBook /> },
-  { to: "/dashboard/tutor/sessions", label: "My Sessions", icon: <FaBook /> },
-  { to: "/dashboard/tutor/materials", label: "My Materials", icon: <FaChalkboardTeacher /> },
+  {
+    to: "/dashboard/tutor/create-session",
+    label: "Create Study Session",
+    icon: <FaRegCalendarPlus />
+  },
+  {
+    to: "/dashboard/tutor/sessions",
+    label: "View All Study Sessions",
+    icon: <FaListAlt />
+  },
+  {
+    to: "/dashboard/tutor/upload-materials",
+    label: "Upload Materials",
+    icon: <FaCloudUploadAlt />
+  },
+  {
+    to: "/dashboard/tutor/materials",
+    label: "View All Materials",
+    icon: <FaFolderOpen />
+  },
 ];
 
 const studentLinks = [
@@ -46,12 +64,12 @@ const studentLinks = [
   {
     to: "/dashboard/student/create-note",
     label: "Create Note",
-    icon: <FaStickyNote />,
+    icon: <MdNoteAdd />,
   },
   {
     to: "/dashboard/student/manage-notes",
     label: "Manage Notes",
-    icon: <FaClipboardList />,
+    icon: <MdNoteAlt />,
   },
   {
     to: "/dashboard/student/study-materials",
@@ -189,7 +207,7 @@ const DashboardLayout = () => {
                 <FaUserCircle className="w-8 h-8 text-base-content" />
               )}
               <span className="font-medium hidden lg:inline">{user?.displayName || user?.name}</span>
-              <span className="badge badge-outline hidden lg:inline">{role}</span>
+              <span className="badge badge-outline rounded-md border-primary hidden lg:inline">{role}</span>
             </div>
             <Button
               className="btn btn-sm lg:flex items-center gap-2 hidden"
