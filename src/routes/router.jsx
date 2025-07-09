@@ -14,6 +14,7 @@ import Support from "../pages/PageOfStatic/Support";
 import DashboardLayout from "../layout/DashboardLayout";
 import CreateNote from "../pages/dashboard/student/CreateNote";
 import ManageNotes from "../pages/dashboard/student/ManageNotes";
+import NotFound from "../pages/notFound/NotFound";
 
 const router = createBrowserRouter([
   {
@@ -63,6 +64,10 @@ const router = createBrowserRouter([
         Component: ManageNotes
       }
     ]
+  },
+  {
+    path:'*',
+    Component: NotFound
   }
 ]);
 

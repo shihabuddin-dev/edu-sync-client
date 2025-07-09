@@ -5,7 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import Button from '../../../components/ui/Button';
 import { FaTrash, FaEdit, FaRegStickyNote, FaRegFileAlt } from 'react-icons/fa';
-import { MdNoteAdd } from 'react-icons/md';
+import { MdNoteAlt } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
 
 const inputBase =
@@ -70,20 +70,20 @@ const ManageNotes = () => {
 
     return (
         <div className="max-w-2xl mx-auto p-6 bg-base-100 rounded-md shadow-md">
-            <h2 className="text-2xl font-semibold mb-6 text-center flex items-center justify-center gap-2">
-                <MdNoteAdd className="text-primary text-3xl" /> Manage Notes
+            <h2 className="text-2xl font-semibold mb-6 text-center flex items-center justify-center gap-1 md:gap-2">
+                <MdNoteAlt className="text-primary md:text-3xl" /> Manage Notes
             </h2>
             {notes.length === 0 ? (
                 <div className="text-center text-base-content/70">No notes found.</div>
             ) : (
-                <div className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-4">
                     {notes.map(note => (
                         <div key={note._id} className="p-4 bg-base-200/50 rounded shadow flex flex-col gap-2 relative">
                             <div className="flex items-center gap-2">
                                 <FaRegStickyNote className="text-primary text-lg" />
                                 <span className="font-semibold text-lg">{note.title}</span>
                             </div>
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 overflow-x-hidden">
                                 <FaRegFileAlt className="text-base-content/50 text-lg" />
                                 <span className="text-base-content/80">{note.description}</span>
                             </div>

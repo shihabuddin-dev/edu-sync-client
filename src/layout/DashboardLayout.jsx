@@ -132,7 +132,7 @@ const DashboardLayout = () => {
               key={link.to}
               to={link.to}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-6 py-3 text-base font-medium transition-colors ${isActive
+                `flex items-center gap-3 px-6 py-1.5 text-base font-medium transition-colors ${isActive
                   ? "bg-primary text-white"
                   : "text-base-content hover:bg-primary/10"
                 }`
