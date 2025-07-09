@@ -40,7 +40,7 @@ const MyProfile = () => {
   };
 
   return (
-    <div className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+    <div className="relative flex items-center justify-center overflow-hidden">
       <div className="relative z-10 w-full max-w-lg shadow-md">
         <div
           className="rounded-md shadow-md border border-base-300 bg-base-100 p-8 flex flex-col items-center gap-4 animate-fade-in"

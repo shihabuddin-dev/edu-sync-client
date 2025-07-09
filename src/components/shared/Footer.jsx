@@ -85,9 +85,9 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/contact-us" className="text-base-content/70 hover:text-primary transition-colors duration-300 flex items-center gap-2 rounded-md">
+                <Link to="/support" className="text-base-content/70 hover:text-primary transition-colors duration-300 flex items-center gap-2 rounded-md">
                   <span className="w-1 h-1 bg-primary rounded-full"></span>
-                  Contact Us
+                  Support
                 </Link>
               </li>
               <li>
@@ -203,7 +203,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-      </div>
+    </div>
     </footer>
   );
 };

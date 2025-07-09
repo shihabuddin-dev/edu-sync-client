@@ -183,7 +183,7 @@ const PrivacyPolicy = () => {
                                 </div>
                                 <div className="flex items-center gap-3 p-4 bg-error/10 rounded-lg border border-error/20">
                                     <FaExclamationTriangle className="w-5 h-5 text-error" />
-                                    <div>
+        <div>
                                         <h3 className="font-semibold text-base-content">Incident Response</h3>
                                         <p className="text-sm text-base-content/70">
                                             Rapid response protocols for security incidents

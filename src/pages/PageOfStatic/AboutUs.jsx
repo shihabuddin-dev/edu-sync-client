@@ -52,12 +52,17 @@ const AboutUs = () => {
         arrows: false,
     };
     return (
-        <div className="min-h-screen bg-gradient-to-br from-base-100 to-base-200 pt-8 pb-12">
-            <div className="max-w-4xl mx-auto px-2 sm:px-4">
-                <SectionTitle title="About Us" icon={<FaUsers />} />
-                <p className="text-base-content/70 text-center max-w-2xl mx-auto mb-8 text-sm md:text-base">
-                    Edu Sync is a collaborative study platform connecting students, tutors, and administrators. We streamline study session scheduling, resource sharing, and user management to empower modern education for everyone, everywhere.
-                </p>
+        <div className="min-h-screen bg-gradient-to-br from-base-100 to-base-200">
+            {/* Header Section */}
+            <div className="bg-base-100 shadow-md pb-2" data-aos="fade-up-right">
+                <div className="max-w-4xl mx-auto px-4 py-4 text-center">
+                    <SectionTitle title="About Us" icon={<FaUsers />} />
+                    <p className="text-base-content/70 max-w-2xl mx-auto leading-relaxed">
+                        Edu Sync is a collaborative study platform connecting students, tutors, and administrators. We streamline study session scheduling, resource sharing, and user management to empower modern education for everyone, everywhere.
+                    </p>
+                </div>
+            </div>
+            <div className="max-w-4xl mx-auto px-2 sm:px-4 py-12">
                 {/* Mission Section */}
                 <section className="bg-base-100 rounded-md shadow-md border border-base-300 p-4 sm:p-6 md:p-8 mb-8 flex flex-col md:flex-row items-center gap-4 md:gap-6" data-aos="fade-up">
                     <div className="flex-shrink-0 flex items-center justify-center w-20 h-20 rounded-full bg-primary/10">

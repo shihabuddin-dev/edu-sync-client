@@ -2,9 +2,13 @@ import { Link } from "react-router";
 import Button from "../../components/ui/Button";
 import Swal from "sweetalert2";
 import { MdLockReset } from "react-icons/md";
+import { FaEnvelope } from "react-icons/fa";
 import resetAnimation from "../../assets/lotti/reset-password.json";
 import Lottie from "lottie-react";
 import useAuth from "../../hooks/useAuth";
+
+const inputBase =
+  "w-full border-b-2 border-base-content/30 px-4 py-3 pl-10 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50";
 
 const ResetPassword = () => {
   const { resetPassword } = useAuth();
@@ -60,47 +64,47 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="flex gap-4 flex-col md:flex-row justify-center items-center max-w-5xl">
+    <div className="px-4 flex gap-4 flex-col md:flex-row justify-center items-center max-w-5xl">
       <title>Reset Password | Edu Sync</title>
       <div className="flex-1">
         <Lottie
           animationData={resetAnimation}
-          className="w-full h-[200px] md:h-[300px]"
+          className="w-full h-[200px] md:h-[350px]"
         ></Lottie>
       </div>
-      <div className="flex-1 bg-base-100 rounded p-6 sm:p-8 md:p-10 w-full max-w-md border-2 border-secondary">
-        <h2 className="text-2xl md:text-3xl font-semibold mb-6 flex justify-center items-center gap-3">
-          <MdLockReset className="text-primary" />
+      <div className="flex-1 max-w-md p-6 md:p-8 bg-base-100 rounded-md shadow-md border border-base-content/10">
+        <h2 className="text-2xl md:text-3xl font-semibold mb-6 flex justify-center items-center gap-3 text-base-content">
+          <MdLockReset className="text-primary text-3xl" />
           Reset Password
         </h2>
-        <p className="text-center text-sm mb-6">
+        <p className="text-center text-sm mb-6 text-base-content/70">
           Enter your email address below and we'll send you a link to reset your
           password.
         </p>
-        <form onSubmit={handleResetPassword} className="space-y-4">
-          {/* Email */}
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium mb-1">
+        <form onSubmit={handleResetPassword} className="space-y-6">
+          <div className="space-y-2">
+            <label htmlFor="email" className="block text-sm font-medium text-base-content">
               Email Address
             </label>
-            <input
-              id="email"
-              type="email"
-              name="email"
-              placeholder="Enter Your Email"
-              className="w-full border-2 border-base-content/20 px-4 py-2 rounded-md focus:outline-none focus:ring-1 focus:ring-secondary focus:border-secondary transition duration-200 bg-base-100 text-base-content"
-            />
+            <div className="relative">
+              <FaEnvelope className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
+              <input
+                id="email"
+                type="email"
+                name="email"
+                placeholder="Enter Your Email"
+                className={inputBase}
+              />
+            </div>
           </div>
 
-          {/* Submit Button */}
-          <Button type="submit" className="w-full mt-2 py-2">
+          <Button type="submit" className="w-full">
             Send Reset Link
           </Button>
 
-          {/* Redirect to Login */}
-          <div className="mt-2 text-center text-sm">
+          <div className="text-center text-sm text-base-content/70">
             Remember your password?{" "}
-            <Link to="/signin" className="text-primary underline font-medium">
+            <Link to="/signin" className="text-primary hover:text-primary/80 underline font-medium transition-colors">
               Sign In
             </Link>
           </div>

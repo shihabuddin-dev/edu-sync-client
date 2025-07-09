@@ -4,12 +4,12 @@ import {
   MdSchool,
   MdMenuBook,
   MdInfo,
-  MdMarkEmailUnread,
   MdBarChart,
   MdDashboard,
   MdLogout,
   MdMenu,
-  MdClose
+  MdClose,
+  MdContactSupport
 } from "react-icons/md";
 import Button from "../ui/Button";
 import Swal from "sweetalert2";
@@ -114,9 +114,9 @@ const Navbar = () => {
             </NavLink>
           </li>
           <li>
-            <NavLink to="/contact-us" className={linksClass}>
-              <MdMarkEmailUnread />
-              Contact Us
+            <NavLink to="/support" className={linksClass}>
+              <MdContactSupport />
+              Support
             </NavLink>
           </li>
           {user && <li>
@@ -228,9 +228,9 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/contact-us" onClick={toggleMenu} className={linksClass}>
-                <MdMarkEmailUnread />
-                Contact Us
+              <NavLink to="/support" onClick={toggleMenu} className={linksClass}>
+                <MdContactSupport  />
+                Support
               </NavLink>
             </li>
             {
