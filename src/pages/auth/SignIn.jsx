@@ -9,6 +9,7 @@ import Lottie from "lottie-react";
 import signIn from "../../assets/lotti/education.json";
 import useAuth from "../../hooks/useAuth";
 import Social from "./Social";
+import { useForm } from "react-hook-form";
 
 const inputBase =
   "w-full border-b-2 border-base-content/30 px-4 py-3 pl-10 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50";
@@ -18,6 +19,16 @@ const SignIn = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [showPassword, setShowPassword] = useState(false);
+  const togglePassword = () => setShowPassword(!showPassword);
+  // react-hook-form setup
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setError,
+    clearErrors,
+  } = useForm();
 
   useEffect(() => {
     if (user) {
@@ -29,51 +40,27 @@ const SignIn = () => {
     }
   }, [user, location, navigate]);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const togglePassword = () => setShowPassword(!showPassword);
-
-  const handleSignIn = (e) => {
-    e.preventDefault();
-    if (!email) {
+  const onSubmit = async (data) => {
+    clearErrors();
+    try {
+      const userCredential = await signInUser(data.email, data.password);
+      setUser(userCredential.user);
       Swal.fire({
-        icon: "error",
-        title: "Please enter your email address.",
+        icon: "success",
+        title: "Sign In Success",
         showConfirmButton: false,
         timer: 1500,
       });
-      return;
-    }
-    if (!password) {
+      navigate(location?.state || "/");
+    } catch (error) {
+      setError("api", { message: error.code || "Login failed" });
       Swal.fire({
         icon: "error",
-        title: "Please enter your password.",
-        showConfirmButton: false,
-        timer: 1500,
+        title: "Login Failed",
+        text: error.code,
       });
-      return;
     }
-    signInUser(email, password)
-      .then((userCredential) => {
-        setUser(userCredential.user);
-        Swal.fire({
-          icon: "success",
-          title: "Sign In Success",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        navigate(location?.state || "/");
-      })
-      .catch((error) => {
-        Swal.fire({
-          icon: "error",
-          title: "Login Failed",
-          text: error.code,
-        });
-      });
   };
-
 
   if (loading) {
     return <Spinner />;
@@ -93,7 +80,7 @@ const SignIn = () => {
           <MdLogin className="text-primary text-3xl" />
           Sign in
         </h2>
-        <form onSubmit={handleSignIn} className="space-y-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-2">
             <label className="block text-sm font-medium text-base-content">
               Email address
@@ -104,12 +91,11 @@ const SignIn = () => {
                 type="email"
                 name="email"
                 className={inputBase}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@example.com"
-              // required removed to handle validation with SweetAlert
+                {...register("email", { required: "Email is required" })}
               />
             </div>
+            {errors.email && <span className="text-error text-xs">{errors.email.message}</span>}
           </div>
 
           <div className="space-y-2">
@@ -122,10 +108,8 @@ const SignIn = () => {
                 type={showPassword ? "text" : "password"}
                 name="password"
                 className={inputBase}
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter your password"
-              // required removed to handle validation with SweetAlert
+                {...register("password", { required: "Password is required" })}
               />
               <span
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer text-base-content/70 hover:text-base-content transition-colors"
@@ -134,6 +118,7 @@ const SignIn = () => {
                 {showPassword ? <FaEyeSlash className="text-lg" /> : <FaEye className="text-lg" />}
               </span>
             </div>
+            {errors.password && <span className="text-error text-xs">{errors.password.message}</span>}
             <div className="flex justify-end mt-2">
               <Link
                 to="/reset-password"
@@ -143,7 +128,7 @@ const SignIn = () => {
               </Link>
             </div>
           </div>
-
+          {errors.api && <div className="text-error text-xs text-center mb-2">{errors.api.message}</div>}
           <Button type="submit" className="w-full">
             Sign In
           </Button>

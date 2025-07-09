@@ -5,18 +5,37 @@ import { useLocation, useNavigate } from 'react-router';
 import Button from '../../components/ui/Button';
 import { FcGoogle } from 'react-icons/fc';
 import Spinner from '../../components/ui/Spinner';
+import useAxios from '../../hooks/useAxios';
 
 const Social = () => {
     const { createUserWithGoogle } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const [showSpinner, setShowSpinner] = useState(false);
+    const axiosInstance = useAxios()
 
     // google sign in
     const handleSignInWithGoogle = async () => {
         try {
-            await createUserWithGoogle();
+            const result = await createUserWithGoogle();
             setShowSpinner(true);
+            // Ensure user is created in backend with role 'student'
+            const user = result.user;
+            if (user && user.email) {
+                await axiosInstance.post('/users', {
+                    email: user.email,
+                    role: 'student',
+                    created_at: new Date().toISOString(),
+                    last_log_in: new Date().toISOString(),
+                });
+            }
+            // Show SweetAlert success popup
+            Swal.fire({
+                icon: 'success',
+                title: 'Sign In Successful!',
+                text: 'You have signed in with Google.',
+                confirmButtonText: 'OK'
+            });
             // Redirect to the desired route after sign in
             const from = location.state?.from?.pathname || "/";
             setTimeout(() => {
