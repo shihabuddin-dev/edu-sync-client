@@ -13,12 +13,38 @@ import {
     FaMoneyBillWave,
     FaInfoCircle,
     FaRegCalendarPlus,
-    FaChevronDown
+    FaChevronDown,
+    FaUpload,
+    FaTimes,
+    FaImage
 } from 'react-icons/fa';
 import { useState } from 'react';
+import axios from 'axios';
 
 const inputBase =
     "w-full border-b-2 border-base-content/30 px-4 py-3 pl-10 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50";
+
+const IMGBB_API_KEY = import.meta.env.VITE_IMGBB_API_KEY || "your_imgbb_api_key_here";
+const IMGBB_API_URL = "https://api.imgbb.com/1/upload";
+
+const uploadImageToImgBB = async (imageFile) => {
+    try {
+        const formData = new FormData();
+        formData.append("image", imageFile);
+        formData.append("key", IMGBB_API_KEY);
+        const response = await axios.post(IMGBB_API_URL, formData, {
+            headers: { "Content-Type": "multipart/form-data" },
+        });
+        const data = response.data;
+        if (data.success) {
+            return { success: true, url: data.data.url };
+        } else {
+            throw new Error(data.error?.message || "Upload failed");
+        }
+    } catch (error) {
+        return { success: false, error: error.response?.data?.error?.message || error.message };
+    }
+};
 
 const CreateStudySession = () => {
     const { user } = useAuth();
@@ -37,6 +63,10 @@ const CreateStudySession = () => {
 
     const [isDurationDropdownOpen, setIsDurationDropdownOpen] = useState(false);
     const [selectedDurationUnit, setSelectedDurationUnit] = useState('hours');
+    const [selectedImage, setSelectedImage] = useState(null);
+    const [imagePreview, setImagePreview] = useState(null);
+    const [uploading, setUploading] = useState(false);
+    const [imageError, setImageError] = useState('');
 
     const today = new Date().toISOString().split('T')[0];
 
@@ -68,6 +98,34 @@ const CreateStudySession = () => {
 
         setValue('durationValue', wholeNumber, { shouldValidate: true });
         setValue('duration', `${wholeNumber} ${selectedDurationUnit}`, { shouldValidate: true });
+    };
+
+    const handleImageChange = (e) => {
+        const file = e.target.files[0];
+        setImageError('');
+        if (file) {
+            if (!file.type.startsWith('image/')) {
+                setImageError('Please select an image file.');
+                return;
+            }
+            if (file.size > 5 * 1024 * 1024) {
+                setImageError('Image size should be less than 5MB.');
+                return;
+            }
+            setSelectedImage(file);
+            const reader = new FileReader();
+            reader.onload = (e) => setImagePreview(e.target.result);
+            reader.readAsDataURL(file);
+        }
+    };
+
+    const handleRemoveImage = () => {
+        setSelectedImage(null);
+        setImagePreview(null);
+        setValue('sessionImage', null);
+        setImageError('');
+        const fileInput = document.querySelector('input[name="sessionImage"]');
+        if (fileInput) fileInput.value = '';
     };
 
 
@@ -121,12 +179,29 @@ const CreateStudySession = () => {
     };
 
     const onSubmit = async (data) => {
+        if (!selectedImage) {
+            setImageError('Please select a session image.');
+            return;
+        }
+
+        setUploading(true);
         try {
+            // Upload image to ImgBB
+            const uploadResult = await uploadImageToImgBB(selectedImage);
+            let imageURL = imagePreview;
+
+            if (uploadResult.success) {
+                imageURL = uploadResult.url;
+            } else {
+                throw new Error(uploadResult.error || 'Image upload failed');
+            }
+
             await axiosSecure.post('/sessions', {
                 title: data.title,
                 tutorName: user.displayName || user.name,
                 tutorEmail: user.email,
                 description: data.description,
+                sessionImage: imageURL,
                 registrationStart: data.registrationStart,
                 registrationEnd: data.registrationEnd,
                 classStart: data.classStart,
@@ -136,6 +211,7 @@ const CreateStudySession = () => {
                 status: 'pending',
                 created_at: new Date().toISOString(),
             });
+
             Swal.fire({
                 icon: 'success',
                 title: 'Session Created',
@@ -143,8 +219,12 @@ const CreateStudySession = () => {
                 showConfirmButton: false,
                 timer: 1500
             });
+
             reset();
             setSelectedDurationUnit('hours');
+            setSelectedImage(null);
+            setImagePreview(null);
+            setImageError('');
         } catch (error) {
             Swal.fire({
                 icon: 'error',
@@ -152,6 +232,8 @@ const CreateStudySession = () => {
                 text: error.message || 'Something went wrong.',
                 confirmButtonText: 'OK'
             });
+        } finally {
+            setUploading(false);
         }
     };
 
@@ -216,6 +298,49 @@ const CreateStudySession = () => {
                         />
                     </div>
                     {errors.description && <span className="text-error text-xs">{errors.description.message}</span>}
+                </div>
+
+                {/* Session Image */}
+                <div>
+                    <label className="block text-sm font-medium mb-1">Session Image</label>
+                    <div className="relative">
+                        <FaImage className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
+                        <input
+                            type="file"
+                            name="sessionImage"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            className="w-full border-b-2 border-base-content/30 px-4 py-3 pl-10 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-content hover:file:bg-primary/80 file:cursor-pointer"
+                        />
+                    </div>
+                    {imageError && <span className="text-error text-xs">{imageError}</span>}
+                    {imagePreview && (
+                        <div className="mt-4 p-4 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-lg border border-primary/20 relative">
+                            <button
+                                type="button"
+                                onClick={handleRemoveImage}
+                                className="absolute -top-2 -right-2 w-7 h-7 bg-red-500 text-white rounded-full flex items-center justify-center hover:bg-red-600 transition-colors shadow-lg z-10"
+                                title="Remove image"
+                            >
+                                <FaTimes className="text-xs" />
+                            </button>
+                            <div className="flex items-center gap-3">
+                                <div className="flex-shrink-0">
+                                    <img
+                                        src={imagePreview}
+                                        alt="Session Preview"
+                                        className="w-20 h-20 object-cover rounded-lg border-2 border-primary/30 shadow-md"
+                                    />
+                                </div>
+                                <div className="flex-1">
+                                    <p className="text-sm font-medium text-base-content mb-1">Session Image Preview</p>
+                                    <p className="hidden md:inline text-xs text-base-content/70">
+                                        {selectedImage?.name} • {(selectedImage?.size / 1024 / 1024).toFixed(2)} MB
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 {/* Dates */}
@@ -377,7 +502,16 @@ const CreateStudySession = () => {
                     </div>
                 </div>
 
-                <Button type="submit" className="w-full">Create Session</Button>
+                <Button type="submit" className="w-full" disabled={uploading}>
+                    {uploading ? (
+                        <div className="flex justify-center items-center gap-2">
+                            <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                            Creating Session...
+                        </div>
+                    ) : (
+                        "Create Session"
+                    )}
+                </Button>
             </form>
         </div>
     );

@@ -28,7 +28,7 @@ const Footer = () => {
 
           {/* Company Info */}
           <div className="space-y-4">
-            <Logo/>
+            <Logo />
             <p className="text-base-content/80 leading-relaxed">
               Empowering students and tutors to connect, collaborate, and excel together.
               Join our community of learners and educators.
@@ -157,15 +157,15 @@ const Footer = () => {
                 <span>5800, Bogura City, Bangladesh</span>
               </div>
             </div>
-
             {/* Newsletter Signup */}
             <div className="mt-6">
               <h4 className="text-sm font-semibold text-base-content mb-3">Stay Updated</h4>
-              <div className="flex flex-col sm:flex-row gap-2 sm:gap-0">
+              <div className="relative flex flex-col sm:flex-row gap-2 sm:gap-0">
+                <FaEnvelope className="absolute left-0 top-3  md:top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
                 <input
                   type="email"
                   placeholder="Enter your email"
-                  className="flex-1 px-2 py-2 sm:px-4 border border-base-300 rounded-md sm:rounded-l-md sm:rounded-r-none focus:outline-none focus:border-primary bg-base-100 text-sm"
+                  className="w-full border-b-2 border-base-content/30 px-4 pl-10 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50"
                 />
                 <button className="px-2 py-2 bg-primary text-white rounded-md sm:rounded-l-none sm:rounded-r-md hover:bg-primary/90 transition-colors duration-300 text-sm font-medium">
                   Subscribe
@@ -201,7 +201,7 @@ const Footer = () => {
             </div>
           </div>
         </div>
-    </div>
+      </div>
     </footer>
   );
 };

@@ -1,9 +1,12 @@
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import Lottie from 'lottie-react';
-import notFoundAnimation from '../../assets/lotti/education.json'; // Replace with a 404 animation if you have one
+import notFoundAnimation from '../../assets/lotti/education.json';
 import Button from '../../components/ui/Button';
+import { FaArrowLeft, FaHome } from 'react-icons/fa';
 
 const NotFound = () => {
+    const navigate = useNavigate()
+
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-primary/10 to-base-200 px-4">
             <div className="w-full max-w-md mx-auto flex flex-col items-center">
@@ -16,9 +19,18 @@ const NotFound = () => {
                     Oops! The page you're looking for doesn't exist or has been moved.<br />
                     Let's get you back to safety!
                 </p>
-                <Link to="/">
-                    <Button>Go Home</Button>
-                </Link>
+                <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <Link to='/'>
+                        <Button variant='primary' className='flex items-center gap-2'>  <FaHome />
+                            Go Home
+                        </Button>
+                    </Link>
+                    <Button onClick={() => navigate(-1)} variant='outline' className="inline-flex items-center gap-2">
+                        <FaArrowLeft />
+                        Go Back
+                    </Button>
+
+                </div>
             </div>
         </div>
     );

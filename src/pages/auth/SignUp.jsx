@@ -243,7 +243,7 @@ const SignUp = () => {
           </div>
           <Button type="submit" className="w-full" disabled={uploading}>
             {uploading ? (
-              <div className="flex items-center gap-2">
+              <div className="flex justify-center items-center gap-2">
                 <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                 Creating Account...
               </div>

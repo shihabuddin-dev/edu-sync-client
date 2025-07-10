@@ -103,7 +103,7 @@ const ManageNotes = () => {
             {editingNote && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
                     <div className="bg-base-100 rounded-md shadow-lg p-6 w-full max-w-md relative">
-                        <button onClick={closeEditModal} className="absolute top-2 right-2 text-xl text-base-content/60 hover:text-error">&times;</button>
+                        <button onClick={closeEditModal} className="absolute top-1 right-3 text-2xl font-black text-base-content/60 hover:text-error">&times;</button>
                         <h3 className="text-xl font-semibold mb-4 flex items-center gap-2"><FaEdit className="text-primary" /> Update Note</h3>
                         <form onSubmit={handleSubmit(onUpdate)} className="space-y-4">
                             <div>

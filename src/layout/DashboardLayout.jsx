@@ -189,7 +189,8 @@ const DashboardLayout = () => {
                 <img
                   src={user.photoURL}
                   alt="User"
-                  className="w-8 h-8 rounded-full object-cover border"
+                  title={user?.displayName}
+                  className="w-9 h-9 rounded-full object-cover border border-primary"
                 />
               ) : (
                 <FaUserCircle className="w-8 h-8 text-base-content" />
