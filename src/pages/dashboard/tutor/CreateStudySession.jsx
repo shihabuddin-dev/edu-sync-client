@@ -20,6 +20,7 @@ import {
 } from 'react-icons/fa';
 import { useState } from 'react';
 import axios from 'axios';
+import DashboardHeading from '../../../components/shared/DashboardHeading';
 
 const inputBase =
     "w-full border-b-2 border-base-content/30 px-4 py-3 pl-10 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50";
@@ -239,9 +240,10 @@ const CreateStudySession = () => {
 
     return (
         <div className="max-w-2xl mx-auto p-6 bg-base-100 rounded-md shadow-md">
-            <h2 className="text-2xl font-semibold mb-6 text-center flex flex-wrap items-center justify-center gap-1 md:gap-2">
-                <FaRegCalendarPlus className="text-primary md:text-3xl" /> Create Study Session
-            </h2>
+            {/* <h2 className="text-2xl font-semibold mb-6 text-center flex flex-wrap items-center justify-center gap-1 md:gap-2">
+                <FaRegCalendarPlus className="text-primary md:text-2xl" /> Create Study Session
+            </h2> */}
+              <DashboardHeading icon={FaRegCalendarPlus} title='Create Study Session' />
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 {/* Session Title */}
                 <div>

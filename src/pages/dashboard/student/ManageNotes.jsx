@@ -7,12 +7,13 @@ import Button from '../../../components/ui/Button';
 import { FaTrash, FaEdit, FaRegStickyNote, FaRegFileAlt } from 'react-icons/fa';
 import { MdNoteAlt } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
+import DashboardHeading from '../../../components/shared/DashboardHeading';
 
 const inputBase =
     "w-full border-b-2 border-base-content/30 px-4 py-3 pl-10 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50";
 
 const ManageNotes = () => {
-    const { user } = useAuth();
+const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const [editingNote, setEditingNote] = useState(null);
     const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm();
@@ -70,9 +71,7 @@ const ManageNotes = () => {
 
     return (
         <div className="max-w-2xl mx-auto p-6 bg-base-100 rounded-md shadow-md">
-            <h2 className="text-2xl font-semibold mb-6 text-center flex items-center justify-center gap-1 md:gap-2">
-                <MdNoteAlt className="text-primary md:text-3xl" /> Manage Notes
-            </h2>
+            <DashboardHeading icon={MdNoteAlt} title='Manage Notes' />
             {notes.length === 0 ? (
                 <div className="text-center text-base-content/70">No notes found.</div>
             ) : (

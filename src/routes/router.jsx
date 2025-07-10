@@ -16,6 +16,7 @@ import CreateNote from "../pages/dashboard/student/CreateNote";
 import ManageNotes from "../pages/dashboard/student/ManageNotes";
 import NotFound from "../pages/notFound/NotFound";
 import CreateStudySession from "../pages/dashboard/tutor/CreateStudySession";
+import AllStudySessions from "../pages/dashboard/tutor/AllStudySessions";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +68,10 @@ const router = createBrowserRouter([
       {
         path: 'tutor/create-session',
         Component: CreateStudySession
+      },
+      {
+        path: 'tutor/sessions',
+        Component: AllStudySessions
       },
     ]
   },

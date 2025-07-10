@@ -2,9 +2,11 @@ import useAuth from '../../../hooks/useAuth';
 import { useForm } from 'react-hook-form';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
+import { useNavigate } from "react-router";
 import Button from '../../../components/ui/Button';
 import { FaEnvelope, FaRegStickyNote, FaRegFileAlt } from 'react-icons/fa';
 import { MdNoteAdd } from 'react-icons/md';
+import DashboardHeading from '../../../components/shared/DashboardHeading';
 
 const inputBase =
     "w-full border-b-2 border-base-content/30 px-4 py-3 pl-10 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50";
@@ -12,6 +14,7 @@ const inputBase =
 const CreateNote = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
+    const navigate = useNavigate()
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
 
     const onSubmit = async (data) => {
@@ -30,6 +33,7 @@ const CreateNote = () => {
                 timer: 1500
             });
             reset();
+            navigate('/dashboard/student/manage-notes')
         } catch (error) {
             Swal.fire({
                 icon: 'error',
@@ -42,9 +46,7 @@ const CreateNote = () => {
 
     return (
         <div className="max-w-xl mx-auto p-6 bg-base-100 rounded-md shadow-md">
-            <h2 className="text-2xl font-semibold mb-6 text-center flex items-center justify-center gap-1 md:gap-2">
-                <MdNoteAdd className="text-primary md:text-3xl" /> Create a Note
-            </h2>
+            <DashboardHeading icon={MdNoteAdd} title='Create a Note' />
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 <div>
                     <label className="block text-sm font-medium mb-1">Email</label>
