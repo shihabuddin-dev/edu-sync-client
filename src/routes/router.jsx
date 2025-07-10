@@ -18,6 +18,9 @@ import NotFound from "../pages/notFound/NotFound";
 import CreateStudySession from "../pages/dashboard/tutor/CreateStudySession";
 import AllStudySessions from "../pages/dashboard/tutor/AllStudySessions";
 import UpdateSession from "../pages/dashboard/tutor/UpdateSession";
+import UploadMaterials from "../pages/dashboard/tutor/UploadMaterials";
+import MyApprovedSessions from "../pages/dashboard/tutor/MyApprovedSessions";
+import AllMaterials from "../pages/dashboard/tutor/AllMaterials";
 
 const router = createBrowserRouter([
   {
@@ -77,6 +80,18 @@ const router = createBrowserRouter([
       {
         path: 'tutor/update-session/:id',
         Component: UpdateSession
+      },
+      {
+        path: 'tutor/upload-materials',
+        Component: MyApprovedSessions
+      },
+      {
+        path: 'tutor/upload-materials/:sessionId',
+        Component: UploadMaterials
+      },
+      {
+        path: 'tutor/materials',
+        Component: AllMaterials
       },
     ]
   },

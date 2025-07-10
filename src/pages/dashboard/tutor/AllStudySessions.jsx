@@ -71,7 +71,7 @@ const AllStudySessions = () => {
     };
 
     return (
-        <div className="max-w-5xl mx-auto p-4">
+        <div className="max-w-4xl mx-auto p-4">
             <DashboardHeading icon={FaBook} title='My Study Sessions' />
             {/* Filter Buttons */}
             <div className="flex flex-wrap gap-2 mb-4 justify-center">
@@ -113,33 +113,32 @@ const AllStudySessions = () => {
                                     )}
                                 </td>
                                 <td className="py-2 px-4 font-medium text-base-content">{session.title}</td>
-                                <td className="py-2 px-4">
+                                <td className="py-2 px-4 space-x-1 space-y-1">
                                     <span className={`inline-block px-3 py-1 rounded-md text-xs font-semibold capitalize ${statusColors[session.status] || statusColors.default}`}>
                                         {session.status}
                                     </span>
-                                </td>
-                                <td className="py-2 px-4 flex gap-2 items-center">
-                                    {session.status === 'rejected' && (
+                                    <span>  {session.status === 'rejected' && (
                                         <button
                                             className="btn btn-xs btn-warning"
                                             onClick={() => requestApproval(session._id)}
                                             disabled={isResubmitting}
                                         >
-                                            <FaRedo /><span className='hidden md:inline'> Request Again</span>
+                                            <FaRedo /><span className='hidden md:inline'> Again</span>
                                         </button>
-                                    )}
+                                    )}</span>
+                                </td>
+                                <td className="py-2 px-4 flex gap-2 items-center mt-4">
+
                                     <button
-                                        className="btn btn-xs btn-info"
                                         onClick={() => navigate(`/dashboard/tutor/update-session/${session._id}`)}
                                     >
-                                        <FaEdit /><span className='hidden md:inline'> Update</span>
+                                        <FaEdit className='text-green-500 text-xl' />
                                     </button>
                                     <button
-                                        className="btn btn-xs btn-error"
                                         onClick={() => handleDelete(session._id)}
                                         disabled={isDeleting}
                                     >
-                                        <FaTrash /><span className='hidden md:inline'> Delete</span>
+                                        <FaTrash className='cursor-pinter text-red-500' />
                                     </button>
                                 </td>
                             </tr>
