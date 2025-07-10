@@ -8,7 +8,7 @@ const Root = () => {
       <header>
         <Navbar />
       </header>
-      <main className="min-h-[calc(100vh-520px)] py-16 md:py-24 mt-10">
+      <main className="min-h-[calc(100vh-520px)] py-16 md:py-24">
         <Outlet />
       </main>
       <footer>

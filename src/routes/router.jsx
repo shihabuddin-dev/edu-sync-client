@@ -20,7 +20,7 @@ import AllStudySessions from "../pages/dashboard/tutor/AllStudySessions";
 import UpdateSession from "../pages/dashboard/tutor/UpdateSession";
 import UploadMaterials from "../pages/dashboard/tutor/UploadMaterials";
 import MyApprovedSessions from "../pages/dashboard/tutor/MyApprovedSessions";
-import AllMaterials from "../pages/dashboard/tutor/AllMaterials";
+import ViewAllMaterials from "../pages/dashboard/tutor/ViewAllMaterials";
 
 const router = createBrowserRouter([
   {
@@ -91,7 +91,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'tutor/materials',
-        Component: AllMaterials
+        Component: ViewAllMaterials
       },
     ]
   },

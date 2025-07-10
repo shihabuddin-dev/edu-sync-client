@@ -3,8 +3,11 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import useAuth from '../../../hooks/useAuth';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
+import DashboardHeading from '../../../components/shared/DashboardHeading';
+import { FaFolderOpen } from 'react-icons/fa';
+import Spinner from '../../../components/ui/Spinner';
 
-const AllMaterials = () => {
+const ViewAllMaterials = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
   const [editingId, setEditingId] = useState(null);
@@ -73,13 +76,13 @@ const AllMaterials = () => {
     updateMaterial({ id, data: editData });
   };
 
-  if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <Spinner />
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <h2 className="text-xl font-bold mb-4">My Uploaded Materials</h2>
+      <DashboardHeading icon={FaFolderOpen} title='My Uploaded Materials' />
       <div className="overflow-x-auto">
-        <table className="min-w-full bg-base-100 shadow rounded-lg">
+        <table className="min-w-full bg-base-100 shadow rounded-md">
           <thead>
             <tr className="bg-base-300/80 rounded-md">
               <th className="py-3 px-4 text-left font-semibold">Image</th>
@@ -145,4 +148,4 @@ const AllMaterials = () => {
   );
 };
 
-export default AllMaterials; 
+export default ViewAllMaterials; 
