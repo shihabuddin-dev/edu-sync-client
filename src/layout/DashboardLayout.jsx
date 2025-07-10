@@ -129,18 +129,15 @@ const DashboardLayout = () => {
   }
 
   return (
-    <div className="flex min-h-screen bg-base-200 max-w-7xl mx-auto">
+    <div className="flex min-h-screen bg-base-200 max-w-7xl mx-auto relative">
       {/* Sidebar */}
       <aside
         className={`fixed z-30 inset-y-0 left-0 w-64 bg-base-100 shadow-lg transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
-          } transition-transform duration-200 ease-in-out md:relative md:translate-x-0 md:w-64`}
+          } transition-transform duration-200 ease-in-out md:translate-x-0 md:relative md:w-64`}
       >
         <div className="flex items-center justify-between px-6 py-4">
           <Logo />
-          <button
-            className="md:hidden text-2xl"
-            onClick={() => setSidebarOpen(false)}
-          >
+          <button className="md:hidden text-2xl" onClick={() => setSidebarOpen(false)}>
             <FaTimes />
           </button>
         </div>
@@ -150,9 +147,7 @@ const DashboardLayout = () => {
               key={link.to}
               to={link.to}
               className={({ isActive }) =>
-                `flex items-center gap-3 px-6 py-1.5 text-base font-medium transition-colors ${isActive
-                  ? "bg-primary text-white"
-                  : "text-base-content hover:bg-primary/10"
+                `flex items-center gap-3 px-6 py-1.5 text-base font-medium transition-colors ${isActive ? "bg-primary text-white" : "text-base-content hover:bg-primary/10"
                 }`
               }
               onClick={() => setSidebarOpen(false)}
@@ -178,23 +173,16 @@ const DashboardLayout = () => {
         />
       )}
 
-      {/* Main content */}
-      <div className="w-full max-w-7xl mx-auto flex-1 fixed flex flex-col min-h-screen">
-        {/* Top Navbar */}
-        <header className=" flex items-center justify-between bg-base-100 px-4 py-3 shadow md:ml-64">
-          <div className="flex items-center gap-2">
-            <button
-              className="md:hidden text-2xl"
-              onClick={() => setSidebarOpen(true)}
-            >
+      {/* Main Area */}
+      <div className="flex-1 flex flex-col w-full">
+        {/* Header */}
+        <header className="max-w-5xl mx-auto fixed top-0 left-0 md:left-64 right-0 z-10 bg-base-100 px-4 py-3 shadow flex justify-between items-center">
+          <div className="flex items-center gap-3">
+            <button className="md:hidden text-2xl" onClick={() => setSidebarOpen(true)}>
               <FaBars />
             </button>
-            <span className="text-lg font-semibold text-primary">
-              Dashboard
-            </span>
-
+            <span className="text-2xl font-semibold text-primary">Dashboard</span>
           </div>
-
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               {user?.photoURL ? (
@@ -206,8 +194,12 @@ const DashboardLayout = () => {
               ) : (
                 <FaUserCircle className="w-8 h-8 text-base-content" />
               )}
-              <span className="font-medium hidden lg:inline">{user?.displayName || user?.name}</span>
-              <span className="badge badge-outline rounded-md border-primary hidden lg:inline">{role}</span>
+              <span className="font-medium hidden lg:inline">
+                {user?.displayName || user?.name}
+              </span>
+              <span className="badge badge-outline rounded-md border-primary hidden lg:inline">
+                {role}
+              </span>
             </div>
             <Button
               className="btn btn-sm lg:flex items-center gap-2 hidden"
@@ -217,13 +209,15 @@ const DashboardLayout = () => {
             </Button>
           </div>
         </header>
-        {/* Main Content */}
-        <main className=" flex-1 p-4 md:ml-64 h-full overflow-y-auto">
+
+        {/* Main Scrollable Content */}
+        <main className="mt-[64px] p-4 h-[calc(100vh-64px)] overflow-y-auto">
           <Outlet />
         </main>
       </div>
     </div>
   );
+
 };
 
 export default DashboardLayout;

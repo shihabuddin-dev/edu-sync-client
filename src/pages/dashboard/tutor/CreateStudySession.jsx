@@ -1,19 +1,124 @@
-import React from 'react';
 import useAuth from '../../../hooks/useAuth';
 import { useForm } from 'react-hook-form';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import Swal from 'sweetalert2';
 import Button from '../../../components/ui/Button';
-import { FaRegStickyNote, FaUser, FaEnvelope, FaRegFileAlt, FaCalendarAlt, FaClock, FaMoneyBillWave, FaInfoCircle, FaRegCalendarPlus } from 'react-icons/fa';
-import { MdNoteAdd } from 'react-icons/md';
+import {
+    FaRegStickyNote,
+    FaUser,
+    FaEnvelope,
+    FaRegFileAlt,
+    FaCalendarAlt,
+    FaClock,
+    FaMoneyBillWave,
+    FaInfoCircle,
+    FaRegCalendarPlus,
+    FaChevronDown
+} from 'react-icons/fa';
+import { useState } from 'react';
 
 const inputBase =
-  "w-full border-b-2 border-base-content/30 px-4 py-3 pl-10 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50";
+    "w-full border-b-2 border-base-content/30 px-4 py-3 pl-10 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50";
 
 const CreateStudySession = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
-    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+
+    const {
+        register,
+        handleSubmit,
+        reset,
+        formState: { errors },
+        setValue,
+        watch,
+    } = useForm({
+        mode: 'onChange',
+    });
+
+    const [isDurationDropdownOpen, setIsDurationDropdownOpen] = useState(false);
+    const [selectedDurationUnit, setSelectedDurationUnit] = useState('hours');
+
+    const today = new Date().toISOString().split('T')[0];
+
+    const durationUnits = [
+        { value: 'hours', label: 'Hours' },
+        { value: 'days', label: 'Days' },
+        { value: 'weeks', label: 'Weeks' },
+        { value: 'months', label: 'Months' },
+        { value: 'years', label: 'Years' },
+    ];
+
+    const handleDurationUnitChange = (unit) => {
+        setSelectedDurationUnit(unit);
+        setIsDurationDropdownOpen(false);
+        const currentValue = watch('durationValue') || '';
+        setValue('duration', currentValue ? `${currentValue} ${unit}` : '');
+    };
+
+    const handleDurationValueChange = (e) => {
+        const value = e.target.value;
+        const numValue = Number(value);
+
+        if (numValue <= 0) {
+            setValue('duration', '', { shouldValidate: true });
+            return;
+        }
+
+        const wholeNumber = Math.floor(numValue);
+
+        setValue('durationValue', wholeNumber, { shouldValidate: true });
+        setValue('duration', `${wholeNumber} ${selectedDurationUnit}`, { shouldValidate: true });
+    };
+
+
+    //  Updated validation
+    const validateDateLogic = (value, fieldName) => {
+        if (!value) return true;
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        const selectedDate = new Date(value);
+        selectedDate.setHours(0, 0, 0, 0);
+
+        if (selectedDate < today) {
+            return `${fieldName} cannot be in the past`;
+        }
+
+        return true;
+    };
+
+    const validateRegistrationEnd = (value) => {
+        if (!value) return true;
+
+        const registrationStart = watch('registrationStart');
+        if (registrationStart && value <= registrationStart) {
+            return 'Registration end date must be after registration start date';
+        }
+
+        return validateDateLogic(value, 'Registration end date');
+    };
+
+    const validateClassStart = (value) => {
+        if (!value) return true;
+
+        const registrationEnd = watch('registrationEnd');
+        if (registrationEnd && value < registrationEnd) {
+            return 'Class start date must be after or on registration end date';
+        }
+
+        return validateDateLogic(value, 'Class start date');
+    };
+
+    const validateClassEnd = (value) => {
+        if (!value) return true;
+
+        const classStart = watch('classStart');
+        if (classStart && value <= classStart) {
+            return 'Class end date must be after class start date';
+        }
+
+        return validateDateLogic(value, 'Class end date');
+    };
 
     const onSubmit = async (data) => {
         try {
@@ -39,6 +144,7 @@ const CreateStudySession = () => {
                 timer: 1500
             });
             reset();
+            setSelectedDurationUnit('hours');
         } catch (error) {
             Swal.fire({
                 icon: 'error',
@@ -51,10 +157,11 @@ const CreateStudySession = () => {
 
     return (
         <div className="max-w-2xl mx-auto p-6 bg-base-100 rounded-md shadow-md">
-            <h2 className="text-2xl font-semibold mb-6 text-center flex items-center justify-center gap-1 md:gap-2">
+            <h2 className="text-2xl font-semibold mb-6 text-center flex flex-wrap items-center justify-center gap-1 md:gap-2">
                 <FaRegCalendarPlus className="text-primary md:text-3xl" /> Create Study Session
             </h2>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                {/* Session Title */}
                 <div>
                     <label className="block text-sm font-medium mb-1">Session Title</label>
                     <div className="relative">
@@ -68,6 +175,8 @@ const CreateStudySession = () => {
                     </div>
                     {errors.title && <span className="text-error text-xs">{errors.title.message}</span>}
                 </div>
+
+                {/* Tutor Name */}
                 <div>
                     <label className="block text-sm font-medium mb-1">Tutor Name</label>
                     <div className="relative">
@@ -80,6 +189,8 @@ const CreateStudySession = () => {
                         />
                     </div>
                 </div>
+
+                {/* Tutor Email */}
                 <div>
                     <label className="block text-sm font-medium mb-1">Tutor Email</label>
                     <div className="relative">
@@ -92,10 +203,12 @@ const CreateStudySession = () => {
                         />
                     </div>
                 </div>
+
+                {/* Description */}
                 <div>
                     <label className="block text-sm font-medium mb-1">Session Description</label>
                     <div className="relative">
-                        <FaRegFileAlt className="absolute left-3 top-4 transform -translate-y-1/2 text-base-content/50 text-lg" />
+                        <FaRegFileAlt className="absolute left-3 top-6 transform -translate-y-1/2 text-base-content/50 text-lg" />
                         <textarea
                             {...register('description', { required: 'Description is required' })}
                             placeholder="Enter session description"
@@ -104,32 +217,47 @@ const CreateStudySession = () => {
                     </div>
                     {errors.description && <span className="text-error text-xs">{errors.description.message}</span>}
                 </div>
+
+                {/* Dates */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Registration Start */}
                     <div>
                         <label className="block text-sm font-medium mb-1">Registration Start Date</label>
                         <div className="relative">
                             <FaCalendarAlt className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
                             <input
                                 type="date"
-                                {...register('registrationStart', { required: 'Registration start date is required' })}
+                                min={today}
+                                {...register('registrationStart', {
+                                    required: 'Registration start date is required',
+                                    validate: (value) => validateDateLogic(value, 'Registration start date')
+                                })}
                                 className={inputBase}
                             />
                         </div>
                         {errors.registrationStart && <span className="text-error text-xs">{errors.registrationStart.message}</span>}
                     </div>
+
+                    {/* Registration End */}
                     <div>
                         <label className="block text-sm font-medium mb-1">Registration End Date</label>
                         <div className="relative">
                             <FaCalendarAlt className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
                             <input
                                 type="date"
-                                {...register('registrationEnd', { required: 'Registration end date is required' })}
+                                min={today}
+                                {...register('registrationEnd', {
+                                    required: 'Registration end date is required',
+                                    validate: validateRegistrationEnd
+                                })}
                                 className={inputBase}
                             />
                         </div>
                         {errors.registrationEnd && <span className="text-error text-xs">{errors.registrationEnd.message}</span>}
                     </div>
                 </div>
+
+                {/* Class Dates */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-medium mb-1">Class Start Date</label>
@@ -137,38 +265,93 @@ const CreateStudySession = () => {
                             <FaCalendarAlt className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
                             <input
                                 type="date"
-                                {...register('classStart', { required: 'Class start date is required' })}
+                                min={today}
+                                {...register('classStart', {
+                                    required: 'Class start date is required',
+                                    validate: validateClassStart
+                                })}
                                 className={inputBase}
                             />
                         </div>
                         {errors.classStart && <span className="text-error text-xs">{errors.classStart.message}</span>}
                     </div>
+
                     <div>
                         <label className="block text-sm font-medium mb-1">Class End Date</label>
                         <div className="relative">
                             <FaCalendarAlt className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
                             <input
                                 type="date"
-                                {...register('classEnd', { required: 'Class end date is required' })}
+                                min={today}
+                                {...register('classEnd', {
+                                    required: 'Class end date is required',
+                                    validate: validateClassEnd
+                                })}
                                 className={inputBase}
                             />
                         </div>
                         {errors.classEnd && <span className="text-error text-xs">{errors.classEnd.message}</span>}
                     </div>
                 </div>
+
+                {/* Duration */}
                 <div>
                     <label className="block text-sm font-medium mb-1">Session Duration</label>
-                    <div className="relative">
-                        <FaClock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
-                        <input
-                            type="text"
-                            {...register('duration', { required: 'Session duration is required' })}
-                            placeholder="e.g. 2 hours, 3 weeks"
-                            className={inputBase}
-                        />
+                    <div className="flex gap-2">
+                        <div className="relative flex-1">
+                            <FaClock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
+                            <input
+                                type="number"
+                                min="1"
+                                step="1"
+                                {...register('durationValue', {
+                                    required: 'Session duration is required',
+                                    min: { value: 1, message: 'Duration must be at least 1' },
+                                    validate: (value) => {
+                                        if (value <= 0) return 'Duration must be greater than 0';
+                                        if (!Number.isInteger(Number(value))) return 'Duration must be a whole number';
+                                        return true;
+                                    }
+                                })}
+                                placeholder="e.g. 2"
+                                onChange={handleDurationValueChange}
+                                className={inputBase}
+                            />
+                        </div>
+                        <div className="relative">
+                            <button
+                                type="button"
+                                onClick={() => setIsDurationDropdownOpen(!isDurationDropdownOpen)}
+                                className="flex items-center gap-2 px-4 py-3 border-b-2 border-base-content/30 bg-transparent text-base-content hover:border-secondary transition duration-300 min-w-[120px]"
+                            >
+                                <span className="capitalize">{selectedDurationUnit}</span>
+                                <FaChevronDown className={`transition-transform duration-200 ${isDurationDropdownOpen ? 'rotate-180' : ''}`} />
+                            </button>
+                            {isDurationDropdownOpen && (
+                                <div className="absolute top-full left-0 right-0 bg-base-100 border border-base-content/20 rounded-md shadow-lg z-10 mt-1">
+                                    {durationUnits.map((unit) => (
+                                        <button
+                                            key={unit.value}
+                                            type="button"
+                                            onClick={() => handleDurationUnitChange(unit.value)}
+                                            className="w-full px-4 py-2 text-left hover:bg-base-200 transition duration-200 capitalize"
+                                        >
+                                            {unit.label}
+                                        </button>
+                                    ))}
+                                </div>
+                            )}
+                        </div>
                     </div>
+                    <input
+                        type="hidden"
+                        {...register('duration', { required: 'Session duration is required' })}
+                    />
+                    {errors.durationValue && <span className="text-error text-xs">{errors.durationValue.message}</span>}
                     {errors.duration && <span className="text-error text-xs">{errors.duration.message}</span>}
                 </div>
+
+                {/* Fee and Status */}
                 <div>
                     <label className="block text-sm font-medium mb-1">Registration Fee</label>
                     <div className="relative">
@@ -193,6 +376,7 @@ const CreateStudySession = () => {
                         />
                     </div>
                 </div>
+
                 <Button type="submit" className="w-full">Create Session</Button>
             </form>
         </div>
