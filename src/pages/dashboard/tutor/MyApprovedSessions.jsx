@@ -25,9 +25,9 @@ const MyApprovedSessions = () => {
   return (
     <div className="max-w-2xl mx-auto p-4">
       <DashboardHeading icon={MdVerified} title="My Approved Sessions" />
-      <ul className="space-y-6 mt-6">
+      <ul className="space-y-4 mt-6">
         {sessions.map(session => (
-          <li key={session._id} className="bg-base-100 border border-primary/30 shadow rounded-md p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 transition-transform hover:scale-[1.01] hover:shadow-md">
+          <li key={session._id} className="bg-base-100 border border-primary/30 shadow rounded-md p-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 transition-transform duration-500 hover:scale-103 hover:shadow-md">
             <div>
               <div className="font-bold text-lg text-primary flex items-center gap-2">
                 <MdVerified className="text-success text-xl" />

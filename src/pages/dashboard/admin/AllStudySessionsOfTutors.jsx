@@ -7,11 +7,12 @@ import Spinner from '../../../components/ui/Spinner';
 import Swal from 'sweetalert2';
 import ApproveSessionModal from '../../../components/modals/ApproveSessionModal';
 import RejectSessionModal from '../../../components/modals/RejectSessionModal';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
 
 const AllStudySessionsOfTutors = () => {
     const axiosSecure = useAxiosSecure();
+    const navigate = useNavigate();
     const [approveModal, setApproveModal] = useState({ open: false, session: null });
     const [rejectModal, setRejectModal] = useState({ open: false, session: null });
     const [isPaid, setIsPaid] = useState(false);
@@ -20,6 +21,19 @@ const AllStudySessionsOfTutors = () => {
     const [rejectionFeedback, setRejectionFeedback] = useState('');
     const [loadingApprove, setLoadingApprove] = useState(false);
     const [loadingReject, setLoadingReject] = useState(false);
+    const FILTERS = [
+        { label: 'All', value: 'all' },
+        { label: 'Pending', value: 'pending' },
+        { label: 'Approved', value: 'approved' },
+        { label: 'Rejected', value: 'rejected' },
+    ];
+    const [filter, setFilter] = useState('all');
+    const PAID_FILTERS = [
+        { label: 'All', value: 'all' },
+        { label: 'Paid', value: 'paid' },
+        { label: 'Free', value: 'free' },
+    ];
+    const [paidFilter, setPaidFilter] = useState('all');
 
     // Fetch all sessions
     const { data: sessions = [], isLoading, refetch } = useQuery({
@@ -28,6 +42,13 @@ const AllStudySessionsOfTutors = () => {
             const res = await axiosSecure.get('/sessions');
             return res.data;
         }
+    });
+
+    // Filter sessions based on selected filter and paid/free
+    const filteredSessions = sessions.filter(session => {
+        const statusMatch = filter === 'all' || session.status === filter;
+        const paidMatch = paidFilter === 'all' || (paidFilter === 'paid' ? session.paid : !session.paid);
+        return statusMatch && paidMatch;
     });
 
     // Approve session mutation
@@ -84,7 +105,7 @@ const AllStudySessionsOfTutors = () => {
         onSuccess: () => {
             Swal.fire({
                 title: 'Deleted!',
-                text: 'Your file has been deleted.',
+                text: 'Session has been deleted.',
                 icon: 'success',
                 showConfirmButton: false,
                 timer: 1500
@@ -113,42 +134,84 @@ const AllStudySessionsOfTutors = () => {
     if (isLoading) return <Spinner />;
 
     return (
-        <di>
+        <div className="max-w-4xl mx-auto p-4">
             <DashboardHeading icon={FaBook} title='All Study Sessions' />
-            <div className="overflow-x-auto mt-6">
-                {sessions.length === 0 ? (
+            {/* Status Filter Buttons */}
+            <div className="flex flex-wrap gap-2 mb-2 justify-center">
+                {FILTERS.map(f => (
+                    <button
+                        key={f.value}
+                        className={`cursor-pointer px-3 py-1 rounded-md border transition ${filter === f.value
+                            ? 'bg-primary text-white border-primary'
+                            : ' text-base-content border-base-300 bg-primary/6'
+                            }`}
+                        onClick={() => setFilter(f.value)}
+                    >
+                        {f.label}
+                    </button>
+                ))}
+            </div>
+            {/* Paid/Free Filter Buttons */}
+            <div className="flex flex-wrap gap-2 mb-4 justify-center">
+                {PAID_FILTERS.map(f => (
+                    <button
+                        key={f.value}
+                        className={`cursor-pointer px-3 py-1 rounded-md border transition ${paidFilter === f.value
+                            ? 'bg-primary text-white border-primary'
+                            : ' text-base-content border-base-300 bg-primary/6'
+                            }`}
+                        onClick={() => setPaidFilter(f.value)}
+                    >
+                        {f.label}
+                    </button>
+                ))}
+            </div>
+            <div className="overflow-x-auto">
+                {filteredSessions.length === 0 ? (
                     <div className="flex flex-col items-center justify-center min-h-[30vh] text-center">
                         <FaInfoCircle className="text-4xl text-base-content/50 mb-4" />
                         <h2 className="text-xl font-semibold mb-2">No study sessions found.</h2>
                         <p className="text-base-content/70">There are currently no study sessions to display.</p>
                     </div>
                 ) : (
-                    <table className="table w-full max-w-4xl mx-auto rounded-md bg-base-100 shadow border border-base-200">
-                        <thead className="bg-base-200 rounded-md">
-                            <tr>
-                                <th className="rounded-md">Title</th>
-                                <th className="rounded-md">Tutor</th>
-                                <th className="rounded-md">Status</th>
-                                <th className="rounded-md">Type</th>
-                                <th className="rounded-md">Amount</th>
-                                <th className="rounded-md">Actions</th>
+                    <table className="min-w-full bg-base-100 shadow rounded-lg">
+                        <thead>
+                            <tr className="bg-base-300/80 rounded-md">
+                                <th className="py-3 px-4 text-left font-semibold">Image</th>
+                                <th className="py-3 px-4 text-left font-semibold">Title</th>
+                                <th className="py-3 px-4 text-left font-semibold">Tutor</th>
+                                <th className="py-3 px-4 text-left font-semibold">Status</th>
+                                <th className="py-3 px-4 text-left font-semibold">Type</th>
+                                <th className="py-3 px-4 text-left font-semibold">Reg. Fee</th>
+                                <th className="py-3 px-4 text-left font-semibold">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {sessions.map(session => (
-                                <tr key={session._id} className="hover rounded-md">
-                                    <td className="rounded-md">{session.title?.length > 20 ? session.title.slice(0, 20) + '...' : session.title}</td>
-                                    <td className="rounded-md">{session.tutorName || session.tutorEmail}</td>
-                                    <td className="rounded">
-                                        <span className={`badge rounded-md ${session.status === 'approved' ? 'badge-success' : session.status === 'pending' ? 'badge-warning' : 'badge-error'}`}>{session.status}</span>
+                            {filteredSessions.map(session => (
+                                <tr key={session._id} className="border-b border-base-content/10 hover:bg-base-200/50 transition">
+                                    <td className="py-2 px-4">
+                                        {session.sessionImage ? (
+                                            <img
+                                                src={session.sessionImage}
+                                                alt="Session"
+                                                className="w-14 h-14 object-cover rounded-md border border-base-content/10 shadow-sm"
+                                            />
+                                        ) : (
+                                            <span className="w-14 h-14 bg-base-200 rounded-md flex items-center justify-center text-base-content/40">—</span>
+                                        )}
                                     </td>
-                                    <td className="rounded-md">{session.paid ? 'Paid' : 'Free'}</td>
-                                    <td className="rounded-md">{session.paid ? session.registrationFee : 0}</td>
-                                    <td className="flex gap-2 rounded-md items-center">
+                                    <td className="py-2 px-4 font-medium text-base-content">{session.title?.length > 20 ? session.title.slice(0, 20) + '...' : session.title}</td>
+                                    <td className="py-2 px-4">{session.tutorName || session.tutorEmail}</td>
+                                    <td className="py-2 px-4">
+                                        <span className={`inline-block px-3 py-1 rounded-md text-xs font-semibold capitalize ${session.status === 'approved' ? 'bg-green-100 text-green-700' : session.status === 'pending' ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'}`}>{session.status}</span>
+                                    </td>
+                                    <td className="py-2 px-4">{session.paid ? 'Paid' : 'Free'}</td>
+                                    <td className="py-2 px-4">{session.paid ? session.registrationFee : 0} TK</td>
+                                    <td className="py-2 px-4 flex gap-2 mt-4 items-center">
                                         {session.status === 'pending' && (
                                             <>
                                                 <FaCheck
-                                                    className="text-green-500 text-lg"
+                                                    className="text-green-500 text-lg cursor-pointer"
                                                     title="Approve"
                                                     onClick={() => {
                                                         setApproveModal({ open: true, session });
@@ -157,7 +220,7 @@ const AllStudySessionsOfTutors = () => {
                                                     }}
                                                 />
                                                 <FaTimes
-                                                    className="text-red-500 text-lg"
+                                                    className="text-red-500 text-lg cursor-pointer"
                                                     title="Reject"
                                                     onClick={() => setRejectModal({ open: true, session })}
                                                 />
@@ -165,12 +228,11 @@ const AllStudySessionsOfTutors = () => {
                                         )}
                                         {session.status === 'approved' && (
                                             <>
-                                                <Link to={session._id}><FaEdit
-                                                    className="text-blue-500 text-lg"
-                                                    title="Update"
-                                                /></Link>
+                                                <button onClick={() => navigate(`/dashboard/admin/sessions/${session._id}`)}>
+                                                    <FaEdit className='text-blue-500 text-lg' title="Update" />
+                                                </button>
                                                 <FaTrash
-                                                    className="text-red-500 text-[16px]"
+                                                    className="text-red-500 text-[16px] cursor-pointer"
                                                     title="Delete"
                                                     onClick={() => handleDelete(session._id)}
                                                 />
@@ -211,7 +273,7 @@ const AllStudySessionsOfTutors = () => {
                 setFeedback={setRejectionFeedback}
                 loading={loadingReject}
             />
-        </di>
+        </div>
     );
 };
 

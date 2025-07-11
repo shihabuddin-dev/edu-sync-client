@@ -46,6 +46,9 @@ const UpdateSession = () => {
     const [isDurationDropdownOpen, setIsDurationDropdownOpen] = useState(false);
     const [uploading, setUploading] = useState(false);
     const { role, isLoading: roleLoading } = useUserRole();
+    const [feeTouched, setFeeTouched] = useState(false);
+    // Validation: registrationFee must be > 0 if paid
+    const isInvalid = form?.paid && (!form.registrationFee || Number(form.registrationFee) <= 0);
 
     // Set form state when session loads
     useEffect(() => {
@@ -397,33 +400,64 @@ const UpdateSession = () => {
                     </div>
                 </div>
                 {/* Registration Fee (only if paid) */}
-                {form.paid && (
-                    <div>
-                        <label className="block text-sm font-medium mb-1">Registration Fee</label>
-                        <div className="relative">
-                            <FaMoneyBillWave className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
-                            {role === 'admin' ? (
-                                <input
-                                    type="number"
-                                    name="registrationFee"
-                                    value={form.registrationFee || 0}
-                                    onChange={handleChange}
-                                    className={inputBase}
-                                    min={0}
-                                    required
-                                />
-                            ) : (
-                                <input
-                                    type="number"
-                                    value={form.registrationFee || 0}
-                                    readOnly
-                                    className={inputBase + ' cursor-not-allowed'}
-                                />
-                            )}
-                        </div>
+                <div>
+                    <label className="block text-sm font-medium mb-1">Registration Fee</label>
+                    <div className="relative">
+                        <FaMoneyBillWave className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
+                        {role === 'admin' ? (
+                            <input
+                            placeholder='Please Provide Fee'
+                                type="number"
+                                name="registrationFee"
+                                value={form.paid ? (form.registrationFee || '') : 0}
+                                onChange={e => { handleChange(e); setFeeTouched(true); }}
+                                onBlur={() => setFeeTouched(true)}
+                                className={inputBase + (isInvalid && feeTouched ? ' border-error' : '')}
+                                min={form.paid ? 1 : 0}
+                                required={form.paid}
+                                disabled={!form.paid}
+                            />
+                        ) : (
+                            <input
+                                type="number"
+                                value={form.paid ? (form.registrationFee || '') : 0}
+                                readOnly
+                                className={inputBase + ' cursor-not-allowed'}
+                            />
+                        )}
                     </div>
-                )}
-                <Button type="submit" className="w-full" disabled={uploading || isUpdating}>
+                    {form.paid && isInvalid && feeTouched && (
+                        <span className="text-error text-xs">Registration fee must be greater than 0 for paid sessions.</span>
+                    )}
+                </div>
+                {/* Status (editable for admin, read-only for tutor) */}
+                <div>
+                    <label className="block text-sm font-medium mb-1">Status</label>
+                    <div className="relative">
+                        <FaInfoCircle className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
+                        {role === 'admin' ? (
+                            <select
+                                name="status"
+                                value={form.status || session.status}
+                                onChange={handleChange}
+                                className={inputBase}
+                                required
+                            >
+                                <option value="pending" className='text-black'>Pending</option>
+                                <option value="approved" className='text-black'>Approved</option>
+                                <option value="rejected" className='text-black'>Rejected</option>
+                            </select>
+                        ) : (
+                            <input
+                                type="text"
+                                value={form.status || session.status}
+                                readOnly
+                                className={inputBase + ' cursor-not-allowed'}
+                            />
+                        )}
+                    </div>
+                </div>
+                <Button type="submit" className="w-full" disabled={uploading || isUpdating || (isInvalid && feeTouched)}>
                     {uploading || isUpdating ? (
                         <div className="flex justify-center items-center gap-2">
                             <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>

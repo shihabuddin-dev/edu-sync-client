@@ -1,6 +1,7 @@
 import React from 'react';
 import { FaExclamationCircle, FaCommentDots } from 'react-icons/fa';
 import { inputBase } from '../../utils/inputBase';
+import Button from '../ui/Button';
 
 
 const RejectSessionModal = ({ open, onClose, onReject, reason, setReason, feedback, setFeedback, loading }) => {
@@ -38,13 +39,13 @@ const RejectSessionModal = ({ open, onClose, onReject, reason, setReason, feedba
                 </div>
                 <div className="modal-action flex flex-col md:flex-row gap-2 md:gap-4">
                     <button
-                        className="btn btn-error rounded-md w-full md:w-auto"
+                        className="btn btn-sm btn-error rounded-md w-full md:w-auto"
                         disabled={!reason.trim() || loading}
                         onClick={onReject}
                     >
                         Reject
                     </button>
-                    <button className="btn rounded-md w-full md:w-auto" onClick={onClose} disabled={loading}>Cancel</button>
+                    <Button variant='none' className="btn btn-sm" onClick={onClose} disabled={loading}>Cancel</Button>
                 </div>
             </div>
         </div>
