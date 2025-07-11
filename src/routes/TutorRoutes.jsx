@@ -1,20 +1,19 @@
-import { Navigate, useLocation } from "react-router";
+import { Navigate } from "react-router";
 import Spinner from "../components/ui/Spinner";
+import useAuth from "../hooks/useAuth";
 import useUserRole from "../hooks/useUserRole";
 
 const TutorRoutes = ({ children }) => {
-  const { role, roleLoading } = useUserRole();
-  const location = useLocation();
+    const { user, loading } = useAuth();
+    const { role, roleLoading } = useUserRole();
 
-  if (roleLoading) {
-    return <Spinner />;
-  }
-
-  if (role !== 'tutor' && role !== 'admin') {
-    return <Navigate state={location?.pathname} to="/dashboard" />;
-  }
-
-  return children;
+    if (loading || roleLoading) {
+        return <Spinner />;
+    }
+    if (!user || role !== 'tutor') {
+        return <Navigate state={{ from: location?.pathname }} to="/forbidden" />;
+    }
+    return children;
 };
 
 export default TutorRoutes; 

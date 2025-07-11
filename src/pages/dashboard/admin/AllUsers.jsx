@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
@@ -13,6 +13,7 @@ const AllUsers = () => {
     const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
     const [editingUser, setEditingUser] = useState(null);
     const [selectedRole, setSelectedRole] = useState('');
+    const initialLoad = useRef(true);
 
     // Debounce search term
     useEffect(() => {
@@ -55,6 +56,12 @@ const AllUsers = () => {
         }
     });
 
+    // Only show full page spinner on initial load
+    if (initialLoad.current && isLoading) {
+        return <Spinner />;
+    }
+    initialLoad.current = false;
+
     const handleEditRole = (user) => {
         setEditingUser(user.email);
         setSelectedRole(user.role || 'student');
@@ -92,8 +99,6 @@ const AllUsers = () => {
             default: return 'bg-gray-100 text-gray-700 rounded-sm';
         }
     };
-
-    if (isLoading) return <Spinner />;
 
     return (
         <div className="max-w-6xl mx-auto p-4">
@@ -181,23 +186,20 @@ const AllUsers = () => {
                                                 <button
                                                     onClick={() => handleUpdateRole(user.email)}
                                                     disabled={isUpdating}
-                                                    className="btn btn-xs btn-success"
                                                 >
-                                                    <FaCheck className="text-sm" />
+                                                    <FaCheck className="text-green-500" />
                                                 </button>
                                                 <button
                                                     onClick={handleCancelEdit}
-                                                    className="btn btn-xs btn-ghost"
                                                 >
-                                                    <FaTimes className="text-sm" />
+                                                    <FaTimes className="text-red-500" />
                                                 </button>
                                             </div>
                                         ) : (
                                             <button
                                                 onClick={() => handleEditRole(user)}
-                                                className="btn btn-xs btn-info"
                                             >
-                                                <FaEdit className="text-sm" />
+                                                <FaEdit className="text-xl text-green-500" />
                                             </button>
                                         )}
                                     </td>
@@ -213,7 +215,6 @@ const AllUsers = () => {
                     </div>
                 )}
             </div>
-
             {/* Summary */}
             <div className="mt-6 text-sm text-base-content/60">
                 Total Users: {users.length}

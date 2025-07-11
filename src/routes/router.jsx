@@ -28,6 +28,7 @@ import AllUsers from "../pages/dashboard/admin/AllUsers";
 import AllStudySessionsOfTutors from "../pages/dashboard/admin/AllStudySessionsOfTutors";
 import AllMaterials from "../pages/dashboard/admin/AllMaterials";
 import Announcements from "../pages/dashboard/admin/Announcements";
+import Forbidden from "../pages/forbidden/Forbidden";
 
 const router = createBrowserRouter([
   {
@@ -38,24 +39,25 @@ const router = createBrowserRouter([
         index: true,
         Component: Home,
       },
-      { path: "/signin", Component: SignIn },
-      { path: "/signup", Component: SignUp },
-      { path: "/reset-password", Component: ResetPassword },
+      { path: 'forbidden', Component: Forbidden },
+      { path: "signin", Component: SignIn },
+      { path: "signup", Component: SignUp },
+      { path: "reset-password", Component: ResetPassword },
       // { path: '/blogs', Component: Blogs },
 
       // static page 
-      { path: "/about-us", Component: AboutUs },
-      { path: "/support", Component: Support },
-      { path: "/privacy", Component: PrivacyPolicy },
-      { path: "/terms", Component: TermsOfService },
-      { path: "/cookies", Component: CookiePolicy },
+      { path: "about-us", Component: AboutUs },
+      { path: "support", Component: Support },
+      { path: "privacy", Component: PrivacyPolicy },
+      { path: "terms", Component: TermsOfService },
+      { path: "cookies", Component: CookiePolicy },
 
 
       //  loader: () => fetch(`${import.meta.env.VITE_API_URL}/recipes`),
 
       // private routes
       {
-        path: "/my-profile",
+        path: "my-profile",
         element: (
           <PrivateRoutes>
             <MyProfile />
