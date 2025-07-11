@@ -7,9 +7,7 @@ import resetAnimation from "../../assets/lotti/reset-password.json";
 import Lottie from "lottie-react";
 import useAuth from "../../hooks/useAuth";
 import { useForm } from "react-hook-form";
-
-const inputBase =
-  "w-full border-b-2 border-base-content/30 px-4 py-3 pl-10 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50";
+import { inputBase } from "../../utils/inputBase";
 
 const ResetPassword = () => {
   const { resetPassword } = useAuth();

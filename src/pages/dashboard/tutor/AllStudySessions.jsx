@@ -6,6 +6,7 @@ import { FaBook, FaRedo, FaEdit, FaTrash } from 'react-icons/fa';
 import Spinner from '../../../components/ui/Spinner';
 import DashboardHeading from '../../../components/shared/DashboardHeading';
 import { useNavigate } from 'react-router';
+import Swal from 'sweetalert2';
 
 const statusColors = {
     approved: 'bg-green-100 text-green-700',
@@ -52,6 +53,13 @@ const AllStudySessions = () => {
             await axiosSecure.delete(`/sessions/${sessionId}`);
         },
         onSuccess: () => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Deleted!',
+                text: 'Session has been deleted.',
+                showConfirmButton: false,
+                timer: 1500
+            });
             refetch();
         }
     });
@@ -65,9 +73,18 @@ const AllStudySessions = () => {
 
     // Delete confirmation
     const handleDelete = (id) => {
-        if (window.confirm('Are you sure you want to delete this session?')) {
-            deleteSession(id);
-        }
+        Swal.fire({
+            title: 'Are you sure?',
+            text: 'You will not be able to recover this Session!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                deleteSession(id);
+            }
+        });
+
     };
 
     return (

@@ -7,9 +7,7 @@ import Button from '../../../components/ui/Button';
 import { FaEnvelope, FaRegStickyNote, FaRegFileAlt } from 'react-icons/fa';
 import { MdNoteAdd } from 'react-icons/md';
 import DashboardHeading from '../../../components/shared/DashboardHeading';
-
-const inputBase =
-    "w-full border-b-2 border-base-content/30 px-4 py-3 pl-10 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50";
+import { inputBase } from '../../../utils/inputBase';
 
 const CreateNote = () => {
     const { user } = useAuth();

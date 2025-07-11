@@ -10,9 +10,8 @@ import signIn from "../../assets/lotti/education.json";
 import useAuth from "../../hooks/useAuth";
 import Social from "./Social";
 import { useForm } from "react-hook-form";
+import { inputBase } from "../../utils/inputBase";
 
-const inputBase =
-  "w-full border-b-2 border-base-content/30 px-4 py-3 pl-10 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50";
 
 const SignIn = () => {
   const { signInUser, setUser, user } = useAuth()

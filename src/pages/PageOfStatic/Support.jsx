@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SectionTitle from '../../components/shared/SectionTitle';
-import { FaHeadset, FaEnvelopeOpenText, FaPhoneAlt, FaQuestionCircle, FaChevronDown, FaExternalLinkAlt, FaComments, FaDownload, FaPaperPlane } from 'react-icons/fa';
+import { FaHeadset, FaEnvelopeOpenText, FaPhoneAlt, FaQuestionCircle, FaChevronDown, FaExternalLinkAlt, FaComments, FaDownload, FaPaperPlane, FaUser, FaEnvelope, FaRegFileAlt } from 'react-icons/fa';
+import { inputBase } from '../../utils/inputBase';
 
 const faqs = [
   {
@@ -127,9 +128,18 @@ const Support = () => {
             <FaPaperPlane className="text-primary" /> Send Us Feedback
           </h2>
           <form className="flex flex-col gap-3">
-            <input type="text" placeholder="Your Name" className="rounded-md border border-base-300 px-3 py-2 focus:outline-none focus:border-primary text-base-content bg-base-100" />
-            <input type="email" placeholder="Your Email" className="rounded-md border border-base-300 px-3 py-2 focus:outline-none focus:border-primary text-base-content bg-base-100" />
-            <textarea placeholder="Your Message" rows={4} className="rounded-md border border-base-300 px-3 py-2 focus:outline-none focus:border-primary text-base-content bg-base-100 resize-none" />
+            <div className="relative">
+              <FaUser className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
+              <input type="text" placeholder="Your Name" className={inputBase} />
+            </div>
+            <div className="relative">
+              <FaEnvelope className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
+              <input type="email" placeholder="Your Email" className={inputBase} />
+            </div>
+            <div className="relative">
+              <FaRegFileAlt className="absolute left-3 top-6 transform -translate-y-1/2 text-base-content/50 text-lg" />
+              <textarea placeholder="Your Message" rows={4} className={inputBase + ' min-h-[100px] pl-10'} />
+            </div>
             <button type="submit" className="mt-2 px-6 py-2 bg-primary text-white rounded-md shadow-md hover:bg-primary/90 transition-colors flex items-center gap-2">
               <FaPaperPlane /> Submit Feedback
             </button>

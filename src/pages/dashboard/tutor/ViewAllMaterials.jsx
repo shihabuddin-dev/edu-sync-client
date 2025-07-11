@@ -4,8 +4,9 @@ import useAuth from '../../../hooks/useAuth';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import DashboardHeading from '../../../components/shared/DashboardHeading';
-import { FaFolderOpen } from 'react-icons/fa';
+import { FaEdit, FaFolderOpen, FaTrash, FaRegStickyNote, FaLink, FaCheck, FaTimes } from 'react-icons/fa';
 import Spinner from '../../../components/ui/Spinner';
+import { inputBase } from '../../../utils/inputBase';
 
 const ViewAllMaterials = () => {
   const { user } = useAuth();
@@ -28,7 +29,13 @@ const ViewAllMaterials = () => {
       await axiosSecure.delete(`/materials/${id}`);
     },
     onSuccess: () => {
-      Swal.fire('Deleted!', 'Material has been deleted.', 'success');
+      Swal.fire({
+        icon: 'success',
+        title: 'Deleted!',
+        text: 'Material has been deleted.',
+        showConfirmButton: false,
+        timer: 1500
+      });
       refetch();
     }
   });
@@ -39,7 +46,13 @@ const ViewAllMaterials = () => {
       await axiosSecure.put(`/materials/${id}`, data);
     },
     onSuccess: () => {
-      Swal.fire('Updated!', 'Material has been updated.', 'success');
+      Swal.fire({
+        icon: 'success',
+        title: 'Updated!',
+        text: 'Material has been updated.',
+        showConfirmButton: false,
+        timer: 1500
+      });
       setEditingId(null);
       refetch();
     }
@@ -99,38 +112,50 @@ const ViewAllMaterials = () => {
                 </td>
                 <td className="py-2 px-4 font-medium text-base-content">
                   {editingId === mat._id ? (
-                    <input
-                      name="title"
-                      value={editData.title}
-                      onChange={handleEditChange}
-                      className="input input-bordered"
-                    />
+                    <div className="relative">
+                      <FaRegStickyNote className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
+                      <input
+                        name="title"
+                        value={editData.title}
+                        onChange={handleEditChange}
+                        className={inputBase}
+                        placeholder="Enter title"
+                      />
+                    </div>
                   ) : (
                     mat.title
                   )}
                 </td>
                 <td className="py-2 px-4">
                   {editingId === mat._id ? (
-                    <input
-                      name="resourceLink"
-                      value={editData.resourceLink}
-                      onChange={handleEditChange}
-                      className="input input-bordered"
-                    />
+                    <div className="relative">
+                      <FaLink className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
+                      <input
+                        name="resourceLink"
+                        value={editData.resourceLink}
+                        onChange={handleEditChange}
+                        className={inputBase}
+                        placeholder="Enter Google Drive link"
+                      />
+                    </div>
                   ) : (
                     <a href={mat.resourceLink} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline">View</a>
                   )}
                 </td>
-                <td className="py-2 px-4 flex gap-2 items-center">
+                <td className="py-2 px-4 flex gap-2 mt-4 items-center">
                   {editingId === mat._id ? (
                     <>
-                      <button className="btn btn-xs btn-success" onClick={() => handleEditSubmit(mat._id)}>Save</button>
-                      <button className="btn btn-xs btn-ghost" onClick={() => setEditingId(null)}>Cancel</button>
+                      <button onClick={() => handleEditSubmit(mat._id)}>
+                        <FaCheck  className='text-green-500 text-lg' />
+                      </button>
+                      <button onClick={() => setEditingId(null)}>
+                        <FaTimes className='text-red-500 text-lg'  />
+                      </button>
                     </>
                   ) : (
                     <>
-                      <button className="btn btn-xs btn-info" onClick={() => handleEdit(mat)}>Edit</button>
-                      <button className="btn btn-xs btn-error" onClick={() => handleDelete(mat._id)}>Delete</button>
+                      <button onClick={() => handleEdit(mat)}> <FaEdit className='text-green-500 text-xl' /></button>
+                      <button onClick={() => handleDelete(mat._id)}> <FaTrash className='cursor-pinter text-red-500' /></button>
                     </>
                   )}
                 </td>

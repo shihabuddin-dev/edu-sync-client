@@ -7,35 +7,12 @@ import Swal from 'sweetalert2';
 import Button from '../../../components/ui/Button';
 import DashboardHeading from '../../../components/shared/DashboardHeading';
 import {
-    FaRegStickyNote, FaUser, FaEnvelope, FaRegFileAlt, FaCalendarAlt, FaClock,
+    FaRegStickyNote, FaRegFileAlt, FaCalendarAlt, FaClock,
     FaMoneyBillWave, FaInfoCircle, FaRegCalendarPlus, FaChevronDown, FaUpload, FaTimes, FaImage
 } from 'react-icons/fa';
-import axios from 'axios';
+import { inputBase } from '../../../utils/inputBase';
+import { uploadImageToImgBB } from '../../../utils/uploadImageToImgBB';
 
-const inputBase =
-    "w-full border-b-2 border-base-content/30 px-4 py-3 pl-10 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50";
-
-const IMGBB_API_KEY = import.meta.env.VITE_IMGBB_API_KEY || "your_imgbb_api_key_here";
-const IMGBB_API_URL = "https://api.imgbb.com/1/upload";
-
-const uploadImageToImgBB = async (imageFile) => {
-    try {
-        const formData = new FormData();
-        formData.append("image", imageFile);
-        formData.append("key", IMGBB_API_KEY);
-        const response = await axios.post(IMGBB_API_URL, formData, {
-            headers: { "Content-Type": "multipart/form-data" },
-        });
-        const data = response.data;
-        if (data.success) {
-            return { success: true, url: data.data.url };
-        } else {
-            throw new Error(data.error?.message || "Upload failed");
-        }
-    } catch (error) {
-        return { success: false, error: error.response?.data?.error?.message || error.message };
-    }
-};
 
 const durationUnits = [
     { value: 'hours', label: 'Hours' },
