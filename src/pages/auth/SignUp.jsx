@@ -111,6 +111,8 @@ const SignUp = () => {
       setUser({ ...currentUser, displayName: data.name, photoURL });
       await axiosInstance.post("/users", {
         email: data.email,
+        name: data.name,
+        photoURL: photoURL,
         role: "student",
         created_at: new Date().toISOString(),
         last_log_in: new Date().toISOString(),

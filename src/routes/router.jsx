@@ -6,6 +6,9 @@ import SignUp from "../pages/auth/SignUp";
 import ResetPassword from "../pages/auth/ResetPassword";
 import MyProfile from "../pages/myprofile/MyProfile";
 import PrivateRoutes from "./PrivateRoutes";
+import AdminRoutes from "./AdminRoutes";
+import TutorRoutes from "./TutorRoutes";
+import StudentRoutes from "./StudentRoutes";
 import PrivacyPolicy from "../pages/PageOfStatic/PrivacyPolicy";
 import TermsOfService from "../pages/PageOfStatic/TermsOfService";
 import CookiePolicy from "../pages/PageOfStatic/CookiePolicy";
@@ -21,6 +24,10 @@ import UpdateSession from "../pages/dashboard/tutor/UpdateSession";
 import UploadMaterials from "../pages/dashboard/tutor/UploadMaterials";
 import MyApprovedSessions from "../pages/dashboard/tutor/MyApprovedSessions";
 import ViewAllMaterials from "../pages/dashboard/tutor/ViewAllMaterials";
+import AllUsers from "../pages/dashboard/admin/AllUsers";
+import AllStudySessionsOfTutors from "../pages/dashboard/admin/AllStudySessionsOfTutors";
+import AllMaterials from "../pages/dashboard/admin/AllMaterials";
+import Announcements from "../pages/dashboard/admin/Announcements";
 
 const router = createBrowserRouter([
   {
@@ -61,37 +68,59 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <PrivateRoutes><DashboardLayout /></PrivateRoutes>,
     children: [
+
+      // student routes
       {
         path: 'student/create-note',
-        Component: CreateNote
+        element: <StudentRoutes><CreateNote /></StudentRoutes>
       },
       {
         path: 'student/manage-notes',
-        Component: ManageNotes
+        element: <StudentRoutes><ManageNotes /></StudentRoutes>
       },
+
+      // tutor routes
       {
         path: 'tutor/create-session',
-        Component: CreateStudySession
+        element: <TutorRoutes><CreateStudySession /></TutorRoutes>
       },
       {
         path: 'tutor/sessions',
-        Component: AllStudySessions
+        element: <TutorRoutes><AllStudySessions /></TutorRoutes>
       },
       {
         path: 'tutor/update-session/:id',
-        Component: UpdateSession
+        element: <TutorRoutes><UpdateSession /></TutorRoutes>
       },
       {
         path: 'tutor/upload-materials',
-        Component: MyApprovedSessions
+        element: <TutorRoutes><MyApprovedSessions /></TutorRoutes>
       },
       {
         path: 'tutor/upload-materials/:sessionId',
-        Component: UploadMaterials
+        element: <TutorRoutes><UploadMaterials /></TutorRoutes>
       },
       {
         path: 'tutor/materials',
-        Component: ViewAllMaterials
+        element: <TutorRoutes><ViewAllMaterials /></TutorRoutes>
+      },
+
+      // admin Routes
+      {
+        path: 'admin/users',
+        element: <AdminRoutes><AllUsers /></AdminRoutes>
+      },
+      {
+        path: 'admin/sessions',
+        element: <AdminRoutes><AllStudySessionsOfTutors /></AdminRoutes>
+      },
+      {
+        path: 'admin/materials',
+        element: <AdminRoutes><AllMaterials /></AdminRoutes>
+      },
+      {
+        path: 'admin/announcements',
+        element: <AdminRoutes><Announcements /></AdminRoutes>
       },
     ]
   },
