@@ -19,33 +19,11 @@ import {
     FaImage
 } from 'react-icons/fa';
 import { useState } from 'react';
-import axios from 'axios';
 import DashboardHeading from '../../../components/shared/DashboardHeading';
+import { uploadImageToImgBB } from '../../../utils/uploadImageToImgBB';
 
 const inputBase =
     "w-full border-b-2 border-base-content/30 px-4 py-3 pl-10 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50";
-
-const IMGBB_API_KEY = import.meta.env.VITE_IMGBB_API_KEY || "your_imgbb_api_key_here";
-const IMGBB_API_URL = "https://api.imgbb.com/1/upload";
-
-const uploadImageToImgBB = async (imageFile) => {
-    try {
-        const formData = new FormData();
-        formData.append("image", imageFile);
-        formData.append("key", IMGBB_API_KEY);
-        const response = await axios.post(IMGBB_API_URL, formData, {
-            headers: { "Content-Type": "multipart/form-data" },
-        });
-        const data = response.data;
-        if (data.success) {
-            return { success: true, url: data.data.url };
-        } else {
-            throw new Error(data.error?.message || "Upload failed");
-        }
-    } catch (error) {
-        return { success: false, error: error.response?.data?.error?.message || error.message };
-    }
-};
 
 const CreateStudySession = () => {
     const { user } = useAuth();
@@ -243,7 +221,7 @@ const CreateStudySession = () => {
             {/* <h2 className="text-2xl font-semibold mb-6 text-center flex flex-wrap items-center justify-center gap-1 md:gap-2">
                 <FaRegCalendarPlus className="text-primary md:text-2xl" /> Create Study Session
             </h2> */}
-              <DashboardHeading icon={FaRegCalendarPlus} title='Create Study Session' />
+            <DashboardHeading icon={FaRegCalendarPlus} title='Create Study Session' />
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
                 {/* Session Title */}
                 <div>

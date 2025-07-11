@@ -35,7 +35,12 @@ const UploadMaterials = () => {
                 imageUrl: result.url,
                 resourceLink: data.resourceLink,
             });
-            Swal.fire('Success', 'Material uploaded!', 'success');
+            Swal.fire({
+                icon: "success",
+                title: "Material uploaded!",
+                showConfirmButton: false,
+                timer: 1500,
+            });
             reset();
         } catch (error) {
             Swal.fire('Error', error.message || 'Failed to upload', 'error');

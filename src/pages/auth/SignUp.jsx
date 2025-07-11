@@ -3,7 +3,6 @@ import { Link, useLocation, useNavigate } from "react-router";
 import Button from "../../components/ui/Button";
 import useAuth from "../../hooks/useAuth";
 import Social from "./Social";
-import axios from "axios";
 import { useState, useEffect } from "react";
 import Spinner from "../../components/ui/Spinner";
 import { GiArchiveRegister } from "react-icons/gi";
@@ -12,31 +11,11 @@ import Lottie from "lottie-react";
 import { FaEye, FaEyeSlash, FaEnvelope, FaLock, FaUser, FaUpload, FaTimes } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAxios from "../../hooks/useAxios";
+import { uploadImageToImgBB } from "../../utils/uploadImageToImgBB";
 
 const inputBase =
   "w-full border-b-2 border-base-content/30 px-4 py-3 pl-10 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50";
 
-const IMGBB_API_KEY = import.meta.env.VITE_IMGBB_API_KEY || "your_imgbb_api_key_here";
-const IMGBB_API_URL = "https://api.imgbb.com/1/upload";
-
-const uploadImageToImgBB = async (imageFile) => {
-  try {
-    const formData = new FormData();
-    formData.append("image", imageFile);
-    formData.append("key", IMGBB_API_KEY);
-    const response = await axios.post(IMGBB_API_URL, formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-    const data = response.data;
-    if (data.success) {
-      return { success: true, url: data.data.url };
-    } else {
-      throw new Error(data.error?.message || "Upload failed");
-    }
-  } catch (error) {
-    return { success: false, error: error.response?.data?.error?.message || error.message };
-  }
-};
 
 const SignUp = () => {
   const { createUser, setUser, updateUser, user } = useAuth();
