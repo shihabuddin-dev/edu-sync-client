@@ -17,7 +17,7 @@ import ThemeToggle from "../ui/ThemeToggle";
 import userLogo from "../../assets/user-logo.png";
 
 import useAuth from "../../hooks/useAuth";
-import { FaUser } from "react-icons/fa";
+import { FaUser, FaBullhorn } from "react-icons/fa";
 import Logo from "./Logo";
 // import Logo from "./Logo";
 
@@ -100,6 +100,12 @@ const Navbar = () => {
             <NavLink to="/statistic" className={linksClass}>
               <MdBarChart />
               Statistic
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/announcements" className={linksClass}>
+              <FaBullhorn />
+              Announcements
             </NavLink>
           </li>
           <li>
@@ -223,6 +229,12 @@ const Navbar = () => {
               <NavLink to="/statistic" onClick={toggleMenu} className={linksClass}>
                 <MdBarChart />
                 Statistic
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to="/announcements" onClick={toggleMenu} className={linksClass}>
+                <FaBullhorn />
+                Announcements
               </NavLink>
             </li>
             <li>

@@ -30,6 +30,7 @@ import AllMaterials from "../pages/dashboard/admin/AllMaterials";
 import Announcements from "../pages/dashboard/admin/Announcements";
 import Forbidden from "../pages/forbidden/Forbidden";
 import UserInfo from '../pages/dashboard/admin/UserInfo';
+import AnnouncementsList from "../pages/announcements/AnnouncementsList";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +53,7 @@ const router = createBrowserRouter([
       { path: "privacy", Component: PrivacyPolicy },
       { path: "terms", Component: TermsOfService },
       { path: "cookies", Component: CookiePolicy },
+      { path: "announcements", Component: AnnouncementsList },
       // private routes
       {
         path: "my-profile",
