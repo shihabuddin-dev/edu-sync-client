@@ -40,7 +40,7 @@ const tutorLinks = [
   },
   {
     to: "/dashboard/tutor/sessions",
-    label: "View All Study Sessions",
+    label: "My All Study Sessions",
     icon: <FaListAlt />
   },
   {

@@ -22,7 +22,7 @@ const FILTERS = [
     { label: 'Rejected', value: 'rejected' },
 ];
 
-const AllStudySessions = () => {
+const MyAllStudySessions = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const [filter, setFilter] = useState('all');
@@ -172,4 +172,4 @@ const AllStudySessions = () => {
     );
 };
 
-export default AllStudySessions;
+export default MyAllStudySessions;

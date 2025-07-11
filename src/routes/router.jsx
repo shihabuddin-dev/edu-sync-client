@@ -19,7 +19,7 @@ import CreateNote from "../pages/dashboard/student/CreateNote";
 import ManageNotes from "../pages/dashboard/student/ManageNotes";
 import NotFound from "../pages/notFound/NotFound";
 import CreateStudySession from "../pages/dashboard/tutor/CreateStudySession";
-import AllStudySessions from "../pages/dashboard/tutor/AllStudySessions";
+import MyAllStudySessions from "../pages/dashboard/tutor/MyAllStudySessions";
 import UpdateSession from "../pages/dashboard/tutor/UpdateSession";
 import UploadMaterials from "../pages/dashboard/tutor/UploadMaterials";
 import MyApprovedSessions from "../pages/dashboard/tutor/MyApprovedSessions";
@@ -29,6 +29,7 @@ import AllStudySessionsOfTutors from "../pages/dashboard/admin/AllStudySessionsO
 import AllMaterials from "../pages/dashboard/admin/AllMaterials";
 import Announcements from "../pages/dashboard/admin/Announcements";
 import Forbidden from "../pages/forbidden/Forbidden";
+import UserInfo from '../pages/dashboard/admin/UserInfo';
 
 const router = createBrowserRouter([
   {
@@ -88,7 +89,7 @@ const router = createBrowserRouter([
       },
       {
         path: 'tutor/sessions',
-        element: <TutorRoutes><AllStudySessions /></TutorRoutes>
+        element: <TutorRoutes><MyAllStudySessions /></TutorRoutes>
       },
       {
         path: 'tutor/update-session/:id',
@@ -111,6 +112,10 @@ const router = createBrowserRouter([
       {
         path: 'admin/users',
         element: <AdminRoutes><AllUsers /></AdminRoutes>
+      },
+      {
+        path: 'admin/users/:id',
+        element: <AdminRoutes><UserInfo /></AdminRoutes>
       },
       {
         path: 'admin/sessions',

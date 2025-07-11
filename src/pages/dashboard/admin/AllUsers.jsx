@@ -3,9 +3,10 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import DashboardHeading from '../../../components/shared/DashboardHeading';
-import { FaUsers, FaSearch, FaEdit, FaUser, FaEnvelope, FaIdBadge, FaCheck, FaTimes } from 'react-icons/fa';
+import { FaUsers, FaSearch, FaEdit, FaUser, FaEnvelope, FaIdBadge, FaCheck, FaTimes, FaEye } from 'react-icons/fa';
 import Spinner from '../../../components/ui/Spinner';
 import { inputBase } from '../../../utils/inputBase';
+import { useNavigate } from 'react-router';
 
 const AllUsers = () => {
     const axiosSecure = useAxiosSecure();
@@ -14,6 +15,7 @@ const AllUsers = () => {
     const [editingUser, setEditingUser] = useState(null);
     const [selectedRole, setSelectedRole] = useState('');
     const initialLoad = useRef(true);
+    const navigate = useNavigate();
 
     // Debounce search term
     useEffect(() => {
@@ -91,6 +93,10 @@ const AllUsers = () => {
         setSelectedRole('');
     };
 
+    const handleViewUser = (_id) => {
+        navigate(`/dashboard/admin/users/${_id}`);
+    };
+
     const getRoleBadgeColor = (role) => {
         switch (role) {
             case 'admin': return 'bg-red-100 text-red-700 rounded-sm';
@@ -150,8 +156,8 @@ const AllUsers = () => {
                                                 <div className="font-medium text-base-content">
                                                     {user.name || user.displayName || 'No Name'}
                                                 </div>
-                                                <div className="text-sm text-base-content/60">
-                                                    {user.email}
+                                                <div className="text-[10px] text-base-content/60">
+                                                    Created At: {user.created_at ? new Date(user.created_at).toLocaleDateString('en-GB') : 'N/A'}
                                                 </div>
                                             </div>
                                         </div>
@@ -167,7 +173,7 @@ const AllUsers = () => {
                                             <select
                                                 value={selectedRole}
                                                 onChange={(e) => setSelectedRole(e.target.value)}
-                                                className="border-b-2 border-base-content/30 py-3 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50"
+                                                className="border-b-2 border-base-content/30 py-1 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50"
                                             >
                                                 <option value="student" className='text-black'>Student</option>
                                                 <option value="tutor" className='text-black'>Tutor</option>
@@ -192,15 +198,29 @@ const AllUsers = () => {
                                                 <button
                                                     onClick={handleCancelEdit}
                                                 >
-                                                    <FaTimes className="text-red-500" />
+                                                    <FaTimes className="text-lg text-red-500" />
+                                                </button>
+                                                <button
+                                                    onClick={() => handleViewUser(user._id)}
+                                                    title="View user info"
+                                                >
+                                                    <FaEye className="text-blue-500" />
                                                 </button>
                                             </div>
                                         ) : (
-                                            <button
-                                                onClick={() => handleEditRole(user)}
-                                            >
-                                                <FaEdit className="text-xl text-green-500" />
-                                            </button>
+                                            <div className="flex gap-2">
+                                                <button
+                                                    onClick={() => handleEditRole(user)}
+                                                >
+                                                    <FaEdit className="text-lg text-green-500" />
+                                                </button>
+                                                <button
+                                                    onClick={() => handleViewUser(user._id)}
+                                                    title="View user info"
+                                                >
+                                                    <FaEye className="text-lg text-blue-500" />
+                                                </button>
+                                            </div>
                                         )}
                                     </td>
                                 </tr>
