@@ -8,10 +8,11 @@ import Button from '../../../components/ui/Button';
 import DashboardHeading from '../../../components/shared/DashboardHeading';
 import {
     FaRegStickyNote, FaRegFileAlt, FaCalendarAlt, FaClock,
-    FaMoneyBillWave, FaInfoCircle, FaRegCalendarPlus, FaChevronDown, FaUpload, FaTimes, FaImage
+    FaMoneyBillWave, FaInfoCircle, FaRegCalendarPlus, FaChevronDown, FaUpload, FaTimes, FaImage, FaDollarSign
 } from 'react-icons/fa';
 import { inputBase } from '../../../utils/inputBase';
 import { uploadImageToImgBB } from '../../../utils/uploadImageToImgBB';
+import useUserRole from '../../../hooks/useUserRole';
 
 
 const durationUnits = [
@@ -44,6 +45,7 @@ const UpdateSession = () => {
     const [imageError, setImageError] = useState('');
     const [isDurationDropdownOpen, setIsDurationDropdownOpen] = useState(false);
     const [uploading, setUploading] = useState(false);
+    const { role, isLoading: roleLoading } = useUserRole();
 
     // Set form state when session loads
     useEffect(() => {
@@ -67,6 +69,9 @@ const UpdateSession = () => {
                 durationUnit: durationUnit,
                 duration: session.duration || '',
                 sessionImage: session.sessionImage || '',
+                status: session.status || 'pending',
+                paid: session.paid || false,
+                registrationFee: session.registrationFee || 0,
             });
             setImagePreview(session.sessionImage || '');
         }
@@ -84,16 +89,37 @@ const UpdateSession = () => {
                 showConfirmButton: false,
                 timer: 1200
             });
-            navigate('/dashboard/tutor/sessions');
+            // Redirect based on role
+            if (role === 'admin') {
+                navigate('/dashboard/admin/sessions');
+            } else {
+                navigate('/dashboard/tutor/sessions');
+            }
         }
     });
 
-    if (isLoading || !form) return <Spinner />;
+    if (isLoading || roleLoading) return <Spinner />;
+    if (!session) {
+        return (
+            <div className="flex flex-col items-center justify-center min-h-[40vh] text-center">
+                <FaInfoCircle className="text-4xl text-error mb-4" />
+                <h2 className="text-xl font-semibold mb-2">Session not found.</h2>
+                <p className="text-base-content/70">The session you are looking for does not exist or has been deleted.</p>
+            </div>
+        );
+    }
+    if (!form) return <Spinner />;
 
     // Handlers
     const handleChange = (e) => {
-        const { name, value } = e.target;
-        setForm(prev => ({ ...prev, [name]: value }));
+        const { name, value, type, checked } = e.target;
+        if (name === 'registrationFee') {
+            setForm(prev => ({ ...prev, [name]: Number(value) }));
+        } else if (type === 'checkbox') {
+            setForm(prev => ({ ...prev, [name]: checked }));
+        } else {
+            setForm(prev => ({ ...prev, [name]: value }));
+        }
     };
 
     const handleDurationValueChange = (e) => {
@@ -160,6 +186,7 @@ const UpdateSession = () => {
         }
         const updatedData = {
             ...form,
+            registrationFee: form.paid ? Number(form.registrationFee) || 0 : 0,
             sessionImage: imageURL,
             duration: `${form.durationValue} ${form.durationUnit}`,
         };
@@ -346,32 +373,56 @@ const UpdateSession = () => {
                         </div>
                     </div>
                 </div>
-                {/* Registration Fee (read-only) */}
+                {/* Paid (editable for admin, read-only for tutor) */}
                 <div>
-                    <label className="block text-sm font-medium mb-1">Registration Fee</label>
-                    <div className="relative">
-                        <FaMoneyBillWave className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
-                        <input
-                            type="number"
-                            value={0}
-                            readOnly
-                            className={inputBase + ' cursor-not-allowed'}
-                        />
+                    <label className="block text-sm font-medium mb-1">Paid Session?</label>
+                    <div className="flex items-center gap-2">
+                        {role === 'admin' ? (
+                            <input
+                                type="checkbox"
+                                name="paid"
+                                checked={!!form.paid}
+                                onChange={handleChange}
+                                className="toggle toggle-primary"
+                            />
+                        ) : (
+                            <input
+                                type="checkbox"
+                                checked={!!form.paid}
+                                readOnly
+                                className="toggle toggle-primary cursor-not-allowed"
+                            />
+                        )}
+                        <span>{form.paid ? 'Paid' : 'Free'}</span>
                     </div>
                 </div>
-                {/* Status (read-only) */}
-                <div>
-                    <label className="block text-sm font-medium mb-1">Status</label>
-                    <div className="relative">
-                        <FaInfoCircle className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
-                        <input
-                            type="text"
-                            value={session.status}
-                            readOnly
-                            className={inputBase + ' cursor-not-allowed'}
-                        />
+                {/* Registration Fee (only if paid) */}
+                {form.paid && (
+                    <div>
+                        <label className="block text-sm font-medium mb-1">Registration Fee</label>
+                        <div className="relative">
+                            <FaMoneyBillWave className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
+                            {role === 'admin' ? (
+                                <input
+                                    type="number"
+                                    name="registrationFee"
+                                    value={form.registrationFee || 0}
+                                    onChange={handleChange}
+                                    className={inputBase}
+                                    min={0}
+                                    required
+                                />
+                            ) : (
+                                <input
+                                    type="number"
+                                    value={form.registrationFee || 0}
+                                    readOnly
+                                    className={inputBase + ' cursor-not-allowed'}
+                                />
+                            )}
+                        </div>
                     </div>
-                </div>
+                )}
                 <Button type="submit" className="w-full" disabled={uploading || isUpdating}>
                     {uploading || isUpdating ? (
                         <div className="flex justify-center items-center gap-2">

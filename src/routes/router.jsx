@@ -52,10 +52,6 @@ const router = createBrowserRouter([
       { path: "privacy", Component: PrivacyPolicy },
       { path: "terms", Component: TermsOfService },
       { path: "cookies", Component: CookiePolicy },
-
-
-      //  loader: () => fetch(`${import.meta.env.VITE_API_URL}/recipes`),
-
       // private routes
       {
         path: "my-profile",
@@ -120,6 +116,10 @@ const router = createBrowserRouter([
       {
         path: 'admin/sessions',
         element: <AdminRoutes><AllStudySessionsOfTutors /></AdminRoutes>
+      },
+      {
+        path: 'admin/sessions/:id',
+        element: <AdminRoutes><UpdateSession /></AdminRoutes>
       },
       {
         path: 'admin/materials',
