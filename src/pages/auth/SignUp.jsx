@@ -8,7 +8,7 @@ import Spinner from "../../components/ui/Spinner";
 import { GiArchiveRegister } from "react-icons/gi";
 import signUp from "../../assets/lotti/education.json";
 import Lottie from "lottie-react";
-import { FaEye, FaEyeSlash, FaEnvelope, FaLock, FaUser, FaUpload, FaTimes } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaEnvelope, FaLock, FaUser, FaUpload, FaTimes, FaGraduationCap } from "react-icons/fa";
 import Swal from "sweetalert2";
 import useAxios from "../../hooks/useAxios";
 import { uploadImageToImgBB } from "../../utils/uploadImageToImgBB";
@@ -30,6 +30,7 @@ const SignUp = () => {
   // Add state for feedback
   const [formError, setFormError] = useState("");
   const [formSuccess, setFormSuccess] = useState("");
+  const [selectedRole, setSelectedRole] = useState("student");
   const axiosInstance = useAxios()
 
   const {
@@ -113,7 +114,7 @@ const SignUp = () => {
         email: data.email,
         name: data.name,
         photoURL: photoURL,
-        role: "student",
+        role: selectedRole,
         created_at: new Date().toISOString(),
         last_log_in: new Date().toISOString(),
       });
@@ -128,6 +129,7 @@ const SignUp = () => {
       reset();
       setSelectedImage(null);
       setImagePreview(null);
+      setSelectedRole("student");
     } catch (error) {
       let errorMsg = error.message;
       if (error.code === "auth/email-already-in-use") {
@@ -187,6 +189,20 @@ const SignUp = () => {
               <input type="email" {...register("email", { required: true })} className={inputBase} placeholder="Enter your Email" />
             </div>
             {errors.email && <span className="text-error text-xs">Email is required</span>}
+          </div>
+          <div className="space-y-2">
+            <label className="block text-sm font-medium text-base-content">Role</label>
+            <div className="relative">
+              <FaGraduationCap className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
+              <select 
+                value={selectedRole} 
+                onChange={(e) => setSelectedRole(e.target.value)}
+                className={inputBase}
+              >
+                <option value="student" className="text-black">Student</option>
+                <option value="tutor" className="text-black">Tutor</option>
+              </select>
+            </div>
           </div>
           <div className="space-y-2">
             <label className="block text-sm font-medium text-base-content">Password</label>

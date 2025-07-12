@@ -2,7 +2,7 @@ import Banner from "../../components/homePage/Banner";
 
 const Home = () => {
 
-  return <div className="-mt-20 md:-mt-27">
+  return <div className="">
 
     <Banner />
   </div>;

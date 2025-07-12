@@ -17,9 +17,12 @@
     "react-countup": "^6.5.3",
     "react-dom": "^19.1.0",
     "react-hook-form": "^7.60.0",
+    "react-responsive-carousel": "^3.2.23",
     "react-slick": "^0.30.3",
+    "react-swiper": "^0.1.5",
     "react-vertical-timeline-component": "^3.5.3",
-    "slick-carousel": "^1.8.1"
+    "slick-carousel": "^1.8.1",
+    "swiper": "^11.2.10"
   },
   "devDependencies": {
     "@eslint/js": "^9.29.0",

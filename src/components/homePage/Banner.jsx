@@ -4,7 +4,7 @@ import Button from '../ui/Button';
 const Banner = () => {
     return (
         <section
-            className="relative w-full min-h-[60vh] md:min-h-[70vh] flex items-center justify-center overflow-hidden rounded-b-md shadow-md border border-base-content/10 my-6"
+            className="-mt-5 md:-mt-10 relative w-full min-h-[60vh] md:min-h-[70vh] flex items-center justify-center overflow-hidden rounded-b-md shadow-md border border-base-content/10 my-6"
         >
             {/* Background image */}
             <img

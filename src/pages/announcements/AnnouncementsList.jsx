@@ -2,16 +2,16 @@ import React from 'react';
 import { FaBullhorn, FaTag, FaUsers, FaExclamationCircle, FaLink, FaStar, FaRegSmile, FaCalendarAlt } from 'react-icons/fa';
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../../components/ui/Spinner';
-import useAxiosSecure from '../../hooks/useAxiosSecure';
+import useAxios from '../../hooks/useAxios';
 import SectionTitle from '../../components/shared/SectionTitle';
 import { useState } from 'react';
 
 const AnnouncementsList = () => {
-    const axiosSecure = useAxiosSecure();
+    const axiosInstance = useAxios();
     const { data: announcements = [], isLoading } = useQuery({
         queryKey: ['announcements'],
         queryFn: async () => {
-            const res = await axiosSecure.get('/announcements');
+            const res = await axiosInstance.get('/announcements');
             return res.data;
         }
     });
