@@ -32,7 +32,7 @@ const MyAllStudySessions = () => {
     const { data: sessions = [], refetch, isLoading } = useQuery({
         queryKey: ['sessions', user.email],
         queryFn: async () => {
-            const res = await axiosSecure.get(`/sessions?email=${user.email}`);
+            const res = await axiosSecure.get('/sessions');
             return res.data;
         }
     });
@@ -40,10 +40,25 @@ const MyAllStudySessions = () => {
     // Mutation for resubmitting a rejected session
     const { mutate: requestApproval, isLoading: isResubmitting } = useMutation({
         mutationFn: async (sessionId) => {
-            await axiosSecure.patch(`/sessions/${sessionId}/status`, { status: 'pending' });
+            await axiosSecure.patch(`/sessions/${sessionId}/resubmit`);
         },
         onSuccess: () => {
+            Swal.fire({
+                icon: 'success',
+                title: 'Session Resubmitted!',
+                text: 'Your session has been resubmitted for approval.',
+                showConfirmButton: false,
+                timer: 1500
+            });
             refetch();
+        },
+        onError: (error) => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed to Resubmit',
+                text: error.response?.data?.message || 'Something went wrong. Please try again.',
+                showConfirmButton: true
+            });
         }
     });
 
