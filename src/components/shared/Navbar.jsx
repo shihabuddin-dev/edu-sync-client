@@ -78,7 +78,7 @@ const Navbar = () => {
     };
   }, []);
   return (
-    <nav className="bg-base-200 shadow-xs border-b-1 border-base-300 fixed top-0 left-0 right-0 z-50 w-full">
+    <nav className="bg-base-200/90 backdrop-blur-sm shadow-xs border-b-1 border-base-300 fixed top-0 left-0 right-0 z-50 w-full">
       <div className="max-w-7xl mx-auto py-2 md:py-3 px-4 md:px-6 lg:px-8 flex justify-between items-center">
 
         <Logo />

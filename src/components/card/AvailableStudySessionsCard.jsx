@@ -14,7 +14,7 @@ const AvailableStudySessionsCard = ({ session, status }) => {
 
   return (
     <div
-      onClick={() => navigate(`/sessions/${session._id}`)}
+      onClick={() => navigate(`/study-sessions/${session._id}`)}
       title='Click to see details'
       className="card bg-base-100 rounded-md shadow-md border border-base-300 overflow-hidden transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/20 group cursor-pointer"
     >
@@ -66,7 +66,7 @@ const AvailableStudySessionsCard = ({ session, status }) => {
           {/* Duration */}
           {duration && (
             <div className="flex items-center gap-2 text-sm">
-              <div className="p-2 rounded bg-secondary/10 text-secondary">
+              <div className="p-2 rounded bg-primary/10 text-primary">
                 <IoMdTime className="text-sm" />
               </div>
               <div>

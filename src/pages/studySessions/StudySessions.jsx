@@ -18,12 +18,12 @@ const StudySessions = () => {
   const axiosInstance = useAxios();
 
   const fetchSessions = async () => {
-    const res = await axiosInstance('/available-sessions');
+    const res = await axiosInstance('/public-sessions');
     return res.data;
   };
 
   const { data: sessions = [], isLoading, isError, error } = useQuery({
-    queryKey: ['available-sessions'],
+    queryKey: ['public-sessions'],
     queryFn: fetchSessions,
   });
 
@@ -34,7 +34,7 @@ const StudySessions = () => {
   return (
     <section className="max-w-6xl mx-auto px-4 py-12">
       <h2 className="text-2xl font-bold mb-8 text-center">Available Study Sessions</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {sessions.map(session => {
           const status = getStatus(session);
           return (
