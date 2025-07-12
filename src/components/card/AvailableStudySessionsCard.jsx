@@ -3,9 +3,9 @@ import { FaUser } from 'react-icons/fa';
 import { IoMdTime } from 'react-icons/io';
 
 const statusStyles = {
-  Ongoing: { bg: 'bg-success/90', border: 'border-success', text: 'text-white', dot: 'bg-white' },
-  Closed: { bg: 'bg-error/90', text: 'text-white', border: 'border-error', dot: 'bg-white' },
-  Upcoming: { bg: 'bg-warning/90', text: 'text-white', border: 'border-warning', dot: 'bg-white' },
+  Ongoing: { bg: 'bg-green-500/90', border: 'border-green-500', text: 'text-white', dot: 'bg-white' },
+  Closed: { bg: 'bg-red-500/90', text: 'text-white', border: 'border-red-500', dot: 'bg-white' },
+  Upcoming: { bg: 'bg-red-500/90', text: 'text-white', border: 'border-red-500', dot: 'bg-white' },
 };
 
 const AvailableStudySessionsCard = ({ session, status }) => {
@@ -42,7 +42,7 @@ const AvailableStudySessionsCard = ({ session, status }) => {
       <div className="card-body p-5">
         {/* Title */}
         <h3 className="card-title text-xl line-clamp-2 group-hover:text-primary transition-colors">
-          {title.slice(0,20)}
+          {title.slice(0, 20)}
         </h3>
 
         {/* Divider */}

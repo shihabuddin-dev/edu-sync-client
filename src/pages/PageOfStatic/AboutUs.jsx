@@ -18,13 +18,13 @@ const milestones = [
 
 const stats = [
     { label: 'Active Users', value: 12000, icon: <FaUsers className="text-primary" /> },
-    { label: 'Sessions Hosted', value: 3500, icon: <FaCalendarAlt className="text-secondary" /> },
+    { label: 'Sessions Hosted', value: 3500, icon: <FaCalendarAlt className="text-primary" /> },
     { label: 'Average Rating', value: 4.8, icon: <FaStar className="text-warning" /> },
 ];
 
 const testimonials = [
     {
-        name: 'Ayesha Rahman',
+        name: 'Tarek Jamal',
         role: 'Student',
         text: 'Edu Sync made it so easy to find the right tutor and join study sessions. The platform is intuitive and the community is amazing!',
     },
@@ -77,11 +77,11 @@ const AboutUs = () => {
                 </section>
                 {/* Platform Section */}
                 <section className="bg-base-100 rounded-md shadow-md border border-base-300 p-4 sm:p-6 md:p-8 mb-8 flex flex-col md:flex-row items-center gap-4 md:gap-6" data-aos="fade-left">
-                    <div className="flex-shrink-0 flex items-center justify-center w-20 h-20 rounded-full bg-secondary/10">
-                        <FaRocket className="text-secondary text-4xl" />
+                    <div className="flex-shrink-0 flex items-center justify-center w-20 h-20 rounded-full bg-primary/10">
+                        <FaRocket className="text-primary text-4xl" />
                     </div>
                     <div>
-                        <h2 className="text-xl md:text-2xl font-semibold text-secondary mb-2">Why Edu Sync?</h2>
+                        <h2 className="text-xl md:text-2xl font-semibold text-primary mb-2">Why Edu Sync?</h2>
                         <ul className="list-disc ml-5 text-base-content/80 text-sm md:text-base space-y-1">
                             <li>Seamless study session scheduling and management</li>
                             <li>Resource sharing and collaborative tools</li>
@@ -133,7 +133,7 @@ const AboutUs = () => {
                 <section className="bg-base-100 rounded-md shadow-md border border-base-300 p-4 sm:p-6 md:p-8 flex flex-col items-center gap-4 md:gap-6" data-aos="fade-up">
                     <div className="flex items-center gap-2 md:gap-4 mb-4">
                         <FaChalkboardTeacher className="text-primary text-3xl" />
-                        <FaLaptopCode className="text-secondary text-3xl" />
+                        <FaLaptopCode className="text-primary text-3xl" />
                         <FaRegSmile className="text-success text-3xl" />
                     </div>
                     <h2 className="text-lg sm:text-xl md:text-2xl font-semibold text-base-content mb-2">Meet Our Team</h2>

@@ -46,9 +46,9 @@ const Support = () => {
             <a href="mailto:support@edusync.com" className="text-primary hover:underline text-sm">support@edusync.com</a>
           </div>
           <div className="bg-base-100 rounded-md shadow-md border border-base-300 p-6 flex flex-col items-center gap-3" data-aos="fade-left">
-            <FaPhoneAlt className="text-secondary text-3xl mb-1" />
+            <FaPhoneAlt className="text-primary text-3xl mb-1" />
             <h3 className="font-semibold text-base-content">Call Us</h3>
-            <a href="tel:+8801740520249" className="text-secondary hover:underline text-sm">+88 01740 520249</a>
+            <a href="tel:+8801740520249" className="text-primary hover:underline text-sm">+88 01740 520249</a>
           </div>
         </div>
 

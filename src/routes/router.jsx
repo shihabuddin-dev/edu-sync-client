@@ -31,6 +31,8 @@ import Announcements from "../pages/dashboard/admin/Announcements";
 import Forbidden from "../pages/forbidden/Forbidden";
 import UserInfo from '../pages/dashboard/admin/UserInfo';
 import AnnouncementsList from "../pages/announcements/AnnouncementsList";
+import StudySessions from "../pages/studySessions/StudySessions";
+import DetailsStudySession from "../pages/studySessions/DetailsStudySession";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +56,8 @@ const router = createBrowserRouter([
       { path: "terms", Component: TermsOfService },
       { path: "cookies", Component: CookiePolicy },
       { path: "announcements", Component: AnnouncementsList },
+      { path: "study-sessions", Component: StudySessions },
+      { path: "study-sessions/:id", Component: DetailsStudySession },
       // private routes
       {
         path: "my-profile",
