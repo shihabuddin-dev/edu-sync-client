@@ -3,24 +3,26 @@ import { useParams, useNavigate } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
 import useAxios from '../../hooks/useAxios';
 import useAuth from '../../hooks/useAuth';
+import useUserRole from '../../hooks/useUserRole';
 import SectionTitle from '../../components/shared/SectionTitle';
 import {
     FaUser,
     FaCalendarAlt,
     FaClock,
-    FaDollarSign,
     FaStar,
     FaBookOpen,
     FaRegClock,
     FaCheckCircle,
     FaTimesCircle,
-    FaArrowLeft
+    FaArrowLeft,
+    FaMoneyBill
 } from 'react-icons/fa';
 import { MdMenuBook } from 'react-icons/md';
 import Button from '../../components/ui/Button';
 
 const DetailsStudySession = () => {
     const { user } = useAuth();
+    const { role, roleLoading } = useUserRole();
     const { id } = useParams();
     const navigate = useNavigate();
     const axiosInstance = useAxios();
@@ -43,6 +45,8 @@ const DetailsStudySession = () => {
         const regEnd = new Date(session.registrationEnd);
         return now >= regStart && now <= regEnd;
     };
+
+
 
     // Get status badge
     const getStatusBadge = () => {
@@ -82,6 +86,12 @@ const DetailsStudySession = () => {
         if (!user) {
             // Redirect to login if not authenticated
             navigate('/signin');
+            return;
+        }
+
+        if (role !== 'student') {
+            // Show message that only students can book
+            alert('Only students can book study sessions.');
             return;
         }
 
@@ -257,11 +267,11 @@ const DetailsStudySession = () => {
                             {/* Registration Fee */}
                             <div className="bg-base-200 rounded-lg p-4">
                                 <h4 className="font-semibold mb-3 flex items-center gap-2">
-                                    <FaDollarSign className="text-primary" />
+                                    <FaMoneyBill className="text-primary" />
                                     Registration Fee
                                 </h4>
                                 <p className="text-lg font-medium">
-                                    {session.registrationFee > 0 ? `$${session.registrationFee}` : 'Free'}
+                                    {session.registrationFee > 0 ? `${session.registrationFee}` : 'Free'}
                                 </p>
                             </div>
                         </div>
@@ -279,29 +289,42 @@ const DetailsStudySession = () => {
                                     </p>
                                 </div>
                                 <div className="flex gap-3">
+                                    {/* Debug info */}
+                                    {console.log('User:', user?.email, 'Role:', role, 'Can book:', user && role === 'student')}
+                                    
                                     {isRegistrationOpen() ? (
-                                        <Button
-                                            onClick={handleBooking}
-                                            disabled={isBooking}
-                                            className="btn btn-primary"
-                                        >
-                                            {isBooking ? (
-                                                <>
-                                                    <div className="loading loading-spinner loading-sm"></div>
-                                                    Booking...
-                                                </>
-                                            ) : (
-                                                'Book Now'
-                                            )}
-                                        </Button>
+                                        !roleLoading && user && role === 'student' ? (
+                                            <button
+                                                onClick={handleBooking}
+                                                disabled={isBooking}
+                                                className="btn btn-primary"
+                                            >
+                                                {isBooking ? (
+                                                    <>
+                                                        <div className="loading loading-spinner loading-sm"></div>
+                                                        Booking...
+                                                    </>
+                                                ) : (
+                                                    'Book Now'
+                                                )}
+                                            </button>
+                                        ) : (
+                                            <button
+                                                disabled
+                                                className="btn btn-disabled cursor-not-allowed opacity-50"
+                                                title={!user ? 'Please Sign In to book' : 'Only students can book sessions'}
+                                            >
+                                                {!user ? 'Sign In to Book' : 'Students Only'}
+                                            </button>
+                                        )
                                     ) : (
                                         <button
                                             disabled
-                                            className="btn btn-disabled cursor-not-allowed"
+                                            className="btn btn-disabled cursor-not-allowed opacity-50"
                                         >
                                             Registration Closed
                                         </button>
-                                    )}
+                                    )}        
                                 </div>
                             </div>
                         </div>
