@@ -1,4 +1,5 @@
 import React from 'react';
+import CountUp from 'react-countup';
 
 const StatsSection = ({ title, stats, className = "" }) => {
   return (
@@ -11,7 +12,14 @@ const StatsSection = ({ title, stats, className = "" }) => {
               {stat.icon}
             </div>
             <span className={`text-2xl sm:text-3xl md:text-4xl font-semibold ${stat.textColor}`}>
-              {stat.value}
+              <CountUp
+                end={stat.value}
+                duration={5}
+                decimals={stat.decimals || 0}
+                separator=","
+                enableScrollSpy={true}
+                scrollSpyOnce={true}
+              /> +
             </span>
             <span className="text-base-content/80 text-xs sm:text-sm md:text-base">{stat.label}</span>
           </div>
