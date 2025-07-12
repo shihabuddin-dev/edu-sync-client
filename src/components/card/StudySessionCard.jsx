@@ -40,10 +40,10 @@ const StudySessionCard = ({ session, status }) => {
                     </span>
                 </div>
             )}
-            <div className="p-6 flex-1 flex flex-col">
-                <h3 className="text-xl font-bold mb-2 group-hover:text-primary transition-colors duration-200">{title?.slice(0, 16)}{title && title.length > 30 ? '...' : ''}</h3>
-                <p className="text-base-content/70 text-sm mb-3">{description?.slice(0, 60)}{description && description.length > 60 ? '...' : ''}</p>
-                <div className="flex items-center gap-4 mb-2 mt-auto" >
+            <div className="p-5 flex-1 flex flex-col space-y-2">
+                <h3 className="text-xl font-bold group-hover:text-primary transition-colors duration-200">{title?.slice(0, 16)}{title && title.length > 30 ? '...' : ''}</h3>
+                <p className="text-base-content/70 text-sm">{description?.slice(0, 60)}{description && description.length > 60 ? '...' : ''}</p>
+                <div className="flex items-center gap-4 mt-auto" >
                     {session.status === 'approved' && (
                         <span className="flex items-center gap-1 text-success font-semibold">
                             <FaCheckCircle className="inline" /> Approved

@@ -7,6 +7,7 @@ import CountUp from 'react-countup';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { MdMenuBook } from 'react-icons/md';
 
 const milestones = [
     { year: '2022', title: 'Edu Sync Founded', desc: 'Our journey began with a vision to connect learners and educators worldwide.', icon: <FaRocket /> },
@@ -140,6 +141,23 @@ const AboutUs = () => {
                     <p className="text-base-content/80 text-xs sm:text-sm md:text-base text-center max-w-2xl">
                         Our passionate team of educators, developers, and designers is committed to building a platform that empowers learners and educators alike. We believe in the power of collaboration and technology to transform education for the better.
                     </p>
+                </section>
+
+                {/* Info Section */}
+                <section className="mt-8 bg-base-100 rounded-md shadow-md border border-base-300 p-4 sm:p-6 md:p-8 mb-8 flex flex-col md:flex-row justify-center items-center gap-4 md:gap-12" data-aos="fade-left">
+                    <div className="flex-shrink-0 flex items-center justify-center w-20 h-20 rounded-full bg-primary/10">
+                        <MdMenuBook className="text-primary text-4xl" />
+                    </div>
+                    <div>
+                        <h2 className="text-xl md:text-2xl font-semibold text-primary mb-2">How to Join Sessions</h2>
+                        <ul className="list-disc ml-5 text-base-content/80 text-sm md:text-base space-y-1">
+                            <li>Browse through available study sessions</li>
+                            <li>Check session details, tutor information, and timing</li>
+                            <li>Register during the open registration period</li>
+                            <li>Join the session at the scheduled time</li>
+                            <li>Participate actively and collaborate with other learners</li>
+                        </ul>
+                    </div>
                 </section>
                 {/* Testimonials Section */}
                 <section className="bg-base-100 rounded-md shadow-md border border-base-300 p-6 md:p-8 mt-8" data-aos="zoom-in-up">
