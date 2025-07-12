@@ -4,19 +4,19 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import Button from '../../../components/ui/Button';
-import { FaTrash, FaEdit, FaRegStickyNote, FaRegFileAlt } from 'react-icons/fa';
+import { FaTrash, FaEdit, FaRegStickyNote, FaRegFileAlt, FaEye } from 'react-icons/fa';
 import { MdNoteAlt } from 'react-icons/md';
 import { useForm } from 'react-hook-form';
 import DashboardHeading from '../../../components/shared/DashboardHeading';
-import { inputBase } from '../../../utils/inputBase';
+import ViewNoteModal from '../../../components/modals/ViewNoteModal';
+import EditNoteModal from '../../../components/modals/EditNoteModal';
 
-// const inputBase =
-//     "w-full border-b-2 border-base-content/30 px-4 py-3 pl-10 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50";
 
 const ManageNotes = () => {
-const { user } = useAuth();
+    const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const [editingNote, setEditingNote] = useState(null);
+    const [viewingNote, setViewingNote] = useState(null);
     const { register, handleSubmit, reset, formState: { errors }, setValue } = useForm();
     const { data: notes = [], refetch } = useQuery({
         queryKey: ['notes', user.email],
@@ -56,6 +56,14 @@ const { user } = useAuth();
         reset();
     };
 
+    const openViewModal = (note) => {
+        setViewingNote(note);
+    };
+
+    const closeViewModal = () => {
+        setViewingNote(null);
+    };
+
     const onUpdate = async (data) => {
         try {
             await axiosSecure.patch(`/notes/${editingNote._id}`, {
@@ -81,59 +89,46 @@ const { user } = useAuth();
                         <div key={note._id} className="p-4 bg-base-200/50 rounded shadow flex flex-col gap-2 relative">
                             <div className="flex items-center gap-2">
                                 <FaRegStickyNote className="text-primary text-lg" />
-                                <span className="font-semibold text-lg">{note.title}</span>
+                                <span className="font-semibold text-lg">{note.title.slice(0, 15)}</span>
                             </div>
                             <div className="flex items-center gap-2 overflow-x-hidden">
                                 <FaRegFileAlt className="text-base-content/50 text-lg" />
-                                <span className="text-base-content/80">{note.description}</span>
+                                <span className="text-base-content/80">{note.description.slice(0, 15)}</span>
                             </div>
                             <div className="flex gap-1 md:gap-2 mt-2">
+                                <Button type="button" variant="primary" className='btn btn-sm' onClick={() => openViewModal(note)}>
+                                    <FaEye className='text-[16px]' />
+                                </Button>
                                 <Button type="button" variant="outline" className="flex items-center gap-1 btn btn-sm" onClick={() => openEditModal(note)}>
                                     <FaEdit /> Update
                                 </Button>
                                 <Button type="button" variant="danger" className="flex items-center gap-1 btn btn-sm" onClick={() => handleDelete(note._id)}>
                                     <FaTrash /> Delete
                                 </Button>
+
                             </div>
                         </div>
                     ))}
                 </div>
             )}
+            {/* View Modal */}
+            <ViewNoteModal
+                open={!!viewingNote}
+                note={viewingNote}
+                onClose={closeViewModal}
+                onEdit={openEditModal}
+            />
             {/* Edit Modal */}
-            {editingNote && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-                    <div className="bg-base-100 rounded-md shadow-lg p-6 w-full max-w-md relative">
-                        <button onClick={closeEditModal} className="absolute top-1 right-3 text-2xl font-black text-base-content/60 hover:text-error">&times;</button>
-                        <h3 className="text-xl font-semibold mb-4 flex items-center gap-2"><FaEdit className="text-primary" /> Update Note</h3>
-                        <form onSubmit={handleSubmit(onUpdate)} className="space-y-4">
-                            <div>
-                                <label className="block text-sm font-medium mb-1">Title</label>
-                                <div className="relative">
-                                    <FaRegStickyNote className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
-                                    <input
-                                        type="text"
-                                        {...register('title', { required: 'Title is required' })}
-                                        className={inputBase}
-                                    />
-                                </div>
-                                {errors.title && <span className="text-error text-xs">{errors.title.message}</span>}
-                            </div>
-                            <div>
-                                <label className="block text-sm font-medium mb-1">Description</label>
-                                <div className="relative">
-                                    <FaRegFileAlt className="absolute left-3 top-6 transform -translate-y-1/2 text-base-content/50 text-lg" />
-                                    <textarea
-                                        {...register('description', { required: 'Description is required' })}
-                                        className={inputBase + ' min-h-[100px] pl-10'}
-                                    />
-                                </div>
-                                {errors.description && <span className="text-error text-xs">{errors.description.message}</span>}
-                            </div>
-                            <Button type="submit" className="w-full">Update Note</Button>
-                        </form>
-                    </div>
-                </div>
-            )}
+            <EditNoteModal
+                open={!!editingNote}
+                note={editingNote}
+                onClose={closeEditModal}
+                onUpdate={onUpdate}
+                register={register}
+                handleSubmit={handleSubmit}
+                errors={errors}
+                loading={false}
+            />
         </div>
     );
 };

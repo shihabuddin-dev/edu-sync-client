@@ -123,7 +123,7 @@ const ViewAllMaterials = () => {
                       />
                     </div>
                   ) : (
-                    mat.title
+                    mat.title.slice(0,15)
                   )}
                 </td>
                 <td className="py-2 px-4">

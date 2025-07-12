@@ -144,7 +144,7 @@ const MyAllStudySessions = () => {
                                         <span className="w-14 h-14 bg-base-200 rounded-md flex items-center justify-center text-base-content/40">—</span>
                                     )}
                                 </td>
-                                <td className="py-2 px-4 font-medium text-base-content">{session.title}</td>
+                                <td className="py-2 px-4 font-medium text-base-content">{session.title.slice(0,15)}</td>
                                 <td className="py-2 px-4 space-x-1 space-y-1">
                                     <span className={`inline-block px-3 py-1 rounded-md text-xs font-semibold capitalize ${statusColors[session.status] || statusColors.default}`}>
                                         {session.status}

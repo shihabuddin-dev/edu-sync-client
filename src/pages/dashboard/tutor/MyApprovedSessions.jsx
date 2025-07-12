@@ -31,7 +31,7 @@ const MyApprovedSessions = () => {
             <div>
               <div className="font-bold text-lg text-primary flex items-center gap-2">
                 <MdVerified className="text-success text-xl" />
-                {session.title}
+                {session.title.slice(0,20)}
               </div>
               <div className="text-xs text-base-content/60 mt-1">Session ID: <span className="font-mono">{session._id}</span></div>
             </div>

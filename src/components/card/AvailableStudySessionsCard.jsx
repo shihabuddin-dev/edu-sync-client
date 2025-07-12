@@ -40,10 +40,9 @@ const AvailableStudySessionsCard = ({ session, status }) => {
 
       {/* Content Section */}
       <div className="card-body p-5">
-
         {/* Title */}
         <h3 className="card-title text-xl line-clamp-2 group-hover:text-primary transition-colors">
-          {title}
+          {title.slice(0,20)}
         </h3>
 
         {/* Divider */}
