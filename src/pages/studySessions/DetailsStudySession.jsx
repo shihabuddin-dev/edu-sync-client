@@ -106,22 +106,21 @@ const DetailsStudySession = () => {
             return;
         }
 
-        if (session.registrationFee > 0) {
+        if (session.registrationFee > 0 && session.paid === true) {
             navigate(`/payment/${session._id}`);
         } else {
             try {
                 const bookingData = {
                     sessionId: session._id,
                     studentEmail: user.email,
-                    sessionTitle: session.title,
-                    tutorName: session.tutorName,
-                    registrationFee: session.registrationFee,
-                    paid: false,
+                    amount: session.registrationFee,
+                    paymentStatus: session.registrationFee > 0 ? 'pending' : 'free',
+                    paymentMethod: session.registrationFee > 0 ? 'card' : 'free',
                 };
 
                 const res = await axiosSecure.post('/bookedSessions', bookingData);
 
-                if (res.data?.insertedId) {
+                if (res.data?.insertedId || res.data?.bookingId) {
                     Swal.fire({
                         icon: 'success',
                         title: 'Session Booked!',
@@ -137,7 +136,7 @@ const DetailsStudySession = () => {
                 Swal.fire({
                     icon: 'error',
                     title: 'Booking Failed',
-                    text: error.message || 'Something went wrong while booking the session.',
+                    text: error?.response?.data?.message || error.message || 'Something went wrong while booking the session.',
                 });
             }
         }
