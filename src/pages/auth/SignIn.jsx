@@ -66,7 +66,7 @@ const SignIn = () => {
   }
 
   return (
-    <div className="px-4 flex gap-4 flex-col md:flex-row justify-center items-center max-w-5xl">
+  <div className="px-4 flex gap-4 flex-col md:flex-row justify-center items-center max-w-5xl mx-auto">
       <title>Sign In | Edu Sync</title>
       <div className="flex-1">
         <Lottie

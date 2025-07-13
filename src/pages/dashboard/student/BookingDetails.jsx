@@ -154,9 +154,9 @@ const BookingDetails = () => {
                         {/* Session Information */}
                         <div className="bg-base-200 rounded-md p-4 mb-6">
                             <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                               {booking.tutorImage? <img className="w-12 h-12 object-cover border-primary border-2" src={booking.tutorImage}/>:  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                                     <FaUser className="text-primary text-xl" />
-                                </div>
+                                </div>}
                                 <div>
                                     <h3 className="font-semibold text-lg">{booking.sessionDetails?.tutorName}</h3>
                                     <p className="text-base-content/70">Expert Tutor</p>

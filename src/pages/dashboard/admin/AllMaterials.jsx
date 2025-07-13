@@ -87,9 +87,9 @@ const AllMaterials = () => {
 
             {/* Search and View Toggle Section */}
             <div className="bg-base-100 rounded-md shadow-md border border-base-300 p-4">
-                <div className="flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-4 flex-1">
-                        <div className="relative flex-1 max-w-md">
+                <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 flex-1 w-full">
+                        <div className="relative flex-1 max-w-md w-full">
                             <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50" />
                             <input
                                 type="text"
@@ -99,14 +99,14 @@ const AllMaterials = () => {
                                 className={inputBase}
                             />
                         </div>
-                        <div className="flex items-center gap-2 text-sm text-base-content/70">
+                        <div className="flex items-center gap-2 text-sm text-base-content/70 w-full sm:w-auto justify-center sm:justify-start">
                             <FaSearch className="text-base-content/50" />
                             <span>{filteredMaterials.length} of {materials.length} materials</span>
                         </div>
                     </div>
 
                     {/* View Toggle Buttons */}
-                    <div className="flex items-center gap-2 bg-base-200 rounded-md p-1">
+                    <div className="flex items-center gap-2 bg-base-200 rounded-md p-1 w-full lg:w-auto justify-center lg:justify-start">
                         <button
                             onClick={() => setViewMode('table')}
                             className={`p-2 rounded-md transition-all duration-200 ${viewMode === 'table'

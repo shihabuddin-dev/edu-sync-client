@@ -99,7 +99,7 @@ const router = createBrowserRouter([
         element: <StudentRoutes><MyBookings /></StudentRoutes>
       },
       {
-        path: 'student/booking-details/:id',
+        path: 'student/my-bookings/:id',
         element: <StudentRoutes><BookingDetails /></StudentRoutes>
       },
 

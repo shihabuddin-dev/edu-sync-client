@@ -128,20 +128,51 @@ const ViewAllMaterials = () => {
       
       {/* Search Section */}
       <div className="bg-base-100 rounded-md shadow-md border border-base-300 p-4">
-        <div className="flex items-center gap-4">
-          <div className="relative flex-1 max-w-md">
-            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50" />
-            <input
-              type="text"
-              placeholder="Search materials by title or link..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className={inputBase}
-            />
+        <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 flex-1 w-full">
+            <div className="relative flex-1 max-w-md w-full">
+              <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50" />
+              <input
+                type="text"
+                placeholder="Search materials by title or link..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className={inputBase}
+              />
+            </div>
+            <div className="flex items-center gap-2 text-sm text-base-content/70 w-full sm:w-auto justify-center sm:justify-start">
+              <FaSearch className="text-base-content/50" />
+              <span>{filteredMaterials.length} of {materials.length} materials</span>
+            </div>
           </div>
-          <div className="flex items-center gap-2 text-sm text-base-content/70">
-            <FaSearch className="text-base-content/50" />
-            <span>{filteredMaterials.length} of {materials.length} materials</span>
+
+          {/* Right Side Design Element */}
+          <div className="flex items-center gap-3 w-full lg:w-auto justify-center lg:justify-start">
+            {/* Quick Stats */}
+            <div className="flex items-center gap-3 bg-base-200 rounded-md px-4 py-2">
+              <div className="flex items-center gap-2">
+                <FaFileAlt className="text-primary text-sm" />
+                <span className="text-sm font-medium text-base-content/70">Total</span>
+                <span className="text-sm font-bold text-primary">{materials.length}</span>
+              </div>
+              <div className="w-px h-4 bg-base-300"></div>
+              <div className="flex items-center gap-2">
+                <FaSearch className="text-primary text-sm" />
+                <span className="text-sm font-medium text-base-content/70">Found</span>
+                <span className="text-sm font-bold text-primary">{filteredMaterials.length}</span>
+              </div>
+            </div>
+
+            {/* Clear Search Button */}
+            {searchTerm && (
+              <button 
+                onClick={() => setSearchTerm('')}
+                className="btn btn-sm btn-outline btn-primary"
+                title="Clear search"
+              >
+                Clear
+              </button>
+            )}
           </div>
         </div>
       </div>

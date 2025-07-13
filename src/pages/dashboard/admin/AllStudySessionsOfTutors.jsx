@@ -71,13 +71,13 @@ const AllStudySessionsOfTutors = () => {
     const getStatusBadge = (status) => {
         switch (status) {
             case 'approved':
-                return <span className="badge badge-success badge-sm rounded rounded gap-1"><FaCheckCircle /> Approved</span>;
+                return <span className="badge badge-success badge-sm rounded gap-1"><FaCheckCircle /> Approved</span>;
             case 'pending':
-                return <span className="badge badge-warning badge-sm rounded rounded gap-1"><FaRegClock /> Pending</span>;
+                return <span className="badge badge-warning badge-sm rounded gap-1"><FaRegClock /> Pending</span>;
             case 'rejected':
-                return <span className="badge badge-error badge-sm rounded rounded gap-1"><FaTimesCircle /> Rejected</span>;
+                return <span className="badge badge-error badge-sm rounded gap-1"><FaTimesCircle /> Rejected</span>;
             default:
-                return <span className="badge badge-neutral badge-sm rounded rounded gap-1">Unknown</span>;
+                return <span className="badge badge-neutral badge-sm rounded gap-1">Unknown</span>;
         }
     };
 
@@ -176,11 +176,10 @@ const AllStudySessionsOfTutors = () => {
                         {FILTERS.map(f => (
                             <button
                                 key={f.value}
-                                className={`cursor-pointer px-3 py-1 rounded-md border transition text-sm ${
-                                    filter === f.value
+                                className={`cursor-pointer px-3 py-1 rounded-md border transition text-sm ${filter === f.value
                                         ? 'bg-primary text-white border-primary'
                                         : 'text-base-content border-base-300 bg-base-200 hover:bg-base-300'
-                                }`}
+                                    }`}
                                 onClick={() => setFilter(f.value)}
                             >
                                 {f.label}
@@ -194,11 +193,10 @@ const AllStudySessionsOfTutors = () => {
                         {PAID_FILTERS.map(f => (
                             <button
                                 key={f.value}
-                                className={`cursor-pointer px-3 py-1 rounded-md border transition text-sm ${
-                                    paidFilter === f.value
+                                className={`cursor-pointer px-3 py-1 rounded-md border transition text-sm ${paidFilter === f.value
                                         ? 'bg-primary text-white border-primary'
                                         : 'text-base-content border-base-300 bg-base-200 hover:bg-base-300'
-                                }`}
+                                    }`}
                                 onClick={() => setPaidFilter(f.value)}
                             >
                                 {f.label}
@@ -215,7 +213,7 @@ const AllStudySessionsOfTutors = () => {
                         <FaInfoCircle className="text-6xl text-base-content/30 mb-4" />
                         <h2 className="text-xl font-semibold mb-2">No study sessions found</h2>
                         <p className="text-base-content/70 mb-4">There are currently no study sessions matching your filters.</p>
-                        <button 
+                        <button
                             onClick={() => { setFilter('all'); setPaidFilter('all'); }}
                             className="btn btn-primary btn-sm"
                         >
@@ -291,7 +289,7 @@ const AllStudySessionsOfTutors = () => {
                                                 <div className="flex items-center gap-1 text-sm">
                                                     <FaCalendarAlt className="text-primary" />
                                                     <span>
-                                                        {session.registrationStart 
+                                                        {session.registrationStart
                                                             ? formatDate(session.registrationStart)
                                                             : 'TBD'
                                                         }
@@ -300,7 +298,7 @@ const AllStudySessionsOfTutors = () => {
                                                 <div className="flex items-center gap-1 text-xs text-base-content/70">
                                                     <span>to</span>
                                                     <span>
-                                                        {session.registrationEnd 
+                                                        {session.registrationEnd
                                                             ? formatDate(session.registrationEnd)
                                                             : 'TBD'
                                                         }
@@ -345,7 +343,7 @@ const AllStudySessionsOfTutors = () => {
                                                 )}
                                                 {session.status === 'approved' && (
                                                     <>
-                                                        <button 
+                                                        <button
                                                             onClick={() => navigate(`/dashboard/admin/sessions/${session._id}`)}
                                                             className="btn btn-sm btn-primary btn-outline"
                                                             title="Edit Session"

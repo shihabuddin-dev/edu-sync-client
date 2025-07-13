@@ -199,9 +199,11 @@ const DetailsStudySession = () => {
                         {/* Tutor Information */}
                         <div className="bg-base-200 rounded-md p-4 mb-6">
                             <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                                {session.tutorImage ? <img src={session.tutorImage} className='w-12 h-12 object-cover rounded-full border-2 border-primary' /> : <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                                     <FaUser className="text-primary text-xl" />
-                                </div>
+                                </div>}
+
+
                                 <div>
                                     <h3 className="font-semibold text-lg">{session.tutorName}</h3>
                                     <p className="text-base-content/70">Expert Tutor</p>

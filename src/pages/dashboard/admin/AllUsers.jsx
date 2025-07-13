@@ -3,7 +3,21 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import DashboardHeading from '../../../components/shared/DashboardHeading';
-import { FaUsers, FaSearch, FaEdit, FaUser, FaEnvelope, FaIdBadge, FaCheck, FaTimes, FaEye } from 'react-icons/fa';
+import { 
+    FaUsers, 
+    FaSearch, 
+    FaEdit, 
+    FaUser, 
+    FaEnvelope, 
+    FaIdBadge, 
+    FaCheck, 
+    FaTimes, 
+    FaEye,
+    FaInfoCircle,
+    FaCalendarAlt,
+    FaCog,
+    FaImage
+} from 'react-icons/fa';
 import Spinner from '../../../components/ui/Spinner';
 import { inputBase } from '../../../utils/inputBase';
 import { useNavigate } from 'react-router';
@@ -14,6 +28,7 @@ const AllUsers = () => {
     const [debouncedSearchTerm, setDebouncedSearchTerm] = useState('');
     const [editingUser, setEditingUser] = useState(null);
     const [selectedRole, setSelectedRole] = useState('');
+    const [roleFilter, setRoleFilter] = useState('all');
     const initialLoad = useRef(true);
     const navigate = useNavigate();
 
@@ -34,6 +49,26 @@ const AllUsers = () => {
             const res = await axiosSecure.get(`/users${params}`);
             return res.data;
         }
+    });
+
+    // Format date
+    const formatDate = (dateString) => {
+        return new Date(dateString).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+    };
+
+    // Filter users based on search term and role filter
+    const filteredUsers = users.filter(user => {
+        const matchesSearch = user.name?.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+                             user.displayName?.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
+                             user.email?.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
+        
+        const matchesRole = roleFilter === 'all' || user.role === roleFilter;
+        
+        return matchesSearch && matchesRole;
     });
 
     // Update user role mutation
@@ -97,148 +132,252 @@ const AllUsers = () => {
         navigate(`/dashboard/admin/users/${_id}`);
     };
 
-    const getRoleBadgeColor = (role) => {
+    const getRoleBadge = (role) => {
         switch (role) {
-            case 'admin': return 'bg-red-100 text-red-700 rounded-sm';
-            case 'tutor': return 'bg-blue-100 text-blue-700 rounded-sm';
-            case 'student': return 'bg-green-100 text-green-700 rounded-sm';
-            default: return 'bg-gray-100 text-gray-700 rounded-sm';
+            case 'admin':
+                return <span className="badge badge-error badge-sm rounded gap-1"><FaIdBadge /> Admin</span>;
+            case 'tutor':
+                return <span className="badge badge-primary badge-sm rounded gap-1"><FaIdBadge /> Tutor</span>;
+            case 'student':
+                return <span className="badge badge-success badge-sm rounded gap-1"><FaIdBadge /> Student</span>;
+            default:
+                return <span className="badge badge-neutral badge-sm rounded gap-1"><FaIdBadge /> Student</span>;
         }
     };
 
     return (
-        <div className="max-w-6xl mx-auto p-4">
+        <div className="space-y-6">
             <DashboardHeading icon={FaUsers} title='All Users' />
 
-            {/* Search Bar */}
-            <div className="mb-6">
-                <div className="relative">
-                    <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
-                    <input
-                        type="text"
-                        placeholder="Search by name or email..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                        className={inputBase}
-                    />
+            {/* Search and Filter Section */}
+            <div className="bg-base-100 rounded-md shadow-md border border-base-300 p-4">
+                <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
+                    <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 flex-1 w-full">
+                        <div className="relative flex-1 max-w-md w-full">
+                            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50" />
+                            <input
+                                type="text"
+                                placeholder="Search by name or email..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className={inputBase}
+                            />
+                        </div>
+                        
+                        {/* Role Filter */}
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full sm:w-auto">
+                            <span className="text-sm font-medium text-base-content/70 whitespace-nowrap">Filter by Role:</span>
+                            <select
+                                value={roleFilter}
+                                onChange={(e) => setRoleFilter(e.target.value)}
+                                className="border-b-2 border-base-content/30 px-3 py-2 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content w-full sm:w-auto"
+                            >
+                                <option value="all" className="text-black">All Roles</option>
+                                <option value="student" className="text-black">Student</option>
+                                <option value="tutor" className="text-black">Tutor</option>
+                                <option value="admin" className="text-black">Admin</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div className="flex items-center gap-2 text-sm text-base-content/70 w-full lg:w-auto justify-center lg:justify-start">
+                        <FaSearch className="text-base-content/50" />
+                        <span>{filteredUsers.length} of {users.length} user{users.length !== 1 ? 's' : ''}</span>
+                    </div>
                 </div>
             </div>
 
-            {/* Users Table */}
-            <div className="bg-base-100 rounded-md shadow-md overflow-hidden">
-                <div className="overflow-x-auto">
-                    <table className="min-w-full">
-                        <thead className="bg-base-300/80">
-                            <tr>
-                                <th className="px-6 py-4 text-left font-semibold text-base-content">User</th>
-                                <th className="px-6 py-4 text-left font-semibold text-base-content">Email</th>
-                                <th className="px-6 py-4 text-left font-semibold text-base-content">Role</th>
-                                <th className="px-6 py-4 text-left font-semibold text-base-content">Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-base-content/10">
-                            {users.map((user) => (
-                                <tr key={user.email} className="hover:bg-base-200/50 transition-colors">
-                                    <td className="px-6 py-4">
-                                        <div className="flex items-center gap-3">
+            {/* Table Section */}
+            {filteredUsers.length === 0 ? (
+                <div className="bg-base-100 rounded-md shadow-md border border-base-300 p-12">
+                    <div className="flex flex-col items-center justify-center text-center">
+                        <FaInfoCircle className="text-6xl text-base-content/30 mb-4" />
+                        <h2 className="text-xl font-semibold mb-2">No users found</h2>
+                        <p className="text-base-content/70 mb-4">
+                            {(debouncedSearchTerm || roleFilter !== 'all')
+                                ? "No users match your search or filter criteria."
+                                : "No users have been registered yet."
+                            }
+                        </p>
+                        {(debouncedSearchTerm || roleFilter !== 'all') && (
+                            <button 
+                                onClick={() => {
+                                    setSearchTerm('');
+                                    setRoleFilter('all');
+                                }}
+                                className="btn btn-primary btn-sm"
+                            >
+                                Clear Filters
+                            </button>
+                        )}
+                    </div>
+                </div>
+            ) : (
+                <div className="bg-base-100 rounded-md shadow-md border border-base-300 overflow-hidden">
+                    {/* Table Header */}
+                    <div className="bg-base-200 px-6 py-4 border-b border-base-300">
+                        <div className="flex items-center justify-between">
+                            <h3 className="text-lg font-semibold">All Users</h3>
+                            <div className="flex items-center gap-2 text-sm text-base-content/70">
+                                <FaUsers />
+                                <span>{filteredUsers.length} user{filteredUsers.length !== 1 ? 's' : ''}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Table */}
+                    <div className="overflow-x-auto">
+                        <table className="table table-zebra w-full">
+                            {/* Table Head */}
+                            <thead className="bg-base-200">
+                                <tr>
+                                    <th className="font-semibold">
+                                        <div className="flex items-center gap-2">
+                                            <FaImage className="text-primary" />
+                                            Photo
+                                        </div>
+                                    </th>
+                                    <th className="font-semibold">
+                                        <div className="flex items-center gap-2">
+                                            <FaUser className="text-primary" />
+                                            User
+                                        </div>
+                                    </th>
+                                    <th className="font-semibold">
+                                        <div className="flex items-center gap-2">
+                                            <FaEnvelope className="text-primary" />
+                                            Email
+                                        </div>
+                                    </th>
+                                    <th className="font-semibold">
+                                        <div className="flex items-center gap-2">
+                                            <FaIdBadge className="text-primary" />
+                                            Role
+                                        </div>
+                                    </th>
+
+                                    <th className="font-semibold text-center">
+                                        <div className="flex items-center gap-2 justify-center">
+                                            <FaCog className="text-primary" />
+                                            Actions
+                                        </div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            {/* Table Body */}
+                            <tbody>
+                                {filteredUsers.map((user) => (
+                                    <tr key={user.email} className="hover:bg-base-50">
+                                        <td>
                                             {user.photoURL ? (
                                                 <img
                                                     src={user.photoURL}
                                                     alt={user.name || user.displayName}
-                                                    className="w-10 h-10 rounded-full object-cover border-2 border-primary/20"
+                                                    className="w-12 h-12 rounded-md object-cover border border-base-300"
                                                 />
                                             ) : (
-                                                <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-                                                    <FaUser className="text-primary" />
+                                                <div className="w-12 h-12 bg-base-200 rounded-md flex items-center justify-center">
+                                                    <FaUser className="text-base-content/40" />
                                                 </div>
                                             )}
+                                        </td>
+                                        <td>
                                             <div>
-                                                <div className="font-medium text-base-content">
+                                                <div className="font-medium">
                                                     {user.name || user.displayName || 'No Name'}
                                                 </div>
-                                                <div className="text-[10px] text-base-content/60">
-                                                    Created At: {user.created_at ? new Date(user.created_at).toLocaleDateString('en-GB') : 'N/A'}
+                                                <div className="hidden md:flex items-center gap-1 text-xs text-base-content/70">
+                                                    <FaCalendarAlt className="text-primary" />
+                                                    <span>{user.created_at ? formatDate(user.created_at) : 'N/A'}</span>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <div className="flex items-center gap-2">
-                                            <FaEnvelope className="text-base-content/50" />
-                                            <span className="text-base-content">{user.email}</span>
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        {editingUser === user.email ? (
-                                            <select
-                                                value={selectedRole}
-                                                onChange={(e) => setSelectedRole(e.target.value)}
-                                                className="border-b-2 border-base-content/30 py-1 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50"
-                                            >
-                                                <option value="student" className='text-black'>Student</option>
-                                                <option value="tutor" className='text-black'>Tutor</option>
-                                                <option value="admin" className='text-black'>Admin</option>
-                                            </select>
-                                        ) : (
-                                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium capitalize ${getRoleBadgeColor(user.role)}`}>
-                                                <FaIdBadge className="mr-1" />
-                                                {user.role || 'student'}
-                                            </span>
-                                        )}
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        {editingUser === user.email ? (
-                                            <div className="flex gap-2">
-                                                <button
-                                                    onClick={() => handleUpdateRole(user.email)}
-                                                    disabled={isUpdating}
-                                                >
-                                                    <FaCheck className="text-green-500" />
-                                                </button>
-                                                <button
-                                                    onClick={handleCancelEdit}
-                                                >
-                                                    <FaTimes className="text-lg text-red-500" />
-                                                </button>
-                                                <button
-                                                    onClick={() => handleViewUser(user._id)}
-                                                    title="View user info"
-                                                >
-                                                    <FaEye className="text-blue-500" />
-                                                </button>
+                                        </td>
+                                        <td>
+                                            <div className="flex items-center gap-2">
+                                                <FaEnvelope className="text-primary text-sm" />
+                                                <div className="text-sm">
+                                                    {user.email?.length > 25 ? user.email.slice(0, 25) + '...' : user.email}
+                                                </div>
                                             </div>
-                                        ) : (
-                                            <div className="flex gap-2">
-                                                <button
-                                                    onClick={() => handleEditRole(user)}
+                                        </td>
+                                        <td>
+                                            {editingUser === user.email ? (
+                                                <select
+                                                    value={selectedRole}
+                                                    onChange={(e) => setSelectedRole(e.target.value)}
+                                                    className="border-b-2 border-base-content/30 py-1 rounded-none focus:outline-none focus:ring-0 focus:border-secondary transition duration-300 bg-transparent text-base-content placeholder:text-base-content/50"
                                                 >
-                                                    <FaEdit className="text-lg text-green-500" />
-                                                </button>
-                                                <button
-                                                    onClick={() => handleViewUser(user._id)}
-                                                    title="View user info"
-                                                >
-                                                    <FaEye className="text-lg text-blue-500" />
-                                                </button>
-                                            </div>
-                                        )}
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                                                    <option value="student" className='text-black'>Student</option>
+                                                    <option value="tutor" className='text-black'>Tutor</option>
+                                                    <option value="admin" className='text-black'>Admin</option>
+                                                </select>
+                                            ) : (
+                                                getRoleBadge(user.role)
+                                            )}
+                                        </td>
 
-                {users.length === 0 && (
-                    <div className="text-center py-8 text-base-content/60">
-                        {debouncedSearchTerm ? 'No users found matching your search.' : 'No users found.'}
+                                        <td>
+                                            <div className="flex justify-center gap-2">
+                                                {editingUser === user.email ? (
+                                                    <>
+                                                        <button
+                                                            onClick={() => handleUpdateRole(user.email)}
+                                                            disabled={isUpdating}
+                                                            className="btn btn-sm btn-success btn-outline"
+                                                            title="Save changes"
+                                                        >
+                                                            <FaCheck />
+                                                        </button>
+                                                        <button
+                                                            onClick={handleCancelEdit}
+                                                            className="btn btn-sm btn-error btn-outline"
+                                                            title="Cancel edit"
+                                                        >
+                                                            <FaTimes />
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleViewUser(user._id)}
+                                                            className="btn btn-sm btn-primary btn-outline"
+                                                            title="View user info"
+                                                        >
+                                                            <FaEye />
+                                                        </button>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <button
+                                                            onClick={() => handleEditRole(user)}
+                                                            className="btn btn-sm btn-primary btn-outline"
+                                                            title="Edit role"
+                                                        >
+                                                            <FaEdit />
+                                                        </button>
+                                                        <button
+                                                            onClick={() => handleViewUser(user._id)}
+                                                            className="btn btn-sm btn-info btn-outline"
+                                                            title="View user info"
+                                                        >
+                                                            <FaEye />
+                                                        </button>
+                                                    </>
+                                                )}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
                     </div>
-                )}
-            </div>
-            {/* Summary */}
-            <div className="mt-6 text-sm text-base-content/60">
-                Total Users: {users.length}
-            </div>
+
+                    {/* Table Footer */}
+                    <div className="bg-base-200 px-6 py-3 border-t border-base-300">
+                        <div className="flex flex-wrap items-center justify-between text-sm text-base-content/70">
+                            <span>Showing {filteredUsers.length} of {users.length} users</span>
+                            <span>Last updated: {new Date().toLocaleString()}</span>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

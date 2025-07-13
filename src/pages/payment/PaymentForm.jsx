@@ -322,10 +322,6 @@ const PaymentForm = () => {
                         <div className="mt-6 space-y-3">
                             <div className="flex items-center gap-2 text-sm text-base-content/70">
                                 <div className="w-2 h-2 bg-success rounded-full"></div>
-                                <span>SSL Encrypted Payment</span>
-                            </div>
-                            <div className="flex items-center gap-2 text-sm text-base-content/70">
-                                <div className="w-2 h-2 bg-success rounded-full"></div>
                                 <span>Stripe Secure Processing</span>
                             </div>
                             <div className="flex items-center gap-2 text-sm text-base-content/70">
