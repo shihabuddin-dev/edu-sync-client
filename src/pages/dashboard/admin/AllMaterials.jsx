@@ -1,13 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import DashboardHeading from '../../../components/shared/DashboardHeading';
-import { FaLayerGroup, FaTrash, FaLink, FaIdBadge, FaEnvelope, FaImage } from 'react-icons/fa';
+import {
+    FaLayerGroup,
+    FaSearch,
+    FaInfoCircle,
+    FaTable,
+    FaTh
+} from 'react-icons/fa';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import Spinner from '../../../components/ui/Spinner';
 import Swal from 'sweetalert2';
+import { inputBase } from '../../../utils/inputBase';
+import MaterialsTable from './viewMaterials/MaterialsTable';
+import MaterialsCard from './viewMaterials/MaterialsCard';
 
 const AllMaterials = () => {
     const axiosSecure = useAxiosSecure();
+    const [searchTerm, setSearchTerm] = useState('');
+    const [viewMode, setViewMode] = useState('table'); // 'table' or 'card'
+
     // Fetch all materials
     const { data: materials = [], isLoading, refetch } = useQuery({
         queryKey: ['allMaterials'],
@@ -16,6 +28,22 @@ const AllMaterials = () => {
             return res.data;
         }
     });
+
+    // Format date
+    const formatDate = (dateString) => {
+        return new Date(dateString).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+    };
+
+    // Filter materials based on search term
+    const filteredMaterials = materials.filter(material =>
+        material.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        material.tutorEmail.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        material.sessionId.toLowerCase().includes(searchTerm.toLowerCase())
+    );
 
     // Delete material mutation
     const { mutate: deleteMaterial, isLoading: isDeleting } = useMutation({
@@ -54,53 +82,93 @@ const AllMaterials = () => {
     if (isLoading) return <Spinner />;
 
     return (
-        <div className="max-w-5xl mx-auto p-4">
+        <div className="space-y-6">
             <DashboardHeading icon={FaLayerGroup} title='All Materials' />
-            {materials.length === 0 ? (
-                <div className="text-center py-12 text-base-content/60 text-lg">No materials found.</div>
-            ) : (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
-                    {materials.map(material => (
-                        <div
-                            key={material._id}
-                            className="duration-500 transition hover:-translate-y-2 group card bg-base-100 shadow-md border border-base-200 rounded-lg overflow-hidden flex flex-col relative"
-                        >
-                            {/* Delete icon top-right */}
-                            <button
-                                className="absolute top-2 right-2 z-10 bg-white/80 hover:bg-error/50 border border-base-200 rounded-full p-2 shadow transition-colors duration-200"
-                                onClick={() => handleDelete(material._id)}
-                                disabled={isDeleting}
-                                title="Remove Material"
-                            >
-                                <FaTrash className='text-red-500 text-lg' />
-                            </button>
-                            <div className="relative h-34 bg-base-200 flex items-center justify-center overflow-hidden">
-                                {material.imageUrl ? (
-                                    <img src={material.imageUrl} alt={material.title} className="object-cover w-full h-full rounded-md" />
-                                ) : (
-                                    <FaImage className="text-5xl text-base-content/30" />
-                                )}
-                            </div>
-                            <div className="p-4 flex-1 flex flex-col gap-2">
-                                <div className="font-bold text-lg flex items-center gap-2">
-                                    <FaLayerGroup className="text-primary" />
-                                    {material.title}
-                                </div>
-                                <div className="flex items-center gap-2 text-xs text-base-content/60">
-                                    <FaEnvelope /> <span>Tutor:</span> <span className="font-semibold">{material.tutorEmail}</span>
-                                </div>
-                                {/* Session ID with icon, no badge background */}
-                                <div className="flex items-center gap-2 mt-1 text-xs text-base-content/60">
-                                    <FaIdBadge />
-                                    <span className="font-mono">{material.sessionId}</span>
-                                </div>
-                                <div className="flex items-center gap-2 text-xs text-base-content/60">
-                                    <FaLink /> <a href={material.resourceLink} target="_blank" rel="noopener noreferrer" className="link link-primary break-all">Resource Link</a>
-                                </div>
-                            </div>
+
+            {/* Search and View Toggle Section */}
+            <div className="bg-base-100 rounded-md shadow-md border border-base-300 p-4">
+                <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-4 flex-1">
+                        <div className="relative flex-1 max-w-md">
+                            <FaSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50" />
+                            <input
+                                type="text"
+                                placeholder="Search materials by title, tutor email, or session ID..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className={inputBase}
+                            />
                         </div>
-                    ))}
+                        <div className="flex items-center gap-2 text-sm text-base-content/70">
+                            <FaSearch className="text-base-content/50" />
+                            <span>{filteredMaterials.length} of {materials.length} materials</span>
+                        </div>
+                    </div>
+
+                    {/* View Toggle Buttons */}
+                    <div className="flex items-center gap-2 bg-base-200 rounded-md p-1">
+                        <button
+                            onClick={() => setViewMode('table')}
+                            className={`p-2 rounded-md transition-all duration-200 ${viewMode === 'table'
+                                    ? 'bg-primary text-white shadow-md'
+                                    : 'text-base-content/70 hover:text-base-content hover:bg-base-300'
+                                }`}
+                            title="Table View"
+                        >
+                            <FaTable className="text-lg" />
+                        </button>
+                        <button
+                            onClick={() => setViewMode('card')}
+                            className={`p-2 rounded-md transition-all duration-200 ${viewMode === 'card'
+                                    ? 'bg-primary text-white shadow-md'
+                                    : 'text-base-content/70 hover:text-base-content hover:bg-base-300'
+                                }`}
+                            title="Card View"
+                        >
+                            <FaTh className="text-lg" />
+                        </button>
+                    </div>
                 </div>
+            </div>
+
+            {/* Content Section */}
+            {filteredMaterials.length === 0 ? (
+                <div className="bg-base-100 rounded-md shadow-md border border-base-300 p-12">
+                    <div className="flex flex-col items-center justify-center text-center">
+                        <FaInfoCircle className="text-6xl text-base-content/30 mb-4" />
+                        <h2 className="text-xl font-semibold mb-2">No materials found</h2>
+                        <p className="text-base-content/70 mb-4">
+                            {searchTerm
+                                ? "No materials match your search criteria."
+                                : "No materials have been uploaded yet."
+                            }
+                        </p>
+                        {searchTerm && (
+                            <button
+                                onClick={() => setSearchTerm('')}
+                                className="btn btn-primary btn-sm"
+                            >
+                                Clear Search
+                            </button>
+                        )}
+                    </div>
+                </div>
+            ) : viewMode === 'table' ? (
+                <MaterialsTable
+                    filteredMaterials={filteredMaterials}
+                    materials={materials}
+                    handleDelete={handleDelete}
+                    isDeleting={isDeleting}
+                    formatDate={formatDate}
+                />
+            ) : (
+                <MaterialsCard
+                    filteredMaterials={filteredMaterials}
+                    materials={materials}
+                    handleDelete={handleDelete}
+                    isDeleting={isDeleting}
+                    formatDate={formatDate}
+                />
             )}
         </div>
     );

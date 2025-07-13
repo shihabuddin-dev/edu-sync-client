@@ -380,7 +380,7 @@ const AllStudySessionsOfTutors = () => {
 
                     {/* Table Footer */}
                     <div className="bg-base-200 px-6 py-3 border-t border-base-300">
-                        <div className="flex items-center justify-between text-sm text-base-content/70">
+                        <div className="flex flex-wrap items-center justify-between text-sm text-base-content/70">
                             <span>Showing {filteredSessions.length} of {sessions.length} sessions</span>
                             <span>Last updated: {new Date().toLocaleString()}</span>
                         </div>
