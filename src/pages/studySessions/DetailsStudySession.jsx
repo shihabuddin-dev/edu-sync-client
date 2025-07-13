@@ -47,7 +47,6 @@ const DetailsStudySession = () => {
     };
 
 
-
     // Get status badge
     const getStatusBadge = () => {
         if (!session) return null;
@@ -294,10 +293,9 @@ const DetailsStudySession = () => {
                                     
                                     {isRegistrationOpen() ? (
                                         !roleLoading && user && role === 'student' ? (
-                                            <button
+                                            <Button
                                                 onClick={handleBooking}
                                                 disabled={isBooking}
-                                                className="btn btn-primary"
                                             >
                                                 {isBooking ? (
                                                     <>
@@ -307,7 +305,7 @@ const DetailsStudySession = () => {
                                                 ) : (
                                                     'Book Now'
                                                 )}
-                                            </button>
+                                            </Button>
                                         ) : (
                                             <button
                                                 disabled
