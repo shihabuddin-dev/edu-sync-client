@@ -4,7 +4,6 @@ import { useState } from "react";
 import { useNavigate, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import Spinner from "../../components/ui/Spinner";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import {

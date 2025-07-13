@@ -46,7 +46,7 @@ const MaterialsCard = ({
                         </button>
 
                         {/* Image Section */}
-                        <div className="relative h-48 bg-base-200 flex items-center justify-center overflow-hidden">
+                        <div className="relative h-38 bg-base-200 flex items-center justify-center overflow-hidden">
                             {material.imageUrl ? (
                                 <img 
                                     src={material.imageUrl} 

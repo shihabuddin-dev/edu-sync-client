@@ -33,8 +33,16 @@ const MyBookings = () => {
     const { data: bookings = [], isLoading, isError, error, refetch } = useQuery({
         queryKey: ['student-bookings', user?.email],
         queryFn: async () => {
-            const res = await axiosSecure(`/bookedSessions/student/${user.email}`);
-            return res.data;
+            try {
+                const res = await axiosSecure(`/bookedSessions/student/${user.email}`);
+                return res.data;
+            } catch (error) {
+                if (error.response && error.response.status === 403) {
+                    // Forbidden: clear bookings and show message
+                    return [];
+                }
+                throw error;
+            }
         },
         enabled: !!user?.email,
     });
@@ -208,7 +216,11 @@ const MyBookings = () => {
         <div className="text-center py-8">
             <div className="text-error">
                 <h2 className="text-2xl font-bold mb-2">Error Loading Bookings</h2>
-                <p>{error.message}</p>
+                <p>
+                    {error.response?.status === 403
+                        ? "You are not authorized to view these bookings."
+                        : error.message}
+                </p>
             </div>
         </div>
     );
@@ -315,7 +327,7 @@ const MyBookings = () => {
                                     <tr key={booking._id} className="hover:bg-base-50">
                                         <td>
                                             <div className="font-medium">
-                                                {booking.sessionDetails?.title || 'Session Title'}
+                                                {booking.sessionDetails?.title.slice(0,15) || 'Session Title'}
                                             </div>
                                             <div className="text-sm text-base-content/70">
                                                 {booking.sessionDetails?.duration || 'TBD'}
