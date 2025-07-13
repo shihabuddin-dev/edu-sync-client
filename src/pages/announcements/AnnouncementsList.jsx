@@ -87,35 +87,35 @@ const AnnouncementsList = () => {
                 {/* Impact/Stats Section */}
                 <section className="bg-base-100/60 backdrop-blur-md rounded-md shadow-md border border-base-300 p-4 sm:p-6 md:p-8 mb-8" data-aos="zoom-in">
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 md:gap-6">
-                        <div className="duration-500 transform hover:-translate-y-2 hover:shadow-primary hover:shadow-md flex flex-col items-center gap-2 p-4 rounded-lg bg-primary/5 shadow z-10">
+                        <div className="duration-500 transform hover:-translate-y-2 hover:shadow-primary hover:shadow-md flex flex-col items-center gap-2 p-4 rounded-md bg-primary/5 shadow z-10">
                             <div className="w-12 h-12 flex items-center justify-center rounded-full bg-primary/10 mb-2 text-2xl shadow-md">
                                 <FaBullhorn className="text-primary" />
                             </div>
                             <span className="text-2xl font-semibold text-primary drop-shadow">{total}</span>
                             <span className="text-base-content/80 text-xs sm:text-sm text-center">Total Announcements</span>
                         </div>
-                        <div className="duration-500 transform hover:-translate-y-2 hover:shadow-primary hover:shadow-md flex flex-col items-center gap-2 p-4 rounded-lg bg-warning/5 shadow z-10">
+                        <div className="duration-500 transform hover:-translate-y-2 hover:shadow-primary hover:shadow-md flex flex-col items-center gap-2 p-4 rounded-md bg-warning/5 shadow z-10">
                             <div className="w-12 h-12 flex items-center justify-center rounded-full bg-warning/10 mb-2 text-2xl shadow-md">
                                 <FaExclamationCircle className="text-warning" />
                             </div>
                             <span className="text-2xl font-semibold text-warning drop-shadow">{important}</span>
                             <span className="text-base-content/80 text-xs sm:text-sm text-center">Important</span>
                         </div>
-                        <div className="duration-500 transform hover:-translate-y-2 hover:shadow-primary hover:shadow-md flex flex-col items-center gap-2 p-4 rounded-lg bg-secondary/5 shadow z-10">
+                        <div className="duration-500 transform hover:-translate-y-2 hover:shadow-primary hover:shadow-md flex flex-col items-center gap-2 p-4 rounded-md bg-secondary/5 shadow z-10">
                             <div className="w-12 h-12 flex items-center justify-center rounded-full bg-secondary/10 mb-2 text-2xl shadow-md">
                                 <FaStar className="text-secondary" />
                             </div>
                             <span className="text-2xl font-semibold text-secondary drop-shadow">{featured}</span>
                             <span className="text-base-content/80 text-xs sm:text-sm text-center">Featured</span>
                         </div>
-                        <div className="duration-500 transform hover:-translate-y-2 hover:shadow-primary hover:shadow-md flex flex-col items-center gap-2 p-4 rounded-lg bg-info/5 shadow z-10">
+                        <div className="duration-500 transform hover:-translate-y-2 hover:shadow-primary hover:shadow-md flex flex-col items-center gap-2 p-4 rounded-md bg-info/5 shadow z-10">
                             <div className="w-12 h-12 flex items-center justify-center rounded-full bg-info/10 mb-2 text-2xl shadow-md">
                                 <FaUsers className="text-info" />
                             </div>
                             <span className="text-2xl font-semibold text-info drop-shadow">{studentCount}</span>
                             <span className="text-base-content/80 text-xs sm:text-sm text-center">Student Announcements</span>
                         </div>
-                        <div className="duration-500 transform hover:-translate-y-2 hover:shadow-primary hover:shadow-md flex flex-col items-center gap-2 p-4 rounded-lg bg-accent/5 shadow z-10">
+                        <div className="duration-500 transform hover:-translate-y-2 hover:shadow-primary hover:shadow-md flex flex-col items-center gap-2 p-4 rounded-md bg-accent/5 shadow z-10">
                             <div className="w-12 h-12 flex items-center justify-center rounded-full bg-accent/10 mb-2 text-2xl shadow-md">
                                 <FaUsers className="text-accent" />
                             </div>

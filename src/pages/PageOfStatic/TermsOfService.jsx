@@ -28,7 +28,7 @@ const TermsOfService = () => {
         <div className="space-y-8">
 
           {/* Acceptance of Terms */}
-          <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-up">
+          <section className="bg-base-100 rounded-md shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-up">
             <div className="flex items-center gap-3 mb-6">
               <FaRegCheckCircle className="w-6 h-6 text-primary" />
               <h2 className="text-2xl font-semibold text-base-content">
@@ -41,7 +41,7 @@ const TermsOfService = () => {
           </section>
 
           {/* User Responsibilities */}
-          <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-left">
+          <section className="bg-base-100 rounded-md shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-left">
             <div className="flex items-center gap-3 mb-6">
               <FaUserShield className="w-6 h-6 text-primary" />
               <h2 className="text-2xl font-semibold text-base-content">
@@ -69,7 +69,7 @@ const TermsOfService = () => {
           </section>
 
           {/* Prohibited Activities */}
-          <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="flip-right">
+          <section className="bg-base-100 rounded-md shadow-md p-6 md:p-8 border border-base-300" data-aos="flip-right">
             <div className="flex items-center gap-3 mb-6">
               <FaExclamationTriangle className="w-6 h-6 text-error" />
               <h2 className="text-2xl font-semibold text-base-content">
@@ -97,7 +97,7 @@ const TermsOfService = () => {
           </section>
 
           {/* Termination */}
-          <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-up">
+          <section className="bg-base-100 rounded-md shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-up">
             <div className="flex items-center gap-3 mb-6">
               <FaHandshake className="w-6 h-6 text-primary" />
               <h2 className="text-2xl font-semibold text-base-content">
@@ -110,7 +110,7 @@ const TermsOfService = () => {
           </section>
 
           {/* Changes to Terms */}
-          <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-up">
+          <section className="bg-base-100 rounded-md shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-up">
             <div className="flex items-center gap-3 mb-6">
               <FaArrowRight className="w-6 h-6 text-primary" />
               <h2 className="text-2xl font-semibold text-base-content">
@@ -123,7 +123,7 @@ const TermsOfService = () => {
           </section>
 
           {/* Contact Section */}
-          <section className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg p-6 md:p-8 border border-primary/20 text-center" data-aos="zoom-in">
+          <section className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-md p-6 md:p-8 border border-primary/20 text-center" data-aos="zoom-in">
             <h2 className="text-2xl font-semibold text-base-content mb-4">
               Questions About These Terms?
             </h2>

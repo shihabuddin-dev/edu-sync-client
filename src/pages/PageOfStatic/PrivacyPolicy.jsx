@@ -43,9 +43,9 @@ const PrivacyPolicy = () => {
                 <div className="space-y-10">
 
                     {/* Information We Collect */}
-                    <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-up">
+                    <section className="bg-base-100 rounded-md shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-up">
                         <div className="flex items-center gap-3 mb-6">
-                            <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                            <div className="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
                                 <FaDatabase className="w-6 h-6 text-primary" />
                             </div>
                             <h2 className="text-2xl md:text-3xl font-semibold text-base-content">
@@ -87,9 +87,9 @@ const PrivacyPolicy = () => {
                     </section>
 
                     {/* How We Use Your Information */}
-                    <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-left" >
+                    <section className="bg-base-100 rounded-md shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-left" >
                         <div className="flex items-center gap-3 mb-6">
-                            <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                            <div className="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
                                 <FaUserSecret className="w-6 h-6 text-primary" />
                             </div>
                             <h2 className="text-2xl md:text-3xl font-semibold text-base-content">
@@ -141,9 +141,9 @@ const PrivacyPolicy = () => {
                     </section>
 
                     {/* Data Protection */}
-                    <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="flip-right">
+                    <section className="bg-base-100 rounded-md shadow-md p-6 md:p-8 border border-base-300" data-aos="flip-right">
                         <div className="flex items-center gap-3 mb-6">
-                            <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                            <div className="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
                                 <FaLock className="w-6 h-6 text-primary" />
                             </div>
                             <h2 className="text-2xl md:text-3xl font-semibold text-base-content">
@@ -152,7 +152,7 @@ const PrivacyPolicy = () => {
                         </div>
                         <div className="grid md:grid-cols-2 gap-8">
                             <div className="space-y-4">
-                                <div className="flex items-center gap-3 p-4 bg-success/10 rounded-lg border border-success/20">
+                                <div className="flex items-center gap-3 p-4 bg-success/10 rounded-md border border-success/20">
                                     <FaEye className="w-5 h-5 text-success" />
                                     <div>
                                         <h3 className="font-semibold text-base-content">Encryption</h3>
@@ -161,7 +161,7 @@ const PrivacyPolicy = () => {
                                         </p>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-3 p-4 bg-warning/10 rounded-lg border border-warning/20">
+                                <div className="flex items-center gap-3 p-4 bg-warning/10 rounded-md border border-warning/20">
                                     <FaEyeSlash className="w-5 h-5 text-warning" />
                                     <div>
                                         <h3 className="font-semibold text-base-content">Access Control</h3>
@@ -172,7 +172,7 @@ const PrivacyPolicy = () => {
                                 </div>
                             </div>
                             <div className="space-y-4">
-                                <div className="flex items-center gap-3 p-4 bg-info/10 rounded-lg border border-info/20">
+                                <div className="flex items-center gap-3 p-4 bg-info/10 rounded-md border border-info/20">
                                     <FaShieldAlt className="w-5 h-5 text-info" />
                                     <div>
                                         <h3 className="font-semibold text-base-content">Regular Audits</h3>
@@ -181,7 +181,7 @@ const PrivacyPolicy = () => {
                                         </p>
                                     </div>
                                 </div>
-                                <div className="flex items-center gap-3 p-4 bg-error/10 rounded-lg border border-error/20">
+                                <div className="flex items-center gap-3 p-4 bg-error/10 rounded-md border border-error/20">
                                     <FaExclamationTriangle className="w-5 h-5 text-error" />
         <div>
                                         <h3 className="font-semibold text-base-content">Incident Response</h3>
@@ -195,9 +195,9 @@ const PrivacyPolicy = () => {
                     </section>
 
                     {/* Cookies Policy */}
-                    <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-up">
+                    <section className="bg-base-100 rounded-md shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-up">
                         <div className="flex items-center gap-3 mb-6">
-                            <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                            <div className="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
                                 <FaCookieBite className="w-6 h-6 text-primary" />
                             </div>
                             <h2 className="text-2xl md:text-3xl font-semibold text-base-content">
@@ -231,9 +231,9 @@ const PrivacyPolicy = () => {
                     </section>
 
                     {/* Your Rights */}
-                    <section className="bg-base-100 rounded-lg shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-up">
+                    <section className="bg-base-100 rounded-md shadow-md p-6 md:p-8 border border-base-300" data-aos="fade-up">
                         <div className="flex items-center gap-3 mb-6">
-                            <div className="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center">
+                            <div className="w-12 h-12 bg-primary/10 rounded-md flex items-center justify-center">
                                 <FaHandshake className="w-6 h-6 text-primary" />
                             </div>
                             <h2 className="text-2xl md:text-3xl font-semibold text-base-content">
@@ -242,13 +242,13 @@ const PrivacyPolicy = () => {
                         </div>
                         <div className="grid md:grid-cols-2 gap-6">
                             <div className="space-y-4">
-                                <div className="p-4 bg-base-200 rounded-lg">
+                                <div className="p-4 bg-base-200 rounded-md">
                                     <h3 className="font-semibold text-base-content mb-2">Access & Control</h3>
                                     <p className="text-sm text-base-content/70">
                                         You have the right to access, update, or delete your personal information at any time.
                                     </p>
                                 </div>
-                                <div className="p-4 bg-base-200 rounded-lg">
+                                <div className="p-4 bg-base-200 rounded-md">
                                     <h3 className="font-semibold text-base-content mb-2">Data Portability</h3>
                                     <p className="text-sm text-base-content/70">
                                         Request a copy of your data in a portable format for transfer to other services.
@@ -256,13 +256,13 @@ const PrivacyPolicy = () => {
                                 </div>
                             </div>
                             <div className="space-y-4">
-                                <div className="p-4 bg-base-200 rounded-lg">
+                                <div className="p-4 bg-base-200 rounded-md">
                                     <h3 className="font-semibold text-base-content mb-2">Opt-Out Options</h3>
                                     <p className="text-sm text-base-content/70">
                                         Choose to opt out of certain data collection and marketing communications.
                                     </p>
                                 </div>
-                                <div className="p-4 bg-base-200 rounded-lg">
+                                <div className="p-4 bg-base-200 rounded-md">
                                     <h3 className="font-semibold text-base-content mb-2">Complaints</h3>
                                     <p className="text-sm text-base-content/70">
                                         Contact us with any privacy concerns or file a complaint with relevant authorities.
@@ -273,7 +273,7 @@ const PrivacyPolicy = () => {
                     </section>
 
                     {/* Contact Information */}
-                    <section className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg p-6 md:p-8 border border-primary/20" data-aos="zoom-in">
+                    <section className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-md p-6 md:p-8 border border-primary/20" data-aos="zoom-in">
                         <div className="text-center">
                             <h2 className="text-2xl md:text-3xl font-semibold text-base-content mb-4">
                                 Questions About Privacy?

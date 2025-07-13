@@ -132,7 +132,7 @@ const DashboardLayout = () => {
     <div className="flex min-h-screen bg-base-200 max-w-7xl mx-auto relative">
       {/* Sidebar */}
       <aside
-        className={`fixed z-30 inset-y-0 left-0 w-64 bg-base-100 shadow-lg transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        className={`fixed z-30 inset-y-0 left-0 w-64 bg-base-100 shadow-md transform ${sidebarOpen ? "translate-x-0" : "-translate-x-full"
           } transition-transform duration-200 ease-in-out md:translate-x-0 md:relative md:w-64`}
       >
         <div className="flex items-center justify-between px-6 py-4">

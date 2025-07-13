@@ -133,7 +133,7 @@ const BookingDetails = () => {
 
             <div className="max-w-4xl mx-auto px-4 py-8">
                 {/* Main Booking Card */}
-                <div className="bg-base-100 rounded-lg shadow-lg border border-base-300 overflow-hidden mb-8">
+                <div className="bg-base-100 rounded-md shadow-md border border-base-300 overflow-hidden mb-8">
                     <div className="p-6">
                         {/* Header with Title and Status */}
                         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
@@ -152,7 +152,7 @@ const BookingDetails = () => {
                         </div>
 
                         {/* Session Information */}
-                        <div className="bg-base-200 rounded-lg p-4 mb-6">
+                        <div className="bg-base-200 rounded-md p-4 mb-6">
                             <div className="flex items-center gap-3">
                                 <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                                     <FaUser className="text-primary text-xl" />
@@ -167,7 +167,7 @@ const BookingDetails = () => {
                         {/* Session Details Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                             {/* Class Schedule */}
-                            <div className="bg-base-200 rounded-lg p-4">
+                            <div className="bg-base-200 rounded-md p-4">
                                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                                     <FaCalendarAlt className="text-primary" />
                                     Class Schedule
@@ -195,7 +195,7 @@ const BookingDetails = () => {
                             </div>
 
                             {/* Duration */}
-                            <div className="bg-base-200 rounded-lg p-4">
+                            <div className="bg-base-200 rounded-md p-4">
                                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                                     <FaRegClock className="text-primary" />
                                     Duration
@@ -204,7 +204,7 @@ const BookingDetails = () => {
                             </div>
 
                             {/* Payment Amount */}
-                            <div className="bg-base-200 rounded-lg p-4">
+                            <div className="bg-base-200 rounded-md p-4">
                                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                                     <FaMoneyBill className="text-primary" />
                                     Payment Amount
@@ -213,7 +213,7 @@ const BookingDetails = () => {
                             </div>
 
                             {/* Booking Date */}
-                            <div className="bg-base-200 rounded-lg p-4">
+                            <div className="bg-base-200 rounded-md p-4">
                                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                                     <FaCalendarCheck className="text-primary" />
                                     Booked On
@@ -230,7 +230,7 @@ const BookingDetails = () => {
                             </h3>
                             
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                                <div className="bg-base-200 rounded-lg p-4">
+                                <div className="bg-base-200 rounded-md p-4">
                                     <h4 className="font-semibold mb-3 flex items-center gap-2">
                                         <FaReceipt className="text-primary" />
                                         Payment Details
@@ -251,7 +251,7 @@ const BookingDetails = () => {
                                     </div>
                                 </div>
 
-                                <div className="bg-base-200 rounded-lg p-4">
+                                <div className="bg-base-200 rounded-md p-4">
                                     <h4 className="font-semibold mb-3 flex items-center gap-2">
                                         <FaIdCard className="text-primary" />
                                         Transaction Details
@@ -273,7 +273,7 @@ const BookingDetails = () => {
                         </div>
 
                         {/* Security Notice */}
-                        <div className="mt-6 bg-success/10 border border-success/20 rounded-lg p-4">
+                        <div className="mt-6 bg-success/10 border border-success/20 rounded-md p-4">
                             <div className="flex items-center gap-2 mb-2">
                                 <FaShieldAlt className="text-success" />
                                 <span className="font-medium text-success">Booking Confirmed</span>

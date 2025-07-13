@@ -125,7 +125,7 @@ const AllUsers = () => {
             </div>
 
             {/* Users Table */}
-            <div className="bg-base-100 rounded-lg shadow-md overflow-hidden">
+            <div className="bg-base-100 rounded-md shadow-md overflow-hidden">
                 <div className="overflow-x-auto">
                     <table className="min-w-full">
                         <thead className="bg-base-300/80">

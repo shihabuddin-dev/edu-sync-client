@@ -71,13 +71,13 @@ const AllStudySessionsOfTutors = () => {
     const getStatusBadge = (status) => {
         switch (status) {
             case 'approved':
-                return <span className="badge badge-success badge-sm rounded gap-1"><FaCheckCircle /> Approved</span>;
+                return <span className="badge badge-success badge-sm rounded rounded gap-1"><FaCheckCircle /> Approved</span>;
             case 'pending':
-                return <span className="badge badge-warning badge-sm rounded gap-1"><FaRegClock /> Pending</span>;
+                return <span className="badge badge-warning badge-sm rounded rounded gap-1"><FaRegClock /> Pending</span>;
             case 'rejected':
-                return <span className="badge badge-error badge-sm rounded gap-1"><FaTimesCircle /> Rejected</span>;
+                return <span className="badge badge-error badge-sm rounded rounded gap-1"><FaTimesCircle /> Rejected</span>;
             default:
-                return <span className="badge badge-neutral badge-sm rounded gap-1">Unknown</span>;
+                return <span className="badge badge-neutral badge-sm rounded rounded gap-1">Unknown</span>;
         }
     };
 
@@ -168,7 +168,7 @@ const AllStudySessionsOfTutors = () => {
             <DashboardHeading icon={FaBook} title='All Study Sessions' />
 
             {/* Filter Section */}
-            <div className="bg-base-100 rounded-lg shadow-lg border border-base-300 p-4">
+            <div className="bg-base-100 rounded-md shadow-md border border-base-300 p-4">
                 <div className="flex flex-col lg:flex-row gap-4 items-center justify-between">
                     {/* Status Filter Buttons */}
                     <div className="flex items-center flex-wrap gap-2">
@@ -210,7 +210,7 @@ const AllStudySessionsOfTutors = () => {
 
             {/* Table Section */}
             {filteredSessions.length === 0 ? (
-                <div className="bg-base-100 rounded-lg shadow-lg border border-base-300 p-12">
+                <div className="bg-base-100 rounded-md shadow-md border border-base-300 p-12">
                     <div className="flex flex-col items-center justify-center text-center">
                         <FaInfoCircle className="text-6xl text-base-content/30 mb-4" />
                         <h2 className="text-xl font-semibold mb-2">No study sessions found</h2>
@@ -224,7 +224,7 @@ const AllStudySessionsOfTutors = () => {
                     </div>
                 </div>
             ) : (
-                <div className="bg-base-100 rounded-lg shadow-lg border border-base-300 overflow-hidden">
+                <div className="bg-base-100 rounded-md shadow-md border border-base-300 overflow-hidden">
                     {/* Table Header */}
                     <div className="bg-base-200 px-6 py-4 border-b border-base-300">
                         <div className="flex items-center justify-between">
@@ -261,10 +261,10 @@ const AllStudySessionsOfTutors = () => {
                                                     <img
                                                         src={session.sessionImage}
                                                         alt={session.title}
-                                                        className="w-12 h-12 object-cover rounded-lg border border-base-300"
+                                                        className="w-12 h-12 object-cover rounded-md border border-base-300"
                                                     />
                                                 ) : (
-                                                    <div className="w-12 h-12 bg-base-200 rounded-lg flex items-center justify-center">
+                                                    <div className="w-12 h-12 bg-base-200 rounded-md flex items-center justify-center">
                                                         <FaBook className="text-base-content/40" />
                                                     </div>
                                                 )}

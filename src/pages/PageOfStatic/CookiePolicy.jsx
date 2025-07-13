@@ -75,7 +75,7 @@ const CookiePolicy = () => {
 
             {/* Call to Action */}
             <div className="max-w-3xl mx-auto px-4 pb-12" data-aos="zoom-in-up">
-                <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-lg shadow-md p-6 md:p-8 border border-base-300 text-center">
+                <div className="bg-gradient-to-r from-primary/10 to-secondary/10 rounded-md shadow-md p-6 md:p-8 border border-base-300 text-center">
                     <h2 className="text-2xl font-semibold text-base-content mb-4">
                         Have Questions About Cookies?
                     </h2>

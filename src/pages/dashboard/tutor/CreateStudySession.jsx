@@ -296,7 +296,7 @@ const CreateStudySession = () => {
                     </div>
                     {imageError && <span className="text-error text-xs">{imageError}</span>}
                     {imagePreview && (
-                        <div className="mt-4 p-4 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-lg border border-primary/20 relative">
+                        <div className="mt-4 p-4 bg-gradient-to-r from-primary/5 to-secondary/5 rounded-md border border-primary/20 relative">
                             <button
                                 type="button"
                                 onClick={handleRemoveImage}
@@ -310,7 +310,7 @@ const CreateStudySession = () => {
                                     <img
                                         src={imagePreview}
                                         alt="Session Preview"
-                                        className="w-20 h-20 object-cover rounded-lg border-2 border-primary/30 shadow-md"
+                                        className="w-20 h-20 object-cover rounded-md border-2 border-primary/30 shadow-md"
                                     />
                                 </div>
                                 <div className="flex-1">

@@ -59,13 +59,13 @@ const MyBookings = () => {
     const getPaymentStatusBadge = (status) => {
         switch (status) {
             case 'completed':
-                return <span className="badge badge-success badge-sm gap-1"><FaCheckCircle /> Paid</span>;
+                return <span className="badge badge-success badge-sm rounded gap-1"><FaCheckCircle /> Paid</span>;
             case 'pending':
-                return <span className="badge badge-warning badge-sm gap-1"><FaRegClock /> Pending</span>;
+                return <span className="badge badge-warning badge-sm rounded gap-1"><FaRegClock /> Pending</span>;
             case 'failed':
-                return <span className="badge badge-error badge-sm gap-1"><FaTimesCircle /> Failed</span>;
+                return <span className="badge badge-error badge-sm rounded gap-1"><FaTimesCircle /> Failed</span>;
             default:
-                return <span className="badge badge-neutral badge-sm gap-1">Unknown</span>;
+                return <span className="badge badge-neutral badge-sm rounded gap-1">Unknown</span>;
         }
     };
 
