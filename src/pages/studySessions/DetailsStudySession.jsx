@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useParams, useNavigate } from 'react-router';
 import { useQuery } from '@tanstack/react-query';
 import useAxios from '../../hooks/useAxios';
@@ -26,7 +26,6 @@ const DetailsStudySession = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const axiosInstance = useAxios();
-    const [isBooking, setIsBooking] = useState(false);
 
     const { data: session, isLoading, isError, error } = useQuery({
         queryKey: ['session-details', id],
@@ -94,16 +93,8 @@ const DetailsStudySession = () => {
             return;
         }
 
-        setIsBooking(true);
-        try {
-            // Add booking logic here
-            console.log('Booking session:', session._id);
-            // You can implement the actual booking API call here
-        } catch (error) {
-            console.error('Booking error:', error);
-        } finally {
-            setIsBooking(false);
-        }
+        // Navigate to payment page
+        navigate(`/payment/${session._id}`);
     };
 
     if (isLoading) return (
@@ -295,16 +286,8 @@ const DetailsStudySession = () => {
                                         !roleLoading && user && role === 'student' ? (
                                             <Button
                                                 onClick={handleBooking}
-                                                disabled={isBooking}
                                             >
-                                                {isBooking ? (
-                                                    <>
-                                                        <div className="loading loading-spinner loading-sm"></div>
-                                                        Booking...
-                                                    </>
-                                                ) : (
-                                                    'Book Now'
-                                                )}
+                                                Book Now
                                             </Button>
                                         ) : (
                                             <button

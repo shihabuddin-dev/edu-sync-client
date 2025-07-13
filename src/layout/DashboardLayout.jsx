@@ -57,7 +57,7 @@ const tutorLinks = [
 
 const studentLinks = [
   {
-    to: "/dashboard/student/booked-sessions",
+    to: "/dashboard/student/my-bookings",
     label: "Booked Sessions",
     icon: <FaGraduationCap />,
   },

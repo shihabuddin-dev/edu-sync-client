@@ -17,6 +17,7 @@ import Support from "../pages/PageOfStatic/Support";
 import DashboardLayout from "../layout/DashboardLayout";
 import CreateNote from "../pages/dashboard/student/CreateNote";
 import ManageNotes from "../pages/dashboard/student/ManageNotes";
+import MyBookings from "../pages/dashboard/student/MyBookings";
 import NotFound from "../pages/notFound/NotFound";
 import CreateStudySession from "../pages/dashboard/tutor/CreateStudySession";
 import MyAllStudySessions from "../pages/dashboard/tutor/MyAllStudySessions";
@@ -33,6 +34,8 @@ import UserInfo from '../pages/dashboard/admin/UserInfo';
 import AnnouncementsList from "../pages/announcements/AnnouncementsList";
 import StudySessions from "../pages/studySessions/StudySessions";
 import DetailsStudySession from "../pages/studySessions/DetailsStudySession";
+import Payment from "../pages/payment/Payment";
+import BookingDetails from "../pages/dashboard/student/BookingDetails";
 
 const router = createBrowserRouter([
   {
@@ -67,6 +70,14 @@ const router = createBrowserRouter([
           </PrivateRoutes>
         ),
       },
+      {
+        path: "payment/:id",
+        element: (
+          <PrivateRoutes>
+            <Payment />
+          </PrivateRoutes>
+        ),
+      },
     ],
   },
   {
@@ -82,6 +93,14 @@ const router = createBrowserRouter([
       {
         path: 'student/manage-notes',
         element: <StudentRoutes><ManageNotes /></StudentRoutes>
+      },
+      {
+        path: 'student/my-bookings',
+        element: <StudentRoutes><MyBookings /></StudentRoutes>
+      },
+      {
+        path: 'student/booking-details/:id',
+        element: <StudentRoutes><BookingDetails /></StudentRoutes>
       },
 
       // tutor routes
