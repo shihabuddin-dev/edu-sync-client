@@ -110,7 +110,7 @@ const MyBookings = () => {
                     </div>
                 </div>
             ) : (
-                <div className="bg-base-100 rounded-lg shadow-lg border border-base-300 overflow-hidden">
+                <div className="bg-base-100 rounded-md shadow-md border border-base-300 overflow-hidden">
                     {/* Table Header */}
                     <div className="bg-base-200 px-6 py-4 border-b border-base-300">
                         <div className="flex items-center justify-between">

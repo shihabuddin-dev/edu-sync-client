@@ -2,18 +2,23 @@ import React, { useState } from 'react';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import useAuth from '../../../hooks/useAuth';
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { FaBook, FaRedo, FaEdit, FaTrash } from 'react-icons/fa';
+import { 
+    FaBook, 
+    FaRedo, 
+    FaEdit, 
+    FaTrash, 
+    FaSearch, 
+    FaCalendarAlt, 
+    FaMoneyBill, 
+    FaCheckCircle, 
+    FaRegClock, 
+    FaTimesCircle,
+    FaInfoCircle
+} from 'react-icons/fa';
 import Spinner from '../../../components/ui/Spinner';
 import DashboardHeading from '../../../components/shared/DashboardHeading';
 import { useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
-
-const statusColors = {
-    approved: 'bg-green-100 text-green-700',
-    pending: 'bg-yellow-100 text-yellow-700',
-    rejected: 'bg-red-100 text-red-700',
-    default: 'bg-gray-100 text-gray-700',
-};
 
 const FILTERS = [
     { label: 'All', value: 'all' },
@@ -36,6 +41,37 @@ const MyAllStudySessions = () => {
             return res.data;
         }
     });
+
+    // Format date
+    const formatDate = (dateString) => {
+        return new Date(dateString).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+    };
+
+    // Format currency
+    const formatCurrency = (amount) => {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'BDT'
+        }).format(amount);
+    };
+
+    // Get status badge
+    const getStatusBadge = (status) => {
+        switch (status) {
+            case 'approved':
+                return <span className="badge badge-success badge-sm gap-1"><FaCheckCircle /> Approved</span>;
+            case 'pending':
+                return <span className="badge badge-warning badge-sm gap-1"><FaRegClock /> Pending</span>;
+            case 'rejected':
+                return <span className="badge badge-error badge-sm gap-1"><FaTimesCircle /> Rejected</span>;
+            default:
+                return <span className="badge badge-neutral badge-sm gap-1">Unknown</span>;
+        }
+    };
 
     // Mutation for resubmitting a rejected session
     const { mutate: requestApproval, isLoading: isResubmitting } = useMutation({
@@ -65,7 +101,7 @@ const MyAllStudySessions = () => {
     // Mutation for deleting a session
     const { mutate: deleteSession, isLoading: isDeleting } = useMutation({
         mutationFn: async (sessionId) => {
-            await axiosSecure.delete(`/sessions/${sessionId}`);
+            await axiosSecure.delete(`/sessions/${sessionId}/own`);
         },
         onSuccess: () => {
             Swal.fire({
@@ -76,6 +112,14 @@ const MyAllStudySessions = () => {
                 timer: 1500
             });
             refetch();
+        },
+        onError: (error) => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Failed to Delete',
+                text: error.response?.data?.message || 'Something went wrong. Please try again.',
+                showConfirmButton: true
+            });
         }
     });
 
@@ -99,90 +143,192 @@ const MyAllStudySessions = () => {
                 deleteSession(id);
             }
         });
-
     };
 
     return (
-        <div className="max-w-4xl mx-auto p-4">
+        <div className="space-y-6">
             <DashboardHeading icon={FaBook} title='My Study Sessions' />
-            {/* Filter Buttons */}
-            <div className="flex flex-wrap gap-2 mb-4 justify-center">
-                {FILTERS.map(f => (
-                    <button
-                        key={f.value}
-                        className={`cursor-pointer px-3 py-1 rounded-md border transition ${filter === f.value
-                            ? 'bg-primary text-white border-primary'
-                            : ' text-base-content border-base-300 bg-primary/6'
-                            }`}
-                        onClick={() => setFilter(f.value)}
-                    >
-                        {f.label}
-                    </button>
-                ))}
-            </div>
-            <div className="overflow-x-auto">
-                <table className="min-w-full bg-base-100 shadow rounded-lg">
-                    <thead>
-                        <tr className="bg-base-300/80 rounded-md">
-                            <th className="py-3 px-4 text-left font-semibold">Image</th>
-                            <th className="py-3 px-4 text-left font-semibold">Title</th>
-                            <th className="py-3 px-4 text-left font-semibold">Status</th>
-                            <th className="py-3 px-4 text-left font-semibold">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {filteredSessions.map(session => (
-                            <tr key={session._id} className="border-b border-base-content/10 hover:bg-base-200/50 transition">
-                                <td className="py-2 px-4">
-                                    {session.sessionImage ? (
-                                        <img
-                                            src={session.sessionImage}
-                                            alt="Session"
-                                            className="w-14 h-14 object-cover rounded-md border border-base-content/10 shadow-sm"
-                                        />
-                                    ) : (
-                                        <span className="w-14 h-14 bg-base-200 rounded-md flex items-center justify-center text-base-content/40">—</span>
-                                    )}
-                                </td>
-                                <td className="py-2 px-4 font-medium text-base-content">{session.title.slice(0,15)}</td>
-                                <td className="py-2 px-4 space-x-1 space-y-1">
-                                    <span className={`inline-block px-3 py-1 rounded-md text-xs font-semibold capitalize ${statusColors[session.status] || statusColors.default}`}>
-                                        {session.status}
-                                    </span>
-                                    <span>  {session.status === 'rejected' && (
-                                        <button
-                                            className="btn btn-xs btn-warning"
-                                            onClick={() => requestApproval(session._id)}
-                                            disabled={isResubmitting}
-                                        >
-                                            <FaRedo /><span className='hidden md:inline'> Again</span>
-                                        </button>
-                                    )}</span>
-                                </td>
-                                <td className="py-2 px-4 flex gap-2 items-center mt-4">
 
-                                    <button
-                                        onClick={() => navigate(`/dashboard/tutor/update-session/${session._id}`)}
-                                    >
-                                        <FaEdit className='text-green-500 text-xl' />
-                                    </button>
-                                    <button
-                                        onClick={() => handleDelete(session._id)}
-                                        disabled={isDeleting}
-                                    >
-                                        <FaTrash className='cursor-pinter text-red-500' />
-                                    </button>
-                                </td>
-                            </tr>
-                        ))}
-                        {filteredSessions.length === 0 && (
-                            <tr>
-                                <td colSpan={4} className="text-center py-4 text-base-content/60">No sessions found.</td>
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
+            {/* Filter Section */}
+            <div className="bg-base-100 rounded-lg shadow-lg border border-base-300 p-4">
+                <div className="flex items-center flex-wrap gap-2 justify-center">
+                    <span className="text-sm font-medium text-base-content/70 mr-2">Filter by Status:</span>
+                    {FILTERS.map(f => (
+                        <button
+                            key={f.value}
+                            className={`cursor-pointer px-3 py-1 rounded-md border transition text-sm ${
+                                filter === f.value
+                                    ? 'bg-primary text-white border-primary'
+                                    : 'text-base-content border-base-300 bg-base-200 hover:bg-base-300'
+                            }`}
+                            onClick={() => setFilter(f.value)}
+                        >
+                            {f.label}
+                        </button>
+                    ))}
+                </div>
             </div>
+
+            {/* Table Section */}
+            {filteredSessions.length === 0 ? (
+                <div className="bg-base-100 rounded-lg shadow-lg border border-base-300 p-12">
+                    <div className="flex flex-col items-center justify-center text-center">
+                        <FaInfoCircle className="text-6xl text-base-content/30 mb-4" />
+                        <h2 className="text-xl font-semibold mb-2">No sessions found</h2>
+                        <p className="text-base-content/70 mb-4">
+                            {filter === 'all' 
+                                ? "You haven't created any study sessions yet."
+                                : `No ${filter} sessions found.`
+                            }
+                        </p>
+                        {filter !== 'all' && (
+                            <button 
+                                onClick={() => setFilter('all')}
+                                className="btn btn-primary btn-sm"
+                            >
+                                View All Sessions
+                            </button>
+                        )}
+                    </div>
+                </div>
+            ) : (
+                <div className="bg-base-100 rounded-lg shadow-lg border border-base-300 overflow-hidden">
+                    {/* Table Header */}
+                    <div className="bg-base-200 px-6 py-4 border-b border-base-300">
+                        <div className="flex items-center justify-between">
+                            <h3 className="text-lg font-semibold">My Study Sessions</h3>
+                            <div className="flex items-center gap-2 text-sm text-base-content/70">
+                                <FaSearch />
+                                <span>{filteredSessions.length} session{filteredSessions.length !== 1 ? 's' : ''}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Table */}
+                    <div className="overflow-x-auto">
+                        <table className="table table-zebra w-full">
+                            {/* Table Head */}
+                            <thead className="bg-base-200">
+                                <tr>
+                                    <th className="font-semibold">Session</th>
+                                    <th className="font-semibold">Registration Period</th>
+                                    <th className="font-semibold">Fee</th>
+                                    <th className="font-semibold">Status</th>
+                                    {/* <th className="font-semibold">Created</th> */}
+                                    <th className="font-semibold text-center">Actions</th>
+                                </tr>
+                            </thead>
+                            {/* Table Body */}
+                            <tbody>
+                                {filteredSessions.map(session => (
+                                    <tr key={session._id} className="hover:bg-base-50">
+                                        <td>
+                                            <div className="flex items-center gap-3">
+                                                {session.sessionImage ? (
+                                                    <img
+                                                        src={session.sessionImage}
+                                                        alt={session.title}
+                                                        className="w-12 h-12 object-cover rounded-lg border border-base-300"
+                                                    />
+                                                ) : (
+                                                    <div className="w-12 h-12 bg-base-200 rounded-lg flex items-center justify-center">
+                                                        <FaBook className="text-base-content/40" />
+                                                    </div>
+                                                )}
+                                                <div>
+                                                    <div className="font-medium">
+                                                        {session.title?.length > 15 ? session.title.slice(0, 15) + '...' : session.title}
+                                                    </div>
+                                                    <div className="text-sm text-base-content/70">
+                                                        {session.duration || 'Duration TBD'}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div className="space-y-1">
+                                                <div className="flex items-center gap-1 text-sm">
+                                                    <FaCalendarAlt className="text-primary" />
+                                                    <span>
+                                                        {session.registrationStart 
+                                                            ? formatDate(session.registrationStart)
+                                                            : 'TBD'
+                                                        }
+                                                    </span>
+                                                </div>
+                                                <div className="flex items-center gap-1 text-xs text-base-content/70">
+                                                    <span>to</span>
+                                                    <span>
+                                                        {session.registrationEnd 
+                                                            ? formatDate(session.registrationEnd)
+                                                            : 'TBD'
+                                                        }
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div className="flex items-center gap-1">
+                                                <FaMoneyBill className={session.paid ? "text-success" : "text-base-content/50"} />
+                                                <span className="font-medium">
+                                                    {session.paid ? formatCurrency(session.registrationFee) : 'Free'}
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div className="flex flex-col gap-2">
+                                                {getStatusBadge(session.status)}
+                                                {session.status === 'rejected' && (
+                                                    <button
+                                                        className="btn btn-xs btn-warning btn-outline gap-1"
+                                                        onClick={() => requestApproval(session._id)}
+                                                        disabled={isResubmitting}
+                                                    >
+                                                        <FaRedo />
+                                                        Resubmit
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </td>
+                                        {/* <td>
+                                            <div className="text-sm">
+                                                {session.created_at ? formatDate(session.created_at) : 'N/A'}
+                                            </div>
+                                        </td> */}
+                                        <td>
+                                            <div className="flex justify-center gap-2">
+                                                <button
+                                                    onClick={() => navigate(`/dashboard/tutor/update-session/${session._id}`)}
+                                                    className="btn btn-sm btn-primary btn-outline"
+                                                    title="Edit Session"
+                                                >
+                                                    <FaEdit />
+                                                </button>
+                                                <button
+                                                    onClick={() => handleDelete(session._id)}
+                                                    disabled={isDeleting}
+                                                    className="btn btn-sm btn-error btn-outline"
+                                                    title="Delete Session"
+                                                >
+                                                    <FaTrash />
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {/* Table Footer */}
+                    <div className="bg-base-200 px-6 py-3 border-t border-base-300">
+                        <div className="flex items-center justify-between text-sm text-base-content/70">
+                            <span>Showing {filteredSessions.length} of {sessions.length} sessions</span>
+                            <span>Last updated: {new Date().toLocaleString()}</span>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

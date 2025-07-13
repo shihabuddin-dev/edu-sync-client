@@ -36,6 +36,17 @@ const DetailsStudySession = () => {
         enabled: !!id,
     });
 
+    // Fetch user's bookings to check if already booked
+    const { data: myBookings = [], isLoading: bookingsLoading } = useQuery({
+        queryKey: ['student-bookings', user?.email],
+        queryFn: async () => {
+            if (!user?.email) return [];
+            const res = await axiosInstance(`/bookedSessions/student/${user.email}`);
+            return res.data;
+        },
+        enabled: !!user?.email,
+    });
+
     // Check if registration is open
     const isRegistrationOpen = () => {
         if (!session) return false;
@@ -45,6 +56,10 @@ const DetailsStudySession = () => {
         return now >= regStart && now <= regEnd;
     };
 
+    // Check if already booked
+    const alreadyBooked = myBookings.some(
+        (booking) => booking.sessionId === id
+    );
 
     // Get status badge
     const getStatusBadge = () => {
@@ -97,7 +112,7 @@ const DetailsStudySession = () => {
         navigate(`/payment/${session._id}`);
     };
 
-    if (isLoading) return (
+    if (isLoading || bookingsLoading) return (
         <div className="min-h-screen bg-gradient-to-br from-base-100 to-base-200 flex items-center justify-center">
             <div className="text-center">
                 <div className="loading loading-spinner loading-lg"></div>
@@ -153,7 +168,7 @@ const DetailsStudySession = () => {
 
             <div className="max-w-4xl mx-auto px-4 py-8">
                 {/* Main Session Card */}
-                <div className="bg-base-100 rounded-lg shadow-lg border border-base-300 overflow-hidden mb-8">
+                <div className="bg-base-100 rounded-md shadow-md border border-base-300 overflow-hidden mb-8">
                     {/* Session Image */}
                     {session.sessionImage && (
                         <div className="w-full h-64 bg-gradient-to-r from-primary/20 to-secondary/20 flex items-center justify-center">
@@ -182,7 +197,7 @@ const DetailsStudySession = () => {
                         </div>
 
                         {/* Tutor Information */}
-                        <div className="bg-base-200 rounded-lg p-4 mb-6">
+                        <div className="bg-base-200 rounded-md p-4 mb-6">
                             <div className="flex items-center gap-3">
                                 <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                                     <FaUser className="text-primary text-xl" />
@@ -206,7 +221,7 @@ const DetailsStudySession = () => {
                         {/* Session Details Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
                             {/* Registration Period */}
-                            <div className="bg-base-200 rounded-lg p-4">
+                            <div className="bg-base-200 rounded-md p-4">
                                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                                     <FaCalendarAlt className="text-primary" />
                                     Registration Period
@@ -224,7 +239,7 @@ const DetailsStudySession = () => {
                             </div>
 
                             {/* Class Schedule */}
-                            <div className="bg-base-200 rounded-lg p-4">
+                            <div className="bg-base-200 rounded-md p-4">
                                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                                     <FaClock className="text-primary" />
                                     Class Schedule
@@ -246,7 +261,7 @@ const DetailsStudySession = () => {
                             </div>
 
                             {/* Duration */}
-                            <div className="bg-base-200 rounded-lg p-4">
+                            <div className="bg-base-200 rounded-md p-4">
                                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                                     <FaRegClock className="text-primary" />
                                     Duration
@@ -255,13 +270,13 @@ const DetailsStudySession = () => {
                             </div>
 
                             {/* Registration Fee */}
-                            <div className="bg-base-200 rounded-lg p-4">
+                            <div className="bg-base-200 rounded-md p-4">
                                 <h4 className="font-semibold mb-3 flex items-center gap-2">
                                     <FaMoneyBill className="text-primary" />
                                     Registration Fee
                                 </h4>
                                 <p className="text-lg font-medium">
-                                    {session.registrationFee > 0 ? `${session.registrationFee}` : 'Free'}
+                                    {session.registrationFee > 0 ? `${session.registrationFee} BDT` : 'Free'}
                                 </p>
                             </div>
                         </div>
@@ -278,17 +293,29 @@ const DetailsStudySession = () => {
                                         }
                                     </p>
                                 </div>
-                                <div className="flex gap-3">
+                                <div className="flex gap-1 md:gap-3">
                                     {/* Debug info */}
                                     {console.log('User:', user?.email, 'Role:', role, 'Can book:', user && role === 'student')}
-                                    
+
                                     {isRegistrationOpen() ? (
                                         !roleLoading && user && role === 'student' ? (
-                                            <Button
-                                                onClick={handleBooking}
-                                            >
-                                                Book Now
-                                            </Button>
+                                            alreadyBooked ? (
+                                                <>
+                                                    <span className="badge badge-success gap-2 rounded mt-2"><FaCheckCircle /> Booked</span>
+                                                    <Button
+                                                        onClick={() => navigate('/dashboard/student/my-bookings')}
+                                                        className="btn btn-outline btn-primary"
+                                                    >
+                                                        View My Bookings
+                                                    </Button>
+                                                </>
+                                            ) : (
+                                                <Button
+                                                    onClick={handleBooking}
+                                                >
+                                                    Book Now
+                                                </Button>
+                                            )
                                         ) : (
                                             <button
                                                 disabled
@@ -305,7 +332,7 @@ const DetailsStudySession = () => {
                                         >
                                             Registration Closed
                                         </button>
-                                    )}        
+                                    )}
                                 </div>
                             </div>
                         </div>
@@ -313,7 +340,7 @@ const DetailsStudySession = () => {
                 </div>
 
                 {/* Reviews Section */}
-                <div className="bg-base-100 rounded-lg shadow-lg border border-base-300 p-6">
+                <div className="bg-base-100 rounded-md shadow-md border border-base-300 p-6">
                     <h3 className="text-2xl font-semibold mb-6 flex items-center gap-2">
                         <FaStar className="text-warning" />
                         Student Reviews
