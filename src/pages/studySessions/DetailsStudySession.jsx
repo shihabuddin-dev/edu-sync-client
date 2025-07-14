@@ -22,6 +22,7 @@ import Button from '../../components/ui/Button';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import Reviews from './Reviews';
+import Recomanded from './Recomanded';
 
 const DetailsStudySession = () => {
     const { user } = useAuth();
@@ -29,7 +30,7 @@ const DetailsStudySession = () => {
     const { id } = useParams();
     const navigate = useNavigate();
     const axiosInstance = useAxios();
-    const axiosSecure=useAxiosSecure()
+    const axiosSecure = useAxiosSecure()
 
     const { data: session, isLoading, isError, error } = useQuery({
         queryKey: ['session-details', id],
@@ -61,7 +62,7 @@ const DetailsStudySession = () => {
     });
 
     // Calculate average rating and review count
-    const averageRating = reviews.length > 0 
+    const averageRating = reviews.length > 0
         ? (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(1)
         : 0;
     const reviewCount = reviews.length;
@@ -354,7 +355,8 @@ const DetailsStudySession = () => {
                 </div>
 
                 {/* Reviews section left as-is */}
-                <Reviews/>
+                <Reviews />
+                <Recomanded />
             </div>
         </div>
     );

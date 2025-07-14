@@ -1,7 +1,21 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { FaUser, FaClock, FaCheckCircle, FaHourglassHalf, FaTimesCircle } from 'react-icons/fa';
+import {  FaStar } from 'react-icons/fa';
 import Button from '../ui/Button';
+
+import { useQuery } from '@tanstack/react-query';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
+
+const getStatus = (session) => {
+  const now = new Date();
+  const regStart = new Date(session.registrationStart);
+  const regEnd = new Date(session.registrationEnd);
+  if (now >= regStart && now <= regEnd) {
+    return 'Ongoing';
+  } else {
+    return 'Closed';
+  }
+};
 
 const statusColors = {
     Ongoing: { bg: 'bg-green-500/90', border: 'border-green-500', text: 'text-white', dot: 'bg-white' },
@@ -15,8 +29,27 @@ function formatDate(dateStr) {
     return date.toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
-const StudySessionCard = ({ session, status }) => {
+const StudySessionCard = ({ session }) => {
     const { _id, title, description, sessionImage, registrationEnd } = session || {};
+    const status = getStatus(session);
+    const axiosSecure = useAxiosSecure();
+
+    // Fetch reviews for this session
+    const { data: reviews = [], isLoading: reviewsLoading } = useQuery({
+        queryKey: ['session-reviews', _id],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/reviews/session/${_id}`);
+            return res.data;
+        },
+        enabled: !!_id,
+    });
+
+    // Calculate average rating and review count
+    const averageRating = reviews.length > 0
+        ? (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(1)
+        : 0;
+    const reviewCount = reviews.length;
+
     return (
         <div className="card bg-base-100 rounded-md shadow-md border border-base-300 overflow-hidden flex flex-col transition-transform duration-300 hover:-translate-y-2 hover:shadow-primary/50 hover:shadow-md hover:border-primary/40 group cursor-pointer">
             {/* Image section */}
@@ -43,21 +76,19 @@ const StudySessionCard = ({ session, status }) => {
             <div className="p-5 flex-1 flex flex-col space-y-2">
                 <h3 className="text-xl font-bold group-hover:text-primary transition-colors duration-200">{title?.slice(0, 16)}{title && title.length > 30 ? '...' : ''}</h3>
                 <p className="text-base-content/70 text-sm">{description?.slice(0, 60)}{description && description.length > 60 ? '...' : ''}</p>
-                <div className="flex items-center gap-4 mt-auto" >
-                    {session.status === 'approved' && (
-                        <span className="flex items-center gap-1 text-success font-semibold">
-                            <FaCheckCircle className="inline" /> Approved
-                        </span>
-                    )}
-                    {session.status === 'pending' && (
-                        <span className="flex items-center gap-1 text-warning font-semibold">
-                            <FaHourglassHalf className="inline" /> Pending
-                        </span>
-                    )}
-                    {session.status === 'rejected' && (
-                        <span className="flex items-center gap-1 text-error font-semibold">
-                            <FaTimesCircle className="inline" /> Rejected
-                        </span>
+                {/* Ratings and reviews */}
+                <div className="flex items-center gap-2 mt-1">
+                    <FaStar className="text-warning text-base" />
+                    {reviewsLoading ? (
+                        <>
+                            <span className="font-semibold text-base-content">...</span>
+                            <span className="text-xs text-base-content/60">(loading...)</span>
+                        </>
+                    ) : (
+                        <>
+                            <span className="font-semibold text-base-content">{averageRating}</span>
+                            <span className="text-xs text-base-content/60">({reviewCount} review{reviewCount !== 1 ? 's' : ''})</span>
+                        </>
                     )}
                 </div>
                 <div >

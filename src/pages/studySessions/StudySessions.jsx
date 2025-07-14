@@ -7,16 +7,7 @@ import StatsSection from '../../components/extra/StatsSection';
 import StudyPagination from '../../components/paginations/StudyPagination';
 import { MdMenuBook } from 'react-icons/md';
 
-const getStatus = (session) => {
-  const now = new Date();
-  const regStart = new Date(session.registrationStart);
-  const regEnd = new Date(session.registrationEnd);
-  if (now >= regStart && now <= regEnd) {
-    return 'Ongoing';
-  } else {
-    return 'Closed';
-  }
-};
+
 
 const StudySessions = () => {
   const axiosInstance = useAxios();
@@ -98,12 +89,11 @@ const StudySessions = () => {
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mb-8">
                 {sessions.map(session => {
-                  const status = getStatus(session);
+                  
                   return (
                     <StudySessionCard
                       key={session._id}
                       session={session}
-                      status={status}
                     />
                   );
                 })}
