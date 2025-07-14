@@ -36,6 +36,8 @@ import StudySessions from "../pages/studySessions/StudySessions";
 import DetailsStudySession from "../pages/studySessions/DetailsStudySession";
 import Payment from "../pages/payment/Payment";
 import BookingDetails from "../pages/dashboard/student/BookingDetails";
+import Tutors from "../pages/tutors/Tutors";
+import AllStudent from "../pages/dashboard/student/AllStudent";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +60,7 @@ const router = createBrowserRouter([
       { path: "privacy", Component: PrivacyPolicy },
       { path: "terms", Component: TermsOfService },
       { path: "cookies", Component: CookiePolicy },
+      { path: "tutors", Component: Tutors },
       { path: "announcements", Component: AnnouncementsList },
       { path: "study-sessions", Component: StudySessions },
       { path: "study-sessions/:id", Component: DetailsStudySession },
@@ -102,6 +105,10 @@ const router = createBrowserRouter([
         path: 'student/my-bookings/:id',
         element: <StudentRoutes><BookingDetails /></StudentRoutes>
       },
+      {
+        path: 'student/all-student',
+        element: <StudentRoutes><AllStudent /></StudentRoutes>
+      },
 
       // tutor routes
       {
@@ -128,6 +135,10 @@ const router = createBrowserRouter([
         path: 'tutor/materials',
         element: <TutorRoutes><ViewAllMaterials /></TutorRoutes>
       },
+      {
+        path: 'tutor/students',
+        element: <TutorRoutes><AllStudent /></TutorRoutes>
+      },
 
       // admin Routes
       {
@@ -153,6 +164,10 @@ const router = createBrowserRouter([
       {
         path: 'admin/announcements',
         element: <AdminRoutes><Announcements /></AdminRoutes>
+      },
+      {
+        path: 'admin/students',
+        element: <AdminRoutes><AllStudent /></AdminRoutes>
       },
     ]
   },

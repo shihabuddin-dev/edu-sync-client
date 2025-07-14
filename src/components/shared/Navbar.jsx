@@ -135,7 +135,7 @@ const Navbar = () => {
                 src={user?.photoURL ? user?.photoURL : userLogo}
                 alt="profile"
                 title={user?.displayName}
-                className="w-9 h-9 rounded-full border border-secondary"
+                className="w-10 h-10 rounded-full border-[1.8px] border-primary"
                 onClick={() => setShowDropdown(!showDropdown)}
               />
               <div
@@ -262,7 +262,7 @@ const Navbar = () => {
                     src={user?.photoURL ? user?.photoURL : userLogo}
                     alt="profile"
                     title="click and go Your profile"
-                    className="w-9 h-9 rounded-full border border-secondary"
+                    className="w-10 h-10 rounded-full border-[1.8px] border-primary"
                   />
                   <div>
                     <p className=" text-primary font-medium">

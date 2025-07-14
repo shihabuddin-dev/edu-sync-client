@@ -30,6 +30,11 @@ const adminLinks = [
     label: "Announcements",
     icon: <FaBullhorn />,
   },
+  {
+    to: "/dashboard/admin/students",
+    label: "Students",
+    icon: <FaUsers />,
+  },
 ];
 
 const tutorLinks = [
@@ -53,6 +58,11 @@ const tutorLinks = [
     label: "View All Materials",
     icon: <FaFolderOpen />
   },
+  {
+    to: "/dashboard/tutor/students",
+    label: "Students",
+    icon: <FaUsers />,
+  },
 ];
 
 const studentLinks = [
@@ -75,6 +85,11 @@ const studentLinks = [
     to: "/dashboard/student/study-materials",
     label: "Study Materials",
     icon: <FaChalkboardTeacher />,
+  },
+  {
+    to: "/dashboard/student/all-student",
+    label: "All Student",
+    icon: <FaUsers />,
   },
 ];
 
