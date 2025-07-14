@@ -83,7 +83,7 @@ const Social = () => {
                 className="w-full flex justify-center items-center gap-3 text-base font-medium hover:bg-base-200"
             >
                 <FcGoogle className="text-xl" />
-                Sign Up with Google
+                Continue with Google
             </Button>
         </div>
     );

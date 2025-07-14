@@ -65,10 +65,10 @@ const ResetPassword = () => {
       <div className="flex-1">
         <Lottie
           animationData={resetAnimation}
-          className="w-full h-[200px] md:h-[350px]"
+          className="pl-6 sm:pl-0 w-full h-[200px] md:h-[300px]"
         ></Lottie>
       </div>
-      <div className="flex-1 max-w-md p-6 md:p-8 bg-base-100 rounded-md shadow-md border border-base-content/10">
+      <div className="xl:mr-16 flex-1 max-w-md p-6 md:p-8 bg-base-100 rounded-md shadow-md border border-base-content/10">
         <h2 className="text-2xl md:text-3xl font-semibold mb-6 flex justify-center items-center gap-3 text-base-content">
           <MdLockReset className="text-primary text-3xl" />
           Reset Password

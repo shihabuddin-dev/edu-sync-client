@@ -92,7 +92,7 @@ const StudyMaterials = () => {
                                         alt={mat.title}
                                         className="w-full h-40 object-cover rounded mb-3 border border-base-300 bg-base-100 max-w-xs sm:max-w-full"
                                     />
-                                    <div className="flex flex-col sm:flex-row gap-2 mb-2 w-full justify-center">
+                                    <div className="flex flex-wrap gap-2 mb-2 w-full justify-center">
                                         <button
                                             className="btn btn-xs btn-outline btn-primary w-full sm:w-auto"
                                             onClick={() => handleDownload(mat.imageUrl, mat.title)}

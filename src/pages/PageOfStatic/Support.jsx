@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import SectionTitle from '../../components/shared/SectionTitle';
 import { FaHeadset, FaEnvelopeOpenText, FaPhoneAlt, FaQuestionCircle, FaChevronDown, FaExternalLinkAlt, FaComments, FaDownload, FaPaperPlane, FaUser, FaEnvelope, FaRegFileAlt } from 'react-icons/fa';
 import { inputBase } from '../../utils/inputBase';
+import { Link } from 'react-router';
+import userGuide from '../../assets/pdf/userGuide.pdf'
+import tutorManual from '../../assets/pdf/tutorManual.pdf'
+import adminQuickStart from '../../assets/pdf/adminQuickStart.pdf'
 
 const faqs = [
   {
@@ -82,18 +86,18 @@ const Support = () => {
           <h2 className="text-lg sm:text-xl font-semibold text-base-content mb-2 flex items-center gap-2">
             <FaExternalLinkAlt className="text-primary" /> Quick Links
           </h2>
-          <a href="/about-us" className="text-primary hover:underline flex items-center gap-2 text-sm">
+          <Link to="/about-us" className="text-primary hover:underline flex items-center gap-2 text-sm">
             About Us <FaExternalLinkAlt className="text-xs" />
-          </a>
-          <a href="/privacy-policy" className="text-primary hover:underline flex items-center gap-2 text-sm">
+          </Link>
+          <Link to="/privacy" className="text-primary hover:underline flex items-center gap-2 text-sm">
             Privacy Policy <FaExternalLinkAlt className="text-xs" />
-          </a>
-          <a href="/terms-of-service" className="text-primary hover:underline flex items-center gap-2 text-sm">
+          </Link>
+          <Link to="/terms" className="text-primary hover:underline flex items-center gap-2 text-sm">
             Terms of Service <FaExternalLinkAlt className="text-xs" />
-          </a>
-          <a href="/cookie-policy" className="text-primary hover:underline flex items-center gap-2 text-sm">
+          </Link>
+          <Link to="/cookies" className="text-primary hover:underline flex items-center gap-2 text-sm">
             Cookie Policy <FaExternalLinkAlt className="text-xs" />
-          </a>
+          </Link>
         </div>
 
         {/* Live Chat CTA */}
@@ -111,13 +115,13 @@ const Support = () => {
           <h2 className="text-lg sm:text-xl font-semibold text-base-content mb-2 flex items-center gap-2">
             <FaDownload className="text-primary" /> Resources & Downloads
           </h2>
-          <a href="/docs/user-guide.pdf" className="text-primary hover:underline flex items-center gap-2 text-sm" download>
+          <a href={userGuide} className="text-primary hover:underline flex items-center gap-2 text-sm" download>
             User Guide (PDF) <FaDownload className="text-xs" />
           </a>
-          <a href="/docs/tutor-manual.pdf" className="text-primary hover:underline flex items-center gap-2 text-sm" download>
+          <a href={tutorManual} className="text-primary hover:underline flex items-center gap-2 text-sm" download>
             Tutor Manual (PDF) <FaDownload className="text-xs" />
           </a>
-          <a href="/docs/admin-quickstart.pdf" className="text-primary hover:underline flex items-center gap-2 text-sm" download>
+          <a href={adminQuickStart} className="text-primary hover:underline flex items-center gap-2 text-sm" download>
             Admin Quickstart (PDF) <FaDownload className="text-xs" />
           </a>
         </div>
