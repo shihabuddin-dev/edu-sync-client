@@ -7,7 +7,7 @@ import Spinner from '../../../components/ui/Spinner';
 import Swal from 'sweetalert2';
 import ApproveSessionModal from '../../../components/modals/ApproveSessionModal';
 import RejectSessionModal from '../../../components/modals/RejectSessionModal';
-import { Link, useNavigate } from 'react-router';
+import { useNavigate } from 'react-router';
 
 const AllStudySessionsOfTutors = () => {
     const axiosSecure = useAxiosSecure();
@@ -268,7 +268,7 @@ const AllStudySessionsOfTutors = () => {
                                                 )}
                                                 <div>
                                                     <div className="font-medium">
-                                                        {session.title?.length > 15 ? session.title.slice(0, 15) + '...' : session.title}
+                                                        {session.title?.length > 13 ? session.title.slice(0, 13) + '...' : session.title}
                                                     </div>
                                                     <div className="text-sm text-base-content/70">
                                                         {session.duration || 'Duration TBD'}

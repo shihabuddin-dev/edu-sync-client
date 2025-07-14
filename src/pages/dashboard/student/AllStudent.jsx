@@ -62,7 +62,7 @@ const AllStudent = () => {
                     <table className="table table-zebra w-full min-w-[800px]">
                         <thead className="bg-base-200">
                             <tr>
-                                <th className="font-semibold text-center"><span className="inline-flex items-center gap-1"><FaHashtag className="text-primary" /> #</span></th>
+                                <th className="font-semibold text-center"><span className="inline-flex items-center gap-1"><FaHashtag className="text-primary" /></span></th>
                                 <th className="font-semibold text-center"><span className="inline-flex items-center gap-1"><FaImage className="text-primary" /> Image</span></th>
                                 <th className="font-semibold"><span className="inline-flex items-center gap-1"><FaIdBadge className="text-primary" /> Name</span></th>
                                 <th className="font-semibold"><span className="inline-flex items-center gap-1"><FaEnvelope className="text-primary" /> Email</span></th>
@@ -73,7 +73,7 @@ const AllStudent = () => {
                             {students.map((student, idx) => (
                                 <tr key={student._id} className="hover:bg-base-50">
                                     <td className="text-center font-bold text-base-content/80">
-                                        <span className="inline-flex items-center gap-1"><FaHashtag className="text-primary" />{(page - 1) * ITEMS_PER_PAGE + idx + 1}</span>
+                                        <span className="inline-flex items-center gap-1">{(page - 1) * ITEMS_PER_PAGE + idx + 1}</span>
                                     </td>
                                     <td className="text-center">
 

@@ -3,15 +3,15 @@ import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import DashboardHeading from '../../../components/shared/DashboardHeading';
-import { 
-    FaUsers, 
-    FaSearch, 
-    FaEdit, 
-    FaUser, 
-    FaEnvelope, 
-    FaIdBadge, 
-    FaCheck, 
-    FaTimes, 
+import {
+    FaUsers,
+    FaSearch,
+    FaEdit,
+    FaUser,
+    FaEnvelope,
+    FaIdBadge,
+    FaCheck,
+    FaTimes,
     FaEye,
     FaInfoCircle,
     FaCalendarAlt,
@@ -21,6 +21,7 @@ import {
 import Spinner from '../../../components/ui/Spinner';
 import { inputBase } from '../../../utils/inputBase';
 import { useNavigate } from 'react-router';
+import AllUsersPagination from '../../../components/paginations/AllUsersPagination';
 
 const AllUsers = () => {
     const axiosSecure = useAxiosSecure();
@@ -29,27 +30,35 @@ const AllUsers = () => {
     const [editingUser, setEditingUser] = useState(null);
     const [selectedRole, setSelectedRole] = useState('');
     const [roleFilter, setRoleFilter] = useState('all');
+    const [currentPage, setCurrentPage] = useState(1);
+    const [totalPages, setTotalPages] = useState(1);
     const initialLoad = useRef(true);
     const navigate = useNavigate();
+    const USERS_PER_PAGE = 5;
 
     // Debounce search term
     useEffect(() => {
         const timer = setTimeout(() => {
             setDebouncedSearchTerm(searchTerm);
         }, 500);
-
         return () => clearTimeout(timer);
     }, [searchTerm]);
 
-    // Fetch all users with search
-    const { data: users = [], refetch, isLoading } = useQuery({
-        queryKey: ['users', debouncedSearchTerm],
+    // Fetch paginated users with search and role filter
+    const { data: usersData = { users: [], totalPages: 1, totalItems: 0 }, refetch, isLoading } = useQuery({
+        queryKey: ['users', debouncedSearchTerm, roleFilter, currentPage],
         queryFn: async () => {
-            const params = debouncedSearchTerm ? `?search=${encodeURIComponent(debouncedSearchTerm)}` : '';
+            let params = `?page=${currentPage}&limit=${USERS_PER_PAGE}`;
+            if (debouncedSearchTerm) params += `&search=${encodeURIComponent(debouncedSearchTerm)}`;
+            if (roleFilter !== 'all') params += `&role=${roleFilter}`;
             const res = await axiosSecure.get(`/users${params}`);
             return res.data;
         }
     });
+
+    useEffect(() => {
+        setTotalPages(usersData.totalPages || 1);
+    }, [usersData.totalPages]);
 
     // Format date
     const formatDate = (dateString) => {
@@ -59,17 +68,6 @@ const AllUsers = () => {
             day: 'numeric'
         });
     };
-
-    // Filter users based on search term and role filter
-    const filteredUsers = users.filter(user => {
-        const matchesSearch = user.name?.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
-                             user.displayName?.toLowerCase().includes(debouncedSearchTerm.toLowerCase()) ||
-                             user.email?.toLowerCase().includes(debouncedSearchTerm.toLowerCase());
-        
-        const matchesRole = roleFilter === 'all' || user.role === roleFilter;
-        
-        return matchesSearch && matchesRole;
-    });
 
     // Update user role mutation
     const { mutate: updateUserRole, isLoading: isUpdating } = useMutation({
@@ -98,6 +96,13 @@ const AllUsers = () => {
         return <Spinner />;
     }
     initialLoad.current = false;
+
+    // Pagination controls
+    const handlePageChange = (page) => {
+        if (page >= 1 && page <= totalPages) {
+            setCurrentPage(page);
+        }
+    };
 
     const handleEditRole = (user) => {
         setEditingUser(user.email);
@@ -163,7 +168,7 @@ const AllUsers = () => {
                                 className={inputBase}
                             />
                         </div>
-                        
+
                         {/* Role Filter */}
                         <div className="flex flex-col sm:flex-row items-start sm:items-center gap-2 w-full sm:w-auto">
                             <span className="text-sm font-medium text-base-content/70 whitespace-nowrap">Filter by Role:</span>
@@ -179,16 +184,16 @@ const AllUsers = () => {
                             </select>
                         </div>
                     </div>
-                    
+
                     <div className="flex items-center gap-2 text-sm text-base-content/70 w-full lg:w-auto justify-center lg:justify-start">
                         <FaSearch className="text-base-content/50" />
-                        <span>{filteredUsers.length} of {users.length} user{users.length !== 1 ? 's' : ''}</span>
+                        <span>{usersData.totalItems} of {usersData.totalItems} user{usersData.totalItems !== 1 ? 's' : ''}</span>
                     </div>
                 </div>
             </div>
 
             {/* Table Section */}
-            {filteredUsers.length === 0 ? (
+            {usersData.users.length === 0 ? (
                 <div className="bg-base-100 rounded-md shadow-md border border-base-300 p-12">
                     <div className="flex flex-col items-center justify-center text-center">
                         <FaInfoCircle className="text-6xl text-base-content/30 mb-4" />
@@ -200,7 +205,7 @@ const AllUsers = () => {
                             }
                         </p>
                         {(debouncedSearchTerm || roleFilter !== 'all') && (
-                            <button 
+                            <button
                                 onClick={() => {
                                     setSearchTerm('');
                                     setRoleFilter('all');
@@ -220,7 +225,7 @@ const AllUsers = () => {
                             <h3 className="text-lg font-semibold">All Users</h3>
                             <div className="flex items-center gap-2 text-sm text-base-content/70">
                                 <FaUsers />
-                                <span>{filteredUsers.length} user{filteredUsers.length !== 1 ? 's' : ''}</span>
+                                <span>{usersData.totalItems} user{usersData.totalItems !== 1 ? 's' : ''}</span>
                             </div>
                         </div>
                     </div>
@@ -255,7 +260,6 @@ const AllUsers = () => {
                                             Role
                                         </div>
                                     </th>
-
                                     <th className="font-semibold text-center">
                                         <div className="flex items-center gap-2 justify-center">
                                             <FaCog className="text-primary" />
@@ -266,7 +270,7 @@ const AllUsers = () => {
                             </thead>
                             {/* Table Body */}
                             <tbody>
-                                {filteredUsers.map((user) => (
+                                {usersData.users.map((user) => (
                                     <tr key={user.email} className="hover:bg-base-50">
                                         <td>
                                             {user.photoURL ? (
@@ -276,8 +280,8 @@ const AllUsers = () => {
                                                     className="w-12 h-12 rounded-md object-cover border-2 border-primary"
                                                 />
                                             ) : (
-                                                <div className="w-12 h-12 bg-base-200 rounded-md flex items-center justify-center">
-                                                    <FaUser className="text-base-content/40" />
+                                                <div className="w-12 h-12 bg-base-200 rounded-md flex items-center justify-center border-2 border-primary">
+                                                    <FaUser className="text-primary" />
                                                 </div>
                                             )}
                                         </td>
@@ -369,10 +373,17 @@ const AllUsers = () => {
                         </table>
                     </div>
 
+                    {/* Pagination Controls */}
+                    <AllUsersPagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={handlePageChange}
+                    />
+
                     {/* Table Footer */}
                     <div className="bg-base-200 px-6 py-3 border-t border-base-300">
                         <div className="flex flex-wrap items-center justify-between text-sm text-base-content/70">
-                            <span>Showing {filteredUsers.length} of {users.length} users</span>
+                            <span>Showing {usersData.users.length} of {usersData.totalItems} users</span>
                             <span>Last updated: {new Date().toLocaleString()}</span>
                         </div>
                     </div>

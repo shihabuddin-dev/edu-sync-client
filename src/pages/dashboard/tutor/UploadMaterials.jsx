@@ -104,9 +104,16 @@ const UploadMaterials = () => {
                     <div className="relative">
                         <FaLink className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/50 text-lg" />
                         <input
+                            type='url'
                             className={inputBase}
                             placeholder="https://drive.google.com/..."
-                            {...register('resourceLink', { required: 'Google Drive link is required' })}
+                            {...register('resourceLink', {
+                                required: 'Google Drive link is required',
+                                pattern: {
+                                    value: /^https?:\/\/(drive|docs)\.google\.com\//,
+                                    message: 'Please enter a valid Google Drive link',
+                                },
+                            })}
                         />
                     </div>
                     {errors.resourceLink && <span className="text-error text-xs">{errors.resourceLink.message}</span>}
