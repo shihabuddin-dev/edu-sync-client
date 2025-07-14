@@ -38,6 +38,7 @@ import Payment from "../pages/payment/Payment";
 import BookingDetails from "../pages/dashboard/student/BookingDetails";
 import Tutors from "../pages/tutors/Tutors";
 import AllStudent from "../pages/dashboard/student/AllStudent";
+import StudyMaterials from "../pages/dashboard/student/StudyMaterials";
 
 const router = createBrowserRouter([
   {
@@ -108,6 +109,10 @@ const router = createBrowserRouter([
       {
         path: 'student/all-student',
         element: <StudentRoutes><AllStudent /></StudentRoutes>
+      },
+      {
+        path: 'student/study-materials',
+        element: <StudentRoutes><StudyMaterials /></StudentRoutes>
       },
 
       // tutor routes

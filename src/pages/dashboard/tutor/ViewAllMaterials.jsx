@@ -4,21 +4,21 @@ import useAuth from '../../../hooks/useAuth';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import Swal from 'sweetalert2';
 import DashboardHeading from '../../../components/shared/DashboardHeading';
-import { 
-    FaEdit, 
-    FaFolderOpen, 
-    FaTrash, 
-    FaRegStickyNote, 
-    FaLink, 
-    FaCheck, 
-    FaTimes, 
-    FaInfoCircle, 
-    FaSearch,
-    FaImage,
-    FaFileAlt,
-    FaExternalLinkAlt,
-    FaCog,
-    FaCalendarAlt
+import {
+  FaEdit,
+  FaFolderOpen,
+  FaTrash,
+  FaRegStickyNote,
+  FaLink,
+  FaCheck,
+  FaTimes,
+  FaInfoCircle,
+  FaSearch,
+  FaImage,
+  FaFileAlt,
+  FaExternalLinkAlt,
+  FaCog,
+  FaCalendarAlt
 } from 'react-icons/fa';
 import Spinner from '../../../components/ui/Spinner';
 import { inputBase } from '../../../utils/inputBase';
@@ -125,7 +125,7 @@ const ViewAllMaterials = () => {
   return (
     <div className="space-y-6">
       <DashboardHeading icon={FaFolderOpen} title='My Uploaded Materials' />
-      
+
       {/* Search Section */}
       <div className="bg-base-100 rounded-md shadow-md border border-base-300 p-4">
         <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4">
@@ -165,7 +165,7 @@ const ViewAllMaterials = () => {
 
             {/* Clear Search Button */}
             {searchTerm && (
-              <button 
+              <button
                 onClick={() => setSearchTerm('')}
                 className="btn btn-sm btn-outline btn-primary"
                 title="Clear search"
@@ -184,13 +184,13 @@ const ViewAllMaterials = () => {
             <FaInfoCircle className="text-6xl text-base-content/30 mb-4" />
             <h2 className="text-xl font-semibold mb-2">No materials found</h2>
             <p className="text-base-content/70 mb-4">
-              {searchTerm 
+              {searchTerm
                 ? "No materials match your search criteria."
                 : "You haven't uploaded any materials yet."
               }
             </p>
             {searchTerm && (
-              <button 
+              <button
                 onClick={() => setSearchTerm('')}
                 className="btn btn-primary btn-sm"
               >
@@ -257,12 +257,11 @@ const ViewAllMaterials = () => {
                     <td>
                       <div className="flex items-center gap-3">
                         <div className="relative">
-                          <img 
-                            src={material.imageUrl} 
-                            alt="Material" 
-                            className="w-12 h-12 object-cover rounded-md border border-base-300"
+                          <img
+                            src={material.imageUrl}
+                            alt="Material"
+                            className="w-12 h-12 object-cover rounded-md border-2 border-primary"
                           />
-                          <FaImage className="absolute -top-1 -right-1 text-xs text-primary bg-base-100 rounded-full p-1" />
                         </div>
                       </div>
                     </td>
@@ -302,10 +301,10 @@ const ViewAllMaterials = () => {
                       ) : (
                         <div className="flex items-center gap-2">
                           <FaExternalLinkAlt className="text-primary text-sm" />
-                          <a 
-                            href={material.resourceLink} 
-                            target="_blank" 
-                            rel="noopener noreferrer" 
+                          <a
+                            href={material.resourceLink}
+                            target="_blank"
+                            rel="noopener noreferrer"
                             className="text-primary hover:text-primary-focus underline font-medium"
                           >
                             View Resource
@@ -325,14 +324,14 @@ const ViewAllMaterials = () => {
                       <div className="flex justify-center gap-2">
                         {editingId === material._id ? (
                           <>
-                            <button 
+                            <button
                               onClick={() => handleEditSubmit(material._id)}
                               className="btn btn-sm btn-success btn-outline"
                               title="Save changes"
                             >
                               <FaCheck />
                             </button>
-                            <button 
+                            <button
                               onClick={() => setEditingId(null)}
                               className="btn btn-sm btn-error btn-outline"
                               title="Cancel edit"
@@ -342,14 +341,14 @@ const ViewAllMaterials = () => {
                           </>
                         ) : (
                           <>
-                            <button 
+                            <button
                               onClick={() => handleEdit(material)}
                               className="btn btn-sm btn-primary btn-outline"
                               title="Edit material"
                             >
                               <FaEdit />
                             </button>
-                            <button 
+                            <button
                               onClick={() => handleDelete(material._id)}
                               className="btn btn-sm btn-error btn-outline"
                               title="Delete material"

@@ -273,7 +273,7 @@ const AllUsers = () => {
                                                 <img
                                                     src={user.photoURL}
                                                     alt={user.name || user.displayName}
-                                                    className="w-12 h-12 rounded-md object-cover border border-base-300"
+                                                    className="w-12 h-12 rounded-md object-cover border-2 border-primary"
                                                 />
                                             ) : (
                                                 <div className="w-12 h-12 bg-base-200 rounded-md flex items-center justify-center">

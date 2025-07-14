@@ -19,6 +19,8 @@ import {
 } from 'react-icons/fa';
 import { MdMenuBook, MdVerified } from 'react-icons/md';
 import Button from '../../../components/ui/Button';
+import Reviews from '../../studySessions/Reviews';
+import Recomanded from '../../studySessions/Recomanded';
 
 const BookingDetails = () => {
     const { id: bookingId } = useParams();
@@ -123,8 +125,8 @@ const BookingDetails = () => {
                         <FaArrowLeft className="mr-2" />
                         Back to My Bookings
                     </Button>
-                    <DashboardHeading 
-                        title="Booking Details" 
+                    <DashboardHeading
+                        title="Booking Details"
                         icon={MdMenuBook}
                         description="Detailed information about your booking"
                     />
@@ -154,7 +156,7 @@ const BookingDetails = () => {
                         {/* Session Information */}
                         <div className="bg-base-200 rounded-md p-4 mb-6">
                             <div className="flex items-center gap-3">
-                               {booking.tutorImage? <img className="w-12 h-12 object-cover border-primary border-2" src={booking.tutorImage}/>:  <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                                {booking.tutorImage ? <img className="w-12 h-12 object-cover border-primary border-2" src={booking.tutorImage} /> : <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
                                     <FaUser className="text-primary text-xl" />
                                 </div>}
                                 <div>
@@ -176,7 +178,7 @@ const BookingDetails = () => {
                                     <div>
                                         <span className="text-base-content/70">Start:</span>
                                         <span className="ml-2 font-medium">
-                                            {booking.sessionDetails?.classStart 
+                                            {booking.sessionDetails?.classStart
                                                 ? `${formatDate(booking.sessionDetails.classStart)} at ${formatTime(booking.sessionDetails.classStart)}`
                                                 : 'TBD'
                                             }
@@ -228,7 +230,7 @@ const BookingDetails = () => {
                                 <FaCreditCard className="text-primary" />
                                 Payment Information
                             </h3>
-                            
+
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div className="bg-base-200 rounded-md p-4">
                                     <h4 className="font-semibold mb-3 flex items-center gap-2">
@@ -279,13 +281,15 @@ const BookingDetails = () => {
                                 <span className="font-medium text-success">Booking Confirmed</span>
                             </div>
                             <p className="text-sm text-success/80">
-                                Your booking has been confirmed and your payment has been processed securely. 
+                                Your booking has been confirmed and your payment has been processed securely.
                                 You will receive a confirmation email with further details about your session.
                             </p>
                         </div>
                     </div>
                 </div>
             </div>
+            <Reviews />
+            <Recomanded />
         </div>
     );
 };

@@ -45,7 +45,7 @@ const UserInfo = () => {
             <div className="rounded-md w-full max-w-md bg-base-100 shadow-md border border-base-200">
                 <div className="card-body items-center text-center">
                     <div className="avatar mb-4">
-                        <div className="w-24 md:w-28 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
+                        <div className="w-24 md:w-28 rounded-full border-2 border-primary">
                             {user.photoURL ? (
                                 <img
                                     src={user.photoURL}

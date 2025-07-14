@@ -259,7 +259,7 @@ const AllStudySessionsOfTutors = () => {
                                                     <img
                                                         src={session.sessionImage}
                                                         alt={session.title}
-                                                        className="w-12 h-12 object-cover rounded-md border border-base-300"
+                                                        className="w-12 h-12 object-cover rounded-md border-2 border-primary"
                                                     />
                                                 ) : (
                                                     <div className="w-12 h-12 bg-base-200 rounded-md flex items-center justify-center">
