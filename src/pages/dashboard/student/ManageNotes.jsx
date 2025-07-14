@@ -100,12 +100,11 @@ const ManageNotes = () => {
                                     <FaEye className='text-[16px]' />
                                 </Button>
                                 <Button type="button" variant="outline" className="flex items-center gap-1 btn btn-sm" onClick={() => openEditModal(note)}>
-                                    <FaEdit /> Update
+                                    <FaEdit />
                                 </Button>
                                 <Button type="button" variant="danger" className="flex items-center gap-1 btn btn-sm" onClick={() => handleDelete(note._id)}>
-                                    <FaTrash /> Delete
+                                    <FaTrash />
                                 </Button>
-
                             </div>
                         </div>
                     ))}

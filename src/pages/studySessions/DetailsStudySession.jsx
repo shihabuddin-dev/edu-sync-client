@@ -21,6 +21,7 @@ import { MdMenuBook } from 'react-icons/md';
 import Button from '../../components/ui/Button';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
+import Reviews from './Reviews';
 
 const DetailsStudySession = () => {
     const { user } = useAuth();
@@ -48,6 +49,22 @@ const DetailsStudySession = () => {
         },
         enabled: !!user?.email,
     });
+
+    // Fetch reviews for this session to display rating and count
+    const { data: reviews = [], isLoading: reviewsLoading } = useQuery({
+        queryKey: ['session-reviews', id],
+        queryFn: async () => {
+            const res = await axiosSecure.get(`/reviews/session/${id}`);
+            return res.data;
+        },
+        enabled: !!id,
+    });
+
+    // Calculate average rating and review count
+    const averageRating = reviews.length > 0 
+        ? (reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length).toFixed(1)
+        : 0;
+    const reviewCount = reviews.length;
 
     const isRegistrationOpen = () => {
         if (!session) return false;
@@ -109,36 +126,49 @@ const DetailsStudySession = () => {
         if (session.registrationFee > 0 && session.paid === true) {
             navigate(`/payment/${session._id}`);
         } else {
-            try {
-                const bookingData = {
-                    sessionId: session._id,
-                    studentEmail: user.email,
-                    amount: session.registrationFee,
-                    paymentStatus: session.registrationFee > 0 ? 'pending' : 'free',
-                    paymentMethod: session.registrationFee > 0 ? 'card' : 'free',
-                };
+            // Show confirmation dialog for free sessions
+            Swal.fire({
+                title: "Are you sure?",
+                text: "Do you want to book this session?",
+                icon: "question",
+                showCancelButton: true,
+                confirmButtonColor: "#3085d6",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, Book it!"
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    try {
+                        const bookingData = {
+                            sessionId: session._id,
+                            studentEmail: user.email,
+                            amount: session.registrationFee,
+                            paymentStatus: session.registrationFee > 0 ? 'pending' : 'free',
+                            paymentMethod: session.registrationFee > 0 ? 'card' : 'free',
+                        };
 
-                const res = await axiosSecure.post('/bookedSessions', bookingData);
+                        const res = await axiosSecure.post('/bookedSessions', bookingData);
 
-                if (res.data?.insertedId || res.data?.bookingId) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Session Booked!',
-                        text: 'You have successfully booked the session.',
-                        confirmButtonText: 'Go to My Bookings'
-                    }).then(() => {
-                        navigate('/dashboard/student/my-bookings');
-                    });
-                } else {
-                    throw new Error('Failed to book the session.');
+                        if (res.data?.insertedId || res.data?.bookingId) {
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Session Booked!',
+                                text: 'You have successfully booked the session.',
+                                confirmButtonText: 'Go to My Bookings'
+                            }).then(() => {
+                                navigate('/dashboard/student/my-bookings');
+                            });
+                        } else {
+                            throw new Error('Failed to book the session.');
+                        }
+                    } catch (error) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Booking Failed',
+                            text: error?.response?.data?.message || error.message || 'Something went wrong while booking the session.',
+                        });
+                    }
                 }
-            } catch (error) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Booking Failed',
-                    text: error?.response?.data?.message || error.message || 'Something went wrong while booking the session.',
-                });
-            }
+            });
         }
     };
 
@@ -199,8 +229,17 @@ const DetailsStudySession = () => {
                                     {getStatusBadge()}
                                     <div className="flex items-center gap-1">
                                         <FaStar className="text-warning text-lg" />
-                                        <span className="font-semibold">4.8</span>
-                                        <span className="text-base-content/70">(24 reviews)</span>
+                                        {reviewsLoading ? (
+                                            <>
+                                                <span className="font-semibold">...</span>
+                                                <span className="text-base-content/70">(loading...)</span>
+                                            </>
+                                        ) : (
+                                            <>
+                                                <span className="font-semibold">{averageRating}</span>
+                                                <span className="text-base-content/70">({reviewCount} review{reviewCount !== 1 ? 's' : ''})</span>
+                                            </>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -268,7 +307,7 @@ const DetailsStudySession = () => {
                                     Registration Fee
                                 </h4>
                                 <p className="text-lg font-medium">
-                                    {session.registrationFee > 0 ? `${session.registrationFee} BDT` : 'Free'}
+                                    {session.registrationFee > 0 ? `$${session.registrationFee}` : 'Free'}
                                 </p>
                             </div>
                         </div>
@@ -315,6 +354,7 @@ const DetailsStudySession = () => {
                 </div>
 
                 {/* Reviews section left as-is */}
+                <Reviews/>
             </div>
         </div>
     );
