@@ -87,6 +87,7 @@ const Announcements = () => {
 
     return (
         <div className="flex flex-col items-center justify-center p-4">
+            <title>Announcements | Edu Sync</title>
             <DashboardHeading icon={FaBullhorn} title='Create Announcement' />
             <form
                 onSubmit={handleSubmit(onSubmit)}

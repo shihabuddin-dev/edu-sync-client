@@ -154,7 +154,7 @@ const Footer = () => {
               </div>
               <div className="flex items-center gap-3 text-base-content/70">
                 <FaMapMarkerAlt className="text-primary" />
-                <span>5800, Bogura City, Bangladesh</span>
+                <span>5800, Bogura, Bangladesh</span>
               </div>
             </div>
             {/* Newsletter Signup */}

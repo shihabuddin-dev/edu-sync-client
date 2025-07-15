@@ -37,6 +37,7 @@ const CookiePolicy = () => {
 
     return (
         <div className="min-h-screen bg-base-200">
+            <title>Cookie Policy | Edu Sync</title>
             {/* Header */}
             <div className="bg-base-100 shadow-md" data-aos="fade-down-left">
                 <div className="max-w-3xl mx-auto px-4 py-6 text-center relative z-10">

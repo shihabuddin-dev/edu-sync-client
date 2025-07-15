@@ -120,6 +120,7 @@ const TutorDashboard = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-base-100 to-base-200 p-4 md:p-8">
+            <title>Tutor Dashboard | Edu Sync</title>
             <section className="max-w-5xl mx-auto mb-10">
                 <DashboardHeading icon={FaChartBar} title='Welcome to Your Dashboard' />
                 <h3 className="text-center text-xl font-semibold mb-6">Hello Tutor, <span className='text-primary'>{user?.displayName} !</span></h3>

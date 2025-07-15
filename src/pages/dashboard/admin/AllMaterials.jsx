@@ -83,6 +83,7 @@ const AllMaterials = () => {
 
     return (
         <div className="space-y-6">
+             <title>All Materials | Edu Sync</title>
             <DashboardHeading icon={FaLayerGroup} title='All Materials' />
 
             {/* Search and View Toggle Section */}

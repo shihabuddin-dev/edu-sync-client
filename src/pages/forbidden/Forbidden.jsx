@@ -7,6 +7,7 @@ const Forbidden = () => {
     const navigate = useNavigate();
     return (
         <div className="flex flex-col items-center justify-center px-4">
+            <title>Forbidden Access | Edu Sync</title>
             <div className=" rounded-md shadow-md p-10 flex flex-col items-center max-w-md w-full">
                 <FaBan className="text-red-500 text-7xl mb-4 animate-pulse" />
                 <h1 className="text-3xl font-bold text-red-600 mb-2">403 Forbidden</h1>

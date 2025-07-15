@@ -165,6 +165,7 @@ const AllStudySessionsOfTutors = () => {
 
     return (
         <div className="space-y-6">
+            <title>All Study Sessions | Edu Sync</title>
             <DashboardHeading icon={FaBook} title='All Study Sessions' />
 
             {/* Filter Section */}
@@ -177,8 +178,8 @@ const AllStudySessionsOfTutors = () => {
                             <button
                                 key={f.value}
                                 className={`cursor-pointer px-3 py-1 rounded-md border transition text-sm ${filter === f.value
-                                        ? 'bg-primary text-white border-primary'
-                                        : 'text-base-content border-base-300 bg-base-200 hover:bg-base-300'
+                                    ? 'bg-primary text-white border-primary'
+                                    : 'text-base-content border-base-300 bg-base-200 hover:bg-base-300'
                                     }`}
                                 onClick={() => setFilter(f.value)}
                             >
@@ -194,8 +195,8 @@ const AllStudySessionsOfTutors = () => {
                             <button
                                 key={f.value}
                                 className={`cursor-pointer px-3 py-1 rounded-md border transition text-sm ${paidFilter === f.value
-                                        ? 'bg-primary text-white border-primary'
-                                        : 'text-base-content border-base-300 bg-base-200 hover:bg-base-300'
+                                    ? 'bg-primary text-white border-primary'
+                                    : 'text-base-content border-base-300 bg-base-200 hover:bg-base-300'
                                     }`}
                                 onClick={() => setPaidFilter(f.value)}
                             >

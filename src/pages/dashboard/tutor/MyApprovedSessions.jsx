@@ -24,6 +24,7 @@ const MyApprovedSessions = () => {
 
   return (
     <div className="max-w-2xl mx-auto p-4">
+       <title>My Approved Sessions | Edu Sync</title>
       <DashboardHeading icon={MdVerified} title="My Approved Sessions" />
       <ul className="space-y-4 mt-6">
         {sessions.map(session => (

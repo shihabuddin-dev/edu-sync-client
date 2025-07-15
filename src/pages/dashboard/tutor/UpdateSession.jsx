@@ -199,6 +199,7 @@ const UpdateSession = () => {
 
     return (
         <div className="max-w-2xl mx-auto p-6 bg-base-100 rounded-md shadow-md">
+             <title>Update Session | Edu Sync</title>
             <DashboardHeading icon={FaRegCalendarPlus} title='Update Study Session' />
             <form onSubmit={handleSubmit} className="space-y-6">
                 {/* Session Title */}

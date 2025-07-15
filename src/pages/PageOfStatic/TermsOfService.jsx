@@ -25,6 +25,7 @@ const TermsOfService = () => {
 
       {/* Main Content */}
       <div className="max-w-4xl mx-auto px-4 py-10">
+         <title>Terms Of Services | Edu Sync</title>
         <div className="space-y-8">
 
           {/* Acceptance of Terms */}

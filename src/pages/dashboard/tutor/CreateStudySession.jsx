@@ -220,6 +220,7 @@ const CreateStudySession = () => {
 
     return (
         <div className="max-w-4xl mx-auto space-y-6">
+             <title>Create Study Session | Edu Sync</title>
             <DashboardHeading icon={FaRegCalendarPlus} title='Create Study Session' />
             
             <div className="bg-base-100 rounded-lg shadow-lg border border-base-300 overflow-hidden">

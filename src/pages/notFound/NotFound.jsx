@@ -9,6 +9,7 @@ const NotFound = () => {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-primary/10 to-base-200 px-4">
+            <title>Not Found | Edu Sync</title>
             <div className="w-full max-w-md mx-auto flex flex-col items-center">
                 <div className="w-64 h-64 mb-4">
                     <Lottie animationData={notFoundAnimation} loop={true} />

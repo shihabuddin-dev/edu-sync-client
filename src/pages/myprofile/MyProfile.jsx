@@ -6,7 +6,7 @@ import { FaEnvelope, FaTimesCircle, FaUserCircle, FaCheckCircle, FaCopy, FaCalen
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const MyProfile = () => {
-  const [copied, setCopied]=useState(false)
+  const [copied, setCopied] = useState(false)
   const { user, signOutUser } = useAuth();
   // logout user
   const handleLogOut = () => {
@@ -26,7 +26,7 @@ const MyProfile = () => {
           text: "You have been Sign out.",
           icon: "success",
         })
-          .then(() => {})
+          .then(() => { })
           .catch((error) => {
             console.log(error);
             Swal.fire({
@@ -41,6 +41,7 @@ const MyProfile = () => {
 
   return (
     <div className="relative flex items-center justify-center overflow-hidden">
+      <title>My Profile | Edu Sync</title>
       <div className="relative z-10 w-full max-w-lg shadow-md">
         <div
           className="rounded-md shadow-md border border-base-300 bg-base-100 p-8 flex flex-col items-center gap-4 animate-fade-in"
@@ -48,12 +49,12 @@ const MyProfile = () => {
         >
           {/* Avatar */}
           <div className="relative mb-2">
-            <div className="w-28 md:w-36 h-28 md:h-36 p-4 rounded-full border-4 border-primary bg-base-200 flex items-center justify-center overflow-hidden shadow-md">
+            <div className="w-28 md:w-36 h-28 md:h-36 p-1.5 rounded-full border-4 border-primary bg-base-200 flex items-center justify-center overflow-hidden shadow-md">
               {user.photoURL ? (
                 <img
                   src={user.photoURL}
                   alt="User"
-                  className="w-full h-full p-2 object-cover"
+                  className="w-full h-full rounded-full object-cover"
                 />
               ) : (
                 <FaUserCircle className="w-24 h-24 text-base-content/40" />

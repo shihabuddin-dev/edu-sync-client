@@ -227,6 +227,7 @@ const MyBookings = () => {
 
     return (
         <div className="space-y-6">
+             <title>My Bookings | Edu Sync</title>
             <DashboardHeading
                 title="My Bookings"
                 icon={MdMenuBook}

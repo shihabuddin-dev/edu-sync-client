@@ -31,6 +31,7 @@ const Support = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-base-100 to-base-200">
+      <title>Support | Edu Sync</title>
       {/* Header */}
       <div className="bg-base-100 shadow-md pb-2" data-aos="fade-down">
         <div className="max-w-3xl mx-auto px-4 py-6 text-center">

@@ -50,6 +50,7 @@ const StudyMaterials = () => {
 
     return (
         <div className="max-w-5xl mx-auto py-8 px-2 sm:px-4">
+             <title>Study Materials | Edu Sync</title>
             <DashboardHeading icon={FaFolderOpen} title='Study Materials' />
             {/* 1. Show all booked sessions */}
             <div className="mb-8">

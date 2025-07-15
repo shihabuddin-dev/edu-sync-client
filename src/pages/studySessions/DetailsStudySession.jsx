@@ -204,6 +204,7 @@ const DetailsStudySession = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-base-100 to-base-200">
+            <title>Detais Study Session | Edu Sync</title>
             <div className="bg-base-100 shadow-md pb-2">
                 <div className="max-w-4xl mx-auto px-4 py-4">
                     <Button onClick={() => navigate(-1)} className="btn btn-sm mb-4">

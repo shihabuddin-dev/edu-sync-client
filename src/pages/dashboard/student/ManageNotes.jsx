@@ -80,6 +80,7 @@ const ManageNotes = () => {
 
     return (
         <div className="max-w-2xl mx-auto p-6 bg-base-100 rounded-md shadow-md">
+            <title>Manage Notes | Edu Sync</title>
             <DashboardHeading icon={MdNoteAlt} title='Manage Notes' />
             {notes.length === 0 ? (
                 <div className="text-center text-base-content/70">No notes found.</div>

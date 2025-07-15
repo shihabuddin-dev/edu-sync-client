@@ -115,6 +115,7 @@ const BookingDetails = () => {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-base-100 to-base-200">
+            <title>Booking Details | Edu Sync</title>
             {/* Header */}
             <div className="bg-base-100 shadow-md pb-2">
                 <div className="max-w-4xl mx-auto px-4 py-4">

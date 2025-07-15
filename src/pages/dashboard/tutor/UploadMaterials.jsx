@@ -49,6 +49,7 @@ const UploadMaterials = () => {
 
     return (
         <div className="max-w-lg mx-auto p-6 bg-base-100 rounded shadow">
+            <title>Upload Materials | Edu Sync</title>
             <DashboardHeading icon={FaCloudUploadAlt} title='Upload Material' />
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
                 <div>
