@@ -3,15 +3,15 @@ import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer, BarChart, Ba
 
 const COLORS = ['#8884d8', '#82ca9d', '#ffc658', '#ff8042', '#00C49F'];
 
-const StudentStatistic = ({ stats }) => {
-    // Prepare data for the charts (exclude average rating)
+const TutorStatistic = ({ stats }) => {
+    // Prepare data for charts (exclude average rating)
     const chartData = stats.filter(stat => stat.label !== 'Average Rating').map(stat => ({
         name: stat.label,
         value: Number(stat.value),
     }));
 
     return (
-        <div className="w-full max-w-3xl mx-auto mt-10 bg-base-100 rounded-md shadow-md p-6">
+        <div className="w-full max-w-3xl mx-auto bg-base-100 rounded-md shadow-md p-6">
             <h3 className="text-lg font-semibold mb-4 text-center">Statistics Overview</h3>
             <div className="w-full flex flex-col md:flex-row gap-8 items-center justify-center">
                 {/* Pie Chart */}
@@ -59,4 +59,4 @@ const StudentStatistic = ({ stats }) => {
     );
 };
 
-export default StudentStatistic;
+export default TutorStatistic;
