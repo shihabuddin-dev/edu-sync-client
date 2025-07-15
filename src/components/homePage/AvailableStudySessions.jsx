@@ -1,7 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import useAxios from '../../hooks/useAxios';
 import StudySessionCard from '../card/StudySessionCard';
-import SectionTitle from '../shared/SectionTitle';
 
 const AvailableStudySessions = () => {
     const axiosInstance = useAxios();
@@ -22,7 +21,7 @@ const AvailableStudySessions = () => {
 
     return (
         <section>
-            <div className='mb-10 md:mb-12'><SectionTitle title='Available Study Sessions' /></div>
+            <h2 className='mb-10 md:mb-12 text-center text-2xl md:text-3xl font-bold'>Available Study Sessions</h2>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
                 {sessions?.map(session => (
                     // <AvailableStudySessionsCard
