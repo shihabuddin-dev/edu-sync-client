@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import {  FaStar } from 'react-icons/fa';
+import {  FaStar, FaBook } from 'react-icons/fa';
 import Button from '../ui/Button';
 
 import { useQuery } from '@tanstack/react-query';
@@ -51,31 +51,33 @@ const StudySessionCard = ({ session }) => {
     const reviewCount = reviews.length;
 
     return (
-        <div className="card bg-base-100 rounded-md shadow-md border border-base-300 overflow-hidden flex flex-col transition-transform duration-300 hover:-translate-y-2 hover:shadow-primary/50 hover:shadow-md hover:border-primary/40 group cursor-pointer">
+        <div className="relative card bg-gradient-to-br from-primary/10 via-base-100 to-base-200 rounded-md shadow-md border border-primary/20 overflow-hidden flex flex-col transition-transform duration-400 hover:-translate-y-2 hover:shadow-primary/40 hover:border-primary/60 group cursor-pointer">
+            {/* Background watermark icon */}
+            <FaBook className="absolute right-4 bottom-4 text-primary/10 text-8xl pointer-events-none z-0 group-hover:text-primary/20 transition-all duration-300" />
             {/* Image section */}
             {sessionImage && (
-                <div className="relative h-40 w-full overflow-hidden">
+                <div className="relative h-40 w-full overflow-hidden z-10">
                     <img
                         src={sessionImage}
                         alt={title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 rounded-t-md"
                     />
                     {/* Registration end badge (top left) */}
-                    {registrationEnd && (
+                   {status==='Ongoing'&& registrationEnd && (
                         <span className="absolute top-3 left-3 badge badge-outline rounded border-primary badge-sm text-xs text-base-content/60 bg-base-100/80 backdrop-blur-sm">
                             Ends: {formatDate(registrationEnd)}
                         </span>
                     )}
                     {/* Status badge (top right) */}
-                    <span className={`absolute top-3 right-3 badge badge-sm rounded-md border-2 shadow-md backdrop-blur-sm ${statusColors[status]?.bg} ${statusColors[status]?.text} ${statusColors[status]?.border} hover:shadow-primary/50 hover:shadow-md transition-all duration-200`}>
+                    <span className={`absolute top-3 right-3 badge badge-sm rounded border-2 shadow-md backdrop-blur-sm ${statusColors[status]?.bg} ${statusColors[status]?.text} ${statusColors[status]?.border} hover:shadow-primary/50 hover:shadow-md transition-all duration-200`}>
                         <span className={`animate-pulse w-2 h-2 rounded-full ${statusColors[status]?.dot}`}></span>
                         {status}
                     </span>
                 </div>
             )}
-            <div className="p-5 flex-1 flex flex-col space-y-2">
-                <h3 className="text-xl font-bold group-hover:text-primary transition-colors duration-200">{title?.slice(0, 16)}{title && title.length > 30 ? '...' : ''}</h3>
-                <p className="text-base-content/70 text-sm">{description?.slice(0, 60)}{description && description.length > 60 ? '...' : ''}</p>
+            <div className="p-5 flex-1 flex flex-col space-y-2 z-10">
+                <h3 className="text-xl font-bold group-hover:text-primary transition-colors duration-200 drop-shadow-sm">{title?.slice(0, 16)}{title && title.length > 30 ? '...' : ''}</h3>
+                <p className="text-base-content/70 text-sm drop-shadow-xs">{description?.slice(0, 60)}{description && description.length > 60 ? '...' : ''}</p>
                 {/* Ratings and reviews */}
                 <div className="flex items-center gap-2 mt-1">
                     <FaStar className="text-warning text-base" />
@@ -91,7 +93,7 @@ const StudySessionCard = ({ session }) => {
                         </>
                     )}
                 </div>
-                <div >
+                <div>
                     <Link to={`/study-sessions/${_id}`}>
                         <Button className='btn btn-sm w-full'>
                             Read More

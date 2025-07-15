@@ -1,18 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import useAxios from '../../hooks/useAxios';
-import AvailableStudySessionsCard from '../card/AvailableStudySessionsCard';
-import DashboardHeading from '../shared/DashboardHeading';
-
-const getStatus = (session) => {
-    const now = new Date();
-    const regStart = new Date(session.registrationStart);
-    const regEnd = new Date(session.registrationEnd);
-    if (now >= regStart && now <= regEnd) {
-        return 'Ongoing';
-    } else {
-        return 'Closed';
-    }
-};
+import StudySessionCard from '../card/StudySessionCard';
+import SectionTitle from '../shared/SectionTitle';
 
 const AvailableStudySessions = () => {
     const axiosInstance = useAxios();
@@ -32,15 +21,15 @@ const AvailableStudySessions = () => {
     if (!sessions.length) return <div className="text-center py-8">No available study sessions.</div>;
 
     return (
-        <section className="max-w-6xl mx-auto px-4 py-12">
-            <DashboardHeading title='Available Study Sessions' />
+        <section>
+            <div className='mb-10 md:mb-12'><SectionTitle title='Available Study Sessions' /></div>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
                 {sessions?.map(session => (
-                    <AvailableStudySessionsCard
-                        key={session._id}
-                        session={session}
-                        status={getStatus(session)}
-                    />
+                    // <AvailableStudySessionsCard
+                    //     key={session._id}
+                    //     session={session}
+                    // />
+                    <StudySessionCard key={session._id} session={session} />
                 ))}
             </div>
         </section>

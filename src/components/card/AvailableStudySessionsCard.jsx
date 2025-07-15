@@ -1,16 +1,12 @@
 import { useNavigate } from 'react-router';
-import { FaUser } from 'react-icons/fa';
-import { IoMdTime } from 'react-icons/io';
 
-const statusStyles = {
-  Ongoing: { bg: 'bg-green-500/90', border: 'border-green-500', text: 'text-white', dot: 'bg-white' },
-  Closed: { bg: 'bg-red-500/90', text: 'text-white', border: 'border-red-500', dot: 'bg-white' },
-  Upcoming: { bg: 'bg-red-500/90', text: 'text-white', border: 'border-red-500', dot: 'bg-white' },
-};
-
-const AvailableStudySessionsCard = ({ session, status }) => {
-  const { title, sessionImage, tutorName, duration } = session || {}
+const AvailableStudySessionsCard = ({ session }) => {
+  const { title, sessionImage,description, registrationFee } = session || {}
   const navigate = useNavigate();
+
+  // Ensure registrationFee is an object and calculate old price if not provided
+  let currentPrice = registrationFee?.current ?? registrationFee;
+  let oldPrice = registrationFee?.old ?? (currentPrice ? currentPrice * 2 : undefined);
 
   return (
     <div
@@ -26,56 +22,37 @@ const AvailableStudySessionsCard = ({ session, status }) => {
             alt={title}
             className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-base-300/40 via-base-300/10 to-transparent" />
-
-          {/* Floating status badge */}
-          <div className="absolute top-4 right-4 flex items-center">
-            <span className={`badge badge-sm rounded border-2 shadow-md backdrop-blur-sm ${statusStyles[status]?.bg} ${statusStyles[status]?.text} ${statusStyles[status]?.border} hover:scale-105 transition-transform duration-200`}>
-              <span className={`animate-pulse w-2 h-2 rounded-full ${statusStyles[status]?.dot}`}></span>
-              {status}
-            </span>
-          </div>
+          <div className="absolute inset-0 hover:bg-gradient-to-t from-primary/30 via-primary/10 to-transparent duration-400 ease-in-out transition-all" />
         </div>
       )}
 
       {/* Content Section */}
-      <div className="card-body p-5">
-        {/* Title */}
-        <h3 className="card-title text-xl line-clamp-2 group-hover:text-primary transition-colors">
-          {title.slice(0, 20)}
-        </h3>
-
-        {/* Divider */}
-        <div className="divider my-2"></div>
-
-        {/* Session Details */}
-        <div className="grid grid-cols-2 gap-3">
-          {/* Tutor */}
-          {tutorName && (
-            <div className="flex items-center gap-2 text-sm">
-              <div className="p-2 rounded bg-primary/10 text-primary">
-                <FaUser className="text-sm" />
-              </div>
-              <div>
-                <p className="text-xs text-base-content/60">Tutor</p>
-                <p className="font-medium text-base-content truncate">{tutorName}</p>
-              </div>
-            </div>
-          )}
-
-          {/* Duration */}
-          {duration && (
-            <div className="flex items-center gap-2 text-sm">
-              <div className="p-2 rounded bg-primary/10 text-primary">
-                <IoMdTime className="text-sm" />
-              </div>
-              <div>
-                <p className="text-xs text-base-content/60">Duration</p>
-                <p className="font-medium text-base-content">{duration}</p>
-              </div>
-            </div>
+      <div className="card-body pb-3 p-0 flex flex-col gap-0 relative">
+        {/* Unique Price Ribbon */}
+        <div className="absolute -top-5 left-0 z-10">
+          {(!currentPrice || currentPrice === 0) ? (
+            <span className="bg-gradient-to-r from-primary to-primary/70 text-white px-3 py-1 rounded-br-lg shadow font-bold text-base">Free</span>
+          ) : (
+            <span className="bg-gradient-to-r from-primary to-primary/70 text-white px-4 py-1 rounded-br-lg shadow font-bold text-base flex items-center gap-2">
+             ${currentPrice?.toLocaleString()}
+              {oldPrice && (
+                <span className="text-xs text-white/70 line-through ml-1">৳{oldPrice.toLocaleString()}</span>
+              )}
+              {oldPrice && (
+                <span className="ml-2 bg-primary/80 text-white px-2 py-0.5 rounded text-xs font-semibold">-{Math.round(100 - (currentPrice / oldPrice) * 100)}%</span>
+              )}
+            </span>
           )}
         </div>
+        {/* Title */}
+        <h3 className="card-title text-lg font-bold line-clamp-1 group-hover:text-primary transition-colors mb-1 pt-7 px-5">
+          {title.slice(0, 15)}{title.length > 15 ? '...' : ''}
+        </h3>
+        {/* Short Description */}
+        <p className="text-sm text-base-content/70 mb-1 line-clamp-2 px-5">
+          {description?.slice(0, 70)}{description && description.length > 70 ? '...' : ''}
+        </p>
+      
       </div>
     </div>
   );
