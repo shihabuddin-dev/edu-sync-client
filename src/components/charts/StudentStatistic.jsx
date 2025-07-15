@@ -11,11 +11,11 @@ const StudentStatistic = ({ stats }) => {
     }));
 
     return (
-        <div className="w-full max-w-3xl mx-auto mt-10 bg-base-100 rounded-md shadow-md p-6">
+        <div className="w-full max-w-5xl mx-auto mt-10 bg-base-100 rounded-md shadow-md p-6">
             <h3 className="text-lg font-semibold mb-4 text-center">Statistics Overview</h3>
-            <div className="w-full flex flex-col md:flex-row gap-8 items-center justify-center">
+            <div className="w-full flex flex-col md:flex-row gap-8 items-center justify-center overflow-x-auto md:overflow-x-hidden">
                 {/* Pie Chart */}
-                <div className="w-full md:w-1/2 h-72">
+                <div className="w-full min-w-[260px] h-78 md:h-72">
                     <ResponsiveContainer width="100%" height="100%">
                         <PieChart>
                             <Pie
@@ -38,7 +38,7 @@ const StudentStatistic = ({ stats }) => {
                     </ResponsiveContainer>
                 </div>
                 {/* Bar Chart */}
-                <div className="w-full md:w-1/2 h-72">
+                <div className="w-full min-w-[260px] h-64 md:h-72">
                     <ResponsiveContainer width="100%" height="100%">
                         <BarChart data={chartData}>
                             <CartesianGrid strokeDasharray="3 3" />

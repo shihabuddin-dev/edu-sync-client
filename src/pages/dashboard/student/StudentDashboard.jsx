@@ -110,8 +110,8 @@ const StudentDashboard = () => {
 
             {/* Statistics Section */}
             <section className="max-w-5xl mx-auto mb-10">
-                <DashboardHeading icon={FaChartBar} title='My Study Statistics' />
-                <h3 className="text-center text-xl font-semibold mb-6">Welcome Back, <span className='text-primary'>{user?.displayName} !</span></h3>
+                <DashboardHeading icon={FaChartBar} title='Student Dashboard Overview' />
+                <h3 className="text-center text-xl font-semibold mb-6">Welcome Student, <span className='text-primary'>{user?.displayName} !</span></h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
                     {isLoading ? (
                         <div className="col-span-5 text-center py-10">Loading statistics...</div>

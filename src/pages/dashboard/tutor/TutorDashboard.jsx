@@ -4,9 +4,8 @@ import useAuth from '../../../hooks/useAuth';
 import useAxiosSecure from '../../../hooks/useAxiosSecure';
 import CountUp from 'react-countup';
 import TutorStatistic from '../../../components/charts/TutorStatistic';
-import { FaCheckCircle, FaTimesCircle, FaHourglassHalf, FaUserGraduate, FaStar, FaChalkboardTeacher } from 'react-icons/fa';
+import { FaCheckCircle, FaTimesCircle, FaHourglassHalf, FaUserGraduate, FaStar, FaChalkboardTeacher, FaChartBar } from 'react-icons/fa';
 import DashboardHeading from '../../../components/shared/DashboardHeading';
-import { MdAdminPanelSettings } from 'react-icons/md';
 
 const fetchTutorStats = async (axiosSecure, email) => {
     // 1. Fetch all sessions for this tutor
@@ -122,7 +121,7 @@ const TutorDashboard = () => {
     return (
         <div className="min-h-screen bg-gradient-to-br from-base-100 to-base-200 p-4 md:p-8">
             <section className="max-w-5xl mx-auto mb-10">
-                <DashboardHeading icon={MdAdminPanelSettings} title='Welcome to Your Dashboard' />
+                <DashboardHeading icon={FaChartBar} title='Welcome to Your Dashboard' />
                 <h3 className="text-center text-xl font-semibold mb-6">Hello Tutor, <span className='text-primary'>{user?.displayName} !</span></h3>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-10">

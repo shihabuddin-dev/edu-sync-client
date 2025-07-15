@@ -59,7 +59,7 @@ const AboutUs = () => {
                 <div className="max-w-4xl mx-auto px-4 py-4 text-center">
                     <SectionTitle title="About Us" icon={<FaUsers />} />
                     <p className="text-base-content/70 max-w-2xl mx-auto leading-relaxed">
-                        Edu Sync is a collaborative study platform connecting students, tutors, and administrators. We streamline study session scheduling, resource sharing, and user management to empower modern education for everyone, everywhere.
+                        Edu Sync is a collaborative platform connecting students, tutors, and admins. We streamline scheduling, resource sharing, and empower modern education.
                     </p>
                 </div>
             </div>

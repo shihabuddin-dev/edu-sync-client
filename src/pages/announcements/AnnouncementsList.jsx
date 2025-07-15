@@ -48,7 +48,7 @@ const AnnouncementsList = () => {
                 <div className="max-w-4xl mx-auto px-4 py-4 text-center">
                     <SectionTitle title="Announcements" icon={<FaBullhorn />} />
                     <p className="text-base-content/70 max-w-2xl mx-auto leading-relaxed">
-                        Stay up to date with the latest news, updates, and important information from Edu Sync. Our announcements keep you informed and connected with our vibrant learning community.
+                        Stay informed with the latest news, updates, tips, and community highlights from Edu Sync. Never miss important announcements or opportunities to connect and grow.
                     </p>
                 </div>
             </div>

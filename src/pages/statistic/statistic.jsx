@@ -12,7 +12,7 @@ const Statistic = () => {
                 <div className="max-w-4xl mx-auto px-4 py-4 text-center">
                     <SectionTitle title="Statistic" icon={<FaChartBar />} />
                     <p className="text-base-content/70 max-w-2xl mx-auto leading-relaxed">
-                        Edu Sync empowers students, tutors, and administrators to connect, collaborate, and thrive. Our modern platform makes it easy to schedule study sessions, share resources, and manage learning—all in a secure, user-friendly environment designed for everyone, everywhere.
+                        Edu Sync connects students, tutors, and admins for easy scheduling, resource sharing, and collaborative learning—all in a secure, user-friendly platform.
                     </p>
                 </div>
             </div>
