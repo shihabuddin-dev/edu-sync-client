@@ -4,7 +4,6 @@ import {
   MdSchool,
   MdMenuBook,
   MdInfo,
-  MdBarChart,
   MdDashboard,
   MdLogout,
   MdMenu,
@@ -17,7 +16,7 @@ import ThemeToggle from "../ui/ThemeToggle";
 import userLogo from "../../assets/user-logo.png";
 
 import useAuth from "../../hooks/useAuth";
-import { FaUser, FaBullhorn } from "react-icons/fa";
+import { FaUser, FaBullhorn, FaChartBar } from "react-icons/fa";
 import Logo from "./Logo";
 // import Logo from "./Logo";
 
@@ -98,7 +97,7 @@ const Navbar = () => {
           </li>
           <li>
             <NavLink to="/statistic" className={linksClass}>
-              <MdBarChart />
+              <FaChartBar />
               Statistic
             </NavLink>
           </li>
@@ -227,7 +226,7 @@ const Navbar = () => {
             </li>
             <li>
               <NavLink to="/statistic" onClick={toggleMenu} className={linksClass}>
-                <MdBarChart />
+                <FaChartBar />
                 Statistic
               </NavLink>
             </li>

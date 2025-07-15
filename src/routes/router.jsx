@@ -39,6 +39,7 @@ import BookingDetails from "../pages/dashboard/student/BookingDetails";
 import Tutors from "../pages/tutors/Tutors";
 import AllStudent from "../pages/dashboard/student/AllStudent";
 import StudyMaterials from "../pages/dashboard/student/StudyMaterials";
+import statistic from "../pages/statistic/statistic";
 
 const router = createBrowserRouter([
   {
@@ -64,6 +65,7 @@ const router = createBrowserRouter([
       { path: "tutors", Component: Tutors },
       { path: "announcements", Component: AnnouncementsList },
       { path: "study-sessions", Component: StudySessions },
+      { path: "statistic", Component: statistic },
       { path: "study-sessions/:id", Component: DetailsStudySession },
       // private routes
       {
