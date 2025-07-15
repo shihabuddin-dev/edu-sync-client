@@ -1,22 +1,29 @@
-# Edu Sync Client
+# Edu Sync
 
 [![Live Website](https://img.shields.io/badge/Live%20Demo-edu--sync--pro.web.app-brightgreen?style=for-the-badge&logo=google-chrome)](https://edu-sync-pro.web.app/)
 
-Welcome to **Edu Sync** – a modern, full-featured educational platform connecting students, tutors, and administrators. This is the frontend client, built with React and Vite, designed for speed, scalability, and a seamless user experience.
+**Live Site:** [https://edu-sync-pro.web.app/](https://edu-sync-pro.web.app/)
+
+**Admin Login:**
+- **Email:** admin@edusync.com
+- **Password:** admin@edusync.com
 
 ---
 
-## 🚀 Features
+## 🌟 Website Features
 
-- **Role-Based Dashboards**: Dynamic dashboards for students, tutors, and admins, each with real-time statistics and charts.
-- **Study Sessions**: Book, manage, and review study sessions with ease.
-- **Material Management**: Upload, view, and download study materials.
-- **Announcements**: Stay updated with platform-wide announcements.
-- **Responsive Design**: Fully responsive and mobile-friendly UI.
-- **Animated Statistics**: Engaging, animated stats and charts for insights.
-- **Authentication**: Secure login, registration, and password reset.
-- **Payment Integration**: Stripe-powered secure payments.
-- **Modern UI/UX**: Built with Tailwind CSS and DaisyUI for a clean, modern look.
+- **Role-Based Dashboards** for Admin, Tutor, and Student with tailored statistics and controls
+- **Secure Authentication** with email/password and social login options
+- **Comprehensive Study Session Management**: Create, book, approve, and review sessions
+- **Material Upload & Download** for sharing study resources
+- **Dynamic Announcements** to keep users informed
+- **Animated Statistics & Charts** for visual insights
+- **Responsive, Mobile-First Design** for all devices
+- **Stripe-Powered Payment Integration** for secure transactions
+- **User Profile Management** with editable details and avatars
+- **Advanced Search & Filtering** for sessions, tutors, and materials
+- **Notifications & Alerts** for important actions and updates
+- **Modern UI/UX** using Tailwind CSS and DaisyUI
 
 ---
 
