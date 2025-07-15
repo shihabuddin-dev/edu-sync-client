@@ -6,6 +6,7 @@ import SectionTitle from '../../components/shared/SectionTitle';
 import StatsSection from '../../components/extra/StatsSection';
 import StudyPagination from '../../components/paginations/StudyPagination';
 import { MdMenuBook } from 'react-icons/md';
+import Spinner from '../../components/ui/Spinner';
 
 
 
@@ -26,7 +27,7 @@ const StudySessions = () => {
 
   const { sessions = [], totalPages = 0, totalItems = 0 } = sessionsData;
 
-  if (isLoading) return <div className="text-center py-8">Loading sessions...</div>;
+  if (isLoading) return <Spinner/>
   if (isError) return <div className="text-center py-8 text-error">Error: {error.message}</div>;
 
   // Prepare stats data for the component

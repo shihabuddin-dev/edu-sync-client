@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import useAxios from '../../hooks/useAxios';
 import StudySessionCard from '../card/StudySessionCard';
+import Spinner from '../ui/Spinner';
 
 const AvailableStudySessions = () => {
     const axiosInstance = useAxios();
@@ -15,7 +16,7 @@ const AvailableStudySessions = () => {
         queryFn: fetchSessions,
     });
 
-    if (isLoading) return <div className="text-center py-8">Loading sessions...</div>;
+    if (isLoading) return <Spinner />
     if (isError) return <div className="text-center py-8">Error: {error.message}</div>;
     if (!sessions.length) return <div className="text-center py-8">No available study sessions.</div>;
 
