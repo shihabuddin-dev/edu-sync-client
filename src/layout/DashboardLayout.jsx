@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router";
-import { FaBars, FaTimes, FaUserCircle, FaSignOutAlt, FaUsers, FaBook, FaChalkboardTeacher, FaBullhorn, FaLayerGroup, FaGraduationCap, FaRegCalendarPlus, FaListAlt, FaCloudUploadAlt, FaFolderOpen } from "react-icons/fa";
+import { FaBars, FaTimes, FaUserCircle, FaSignOutAlt, FaUsers, FaBook, FaChalkboardTeacher, FaBullhorn, FaLayerGroup, FaGraduationCap, FaRegCalendarPlus, FaListAlt, FaCloudUploadAlt, FaFolderOpen, FaHome } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
 import useUserRole from "../hooks/useUserRole";
@@ -10,6 +10,11 @@ import Button from "../components/ui/Button";
 import { MdNoteAdd, MdNoteAlt } from "react-icons/md";
 
 const adminLinks = [
+  {
+    to: "/dashboard",
+    label: "Dashboard Home",
+    icon: <FaHome />,
+  },
   {
     to: "/dashboard/admin/users",
     label: "All Users",
@@ -39,6 +44,11 @@ const adminLinks = [
 
 const tutorLinks = [
   {
+    to: "/dashboard",
+    label: "Dashboard Home",
+    icon: <FaHome />,
+  },
+  {
     to: "/dashboard/tutor/create-session",
     label: "Create Study Session",
     icon: <FaRegCalendarPlus />
@@ -66,6 +76,11 @@ const tutorLinks = [
 ];
 
 const studentLinks = [
+  {
+    to: "/dashboard",
+    label: "Dashboard Home",
+    icon: <FaHome />,
+  },
   {
     to: "/dashboard/student/my-bookings",
     label: "Booked Sessions",
@@ -157,10 +172,11 @@ const DashboardLayout = () => {
           </button>
         </div>
         <nav className="mt-4 flex flex-col gap-1">
-          {navLinks.map((link) => (
+          {navLinks.map((link, idx) => (
             <NavLink
               key={link.to}
               to={link.to}
+              end={idx === 0} // Only the first link (Dashboard Home) should use 'end' to match exactly /dashboard
               className={({ isActive }) =>
                 `flex items-center gap-3 px-6 py-1.5 font-medium transition-colors ${isActive ? "bg-primary text-white" : "text-base-content hover:bg-primary/10"
                 }`

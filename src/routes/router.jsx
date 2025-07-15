@@ -40,6 +40,7 @@ import Tutors from "../pages/tutors/Tutors";
 import AllStudent from "../pages/dashboard/student/AllStudent";
 import StudyMaterials from "../pages/dashboard/student/StudyMaterials";
 import statistic from "../pages/statistic/statistic";
+import DashboardHome from "../pages/dashboard/common/DashboardHome";
 
 const router = createBrowserRouter([
   {
@@ -90,7 +91,10 @@ const router = createBrowserRouter([
     path: "/dashboard",
     element: <PrivateRoutes><DashboardLayout /></PrivateRoutes>,
     children: [
-
+      {
+        index: true,
+        Component: DashboardHome
+      },
       // student routes
       {
         path: 'student/create-note',

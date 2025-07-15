@@ -48,21 +48,21 @@ const MyProfile = () => {
         >
           {/* Avatar */}
           <div className="relative mb-2">
-            <div className="w-28 h-28 rounded-full border-4 border-primary bg-base-200 flex items-center justify-center overflow-hidden shadow-md">
+            <div className="w-28 md:w-36 h-28 md:h-36 p-4 rounded-full border-4 border-primary bg-base-200 flex items-center justify-center overflow-hidden shadow-md">
               {user.photoURL ? (
                 <img
                   src={user.photoURL}
                   alt="User"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full p-2 object-cover"
                 />
               ) : (
                 <FaUserCircle className="w-24 h-24 text-base-content/40" />
               )}
             </div>
             {user.emailVerified ? (
-              <FaCheckCircle className="absolute bottom-2 right-2 text-success bg-base-100 rounded-full text-xl border-2 border-base-100" title="Email Verified" />
+              <FaCheckCircle className="absolute bottom-3 right-2 text-success bg-base-100 rounded-full text-2xl border-2 border-base-100" title="Email Verified" />
             ) : (
-              <FaTimesCircle className="absolute bottom-2 right-2 text-error bg-base-100 rounded-full text-xl border-2 border-base-100" title="Email Not Verified" />
+              <FaTimesCircle className="absolute bottom-3 right-2 text-error bg-base-100 rounded-full text-2xl border-2 border-base-100" title="Email Not Verified" />
             )}
           </div>
           {/* Name & Email */}

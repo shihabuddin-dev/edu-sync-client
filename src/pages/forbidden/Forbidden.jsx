@@ -12,7 +12,7 @@ const Forbidden = () => {
                 <h1 className="text-3xl font-bold text-red-600 mb-2">403 Forbidden</h1>
                 <p className="text-base-content mb-6 text-center">
                     Oops! You don&apos;t have permission to access this page.<br />
-                    If you think this is a mistake, please contact the administrator.
+                    If you think this is a mistake, please contact the <a href="https://shihab-dev.web.app/" target='blank' className='text-primary underline'>administrator</a>.
                 </p>
                 <Button
                     variant='danger'
