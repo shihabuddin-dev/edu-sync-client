@@ -61,13 +61,13 @@ const HowEduSyncWork = () => {
       {/* Desktop: Circular Layout */}
       <div className="relative w-full max-w-2xl mx-auto h-[450px] hidden md:block">
         {/* Center Circle */}
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-primary/90 rounded-full flex items-center justify-center shadow-lg transition-transform duration-300 ease-in-out hover:scale-110 hover:shadow-primary/80 z-20">
+        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-primary/90 rounded-full flex items-center justify-center shadow-md transition-transform duration-300 ease-in-out hover:scale-110 hover:shadow-primary/80 z-20">
           <span className="text-center font-bold text-2xl text-white tracking-wide">EduSync<br />Website</span>
         </div>
         {/* Step Items */}
         {steps.map((step, idx) => (
           <div key={idx} className="absolute flex items-center gap-4 w-52 z-10" style={positions[idx]}>
-            <div className={`w-16 h-16 rounded-full flex-shrink-0 flex items-center justify-center shadow-md text-white text-3xl ${step.color} transition-transform duration-300 ease-in-out hover:scale-110 hover:shadow-lg cursor-pointer`}>
+            <div className={`w-16 h-16 rounded-full flex-shrink-0 flex items-center justify-center shadow text-white text-3xl ${step.color} transition-transform duration-300 ease-in-out hover:scale-110 hover:shadow-md cursor-pointer`}>
               {step.icon}
             </div>
             <div className="flex-grow">
@@ -80,13 +80,13 @@ const HowEduSyncWork = () => {
       {/* Mobile: Stack Steps Vertically */}
       <div className="flex flex-col gap-5 md:hidden mt-8">
         <div className="flex justify-center mb-8">
-          <div className="w-32 h-32 bg-primary/90 rounded-full flex items-center justify-center shadow-2xl">
+          <div className="w-32 h-32 bg-primary/90 rounded-full flex items-center justify-center shadow-md">
             <span className="text-center font-bold text-xl text-white tracking-wide">EduSync<br />Website</span>
           </div>
         </div>
         {steps.map((step, idx) => (
-          <div key={idx} className="flex items-center gap-4 w-full bg-white rounded-md shadow p-4">
-            <div className={`w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center shadow text-white text-xl ${step.color} transition-transform duration-300 ease-in-out  hover:-translate-y-2 hover:shadow-2xl cursor-pointer`}>
+          <div key={idx} className="flex items-center gap-4 w-full  rounded-md shadow p-4">
+            <div className={`w-12 h-12 rounded-full flex-shrink-0 flex items-center justify-center shadow text-white text-xl ${step.color} transition-transform duration-300 ease-in-out  hover:-translate-y-2 hover:shadow-md cursor-pointer`}>
               {step.icon}
             </div>
             <div className="flex-grow">

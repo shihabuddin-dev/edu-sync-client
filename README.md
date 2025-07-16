@@ -6,7 +6,7 @@
 
 **Admin Login:**
 - **Email:** admin@edusync.com
-- **Password:** admin@edusync.com
+- **Password:** admin@EDU#
 
 ---
 

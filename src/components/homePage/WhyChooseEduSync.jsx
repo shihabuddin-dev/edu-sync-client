@@ -1,4 +1,6 @@
 import { FaUserGraduate, FaClock, FaComments, FaChartBar, FaGlobe, FaShieldAlt } from 'react-icons/fa';
+import { Link } from 'react-router';
+import Button from '../ui/Button';
 
 const features = [
     {
@@ -45,6 +47,7 @@ const WhyChooseEduSync = () => (
                 </div>
             ))}
         </div>
+        <div className="text-center mt-8"><Link to="/statistic"><Button className="btn"><FaChartBar /> See Site Statistic</Button></Link></div>
     </section>
 );
 

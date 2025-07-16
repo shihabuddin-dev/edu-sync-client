@@ -16,7 +16,7 @@ import ThemeToggle from "../ui/ThemeToggle";
 import userLogo from "../../assets/user-logo.png";
 
 import useAuth from "../../hooks/useAuth";
-import { FaUser, FaBullhorn, FaChartBar } from "react-icons/fa";
+import { FaUser, FaBullhorn, FaChartBar, FaHome } from "react-icons/fa";
 import Logo from "./Logo";
 // import Logo from "./Logo";
 
@@ -84,6 +84,12 @@ const Navbar = () => {
         {/* Desktop Nav */}
         <ul className="hidden lg:flex gap-5 font-semibold text-[#1a1a1a]">
           <li>
+            <NavLink to="/" className={linksClass}>
+              <FaHome />
+              Home
+            </NavLink>
+          </li>
+          <li>
             <NavLink to="/tutors" className={linksClass}>
               <MdSchool />
               Tutors
@@ -93,12 +99,6 @@ const Navbar = () => {
             <NavLink to="/study-sessions" className={linksClass}>
               <MdMenuBook />
               Study Sessions
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/statistic" className={linksClass}>
-              <FaChartBar />
-              Statistic
             </NavLink>
           </li>
           <li>
@@ -119,11 +119,6 @@ const Navbar = () => {
               Support
             </NavLink>
           </li>
-          {/* {user && <li>
-            <NavLink to="/dashboard" className={linksClass}>
-              <MdDashboard /> Dashboard
-            </NavLink>
-          </li>} */}
         </ul>
 
         {/* Sign In / Avatar */}
@@ -209,6 +204,12 @@ const Navbar = () => {
         <div className="px-4 pt-2 pb-4 bg-base-100 border-b border-base-300 shadow-lg rounded-b-md">
           <ul className="flex flex-col gap-4 font-semibold text-[#1a1a1a]">
             <li>
+              <NavLink to="/" onClick={toggleMenu} className={linksClass}>
+                <FaHome />
+                Home
+              </NavLink>
+            </li>
+            <li>
               <NavLink to="/tutors" onClick={toggleMenu} className={linksClass}>
                 <MdSchool />
                 Tutors
@@ -222,12 +223,6 @@ const Navbar = () => {
               >
                 <MdMenuBook />
                 Study Sessions
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/statistic" onClick={toggleMenu} className={linksClass}>
-                <FaChartBar />
-                Statistic
               </NavLink>
             </li>
             <li>
