@@ -77,7 +77,7 @@ const StudySessionCard = ({ session }) => {
             )}
             <div className="p-5 flex-1 flex flex-col space-y-2 z-10">
                 <h3 className="text-xl font-bold group-hover:text-primary transition-colors duration-200 drop-shadow-sm">{title?.slice(0, 16)}{title && title.length > 30 ? '...' : ''}</h3>
-                <p className="text-base-content/70 text-sm drop-shadow-xs">{description?.slice(0, 60)}{description && description.length > 60 ? '...' : ''}</p>
+                <p className="text-base-content/70 text-sm drop-shadow-xs">{description?.slice(0, 40)}{description && description.length > 40 ? '...' : ''}</p>
                 {/* Ratings and reviews */}
                 <div className="flex items-center gap-2 mt-1">
                     <FaStar className="text-warning text-base" />

@@ -1,0 +1,191 @@
+[
+  {
+    "title": "Welcome, Students!",
+    "message": "A warm welcome to all new and returning students. Explore new resources and connect with your tutors.",
+    "category": "general",
+    "audience": "students",
+    "priority": "featured",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-01T09:00:00.000Z"
+  },
+  {
+    "title": "Tutor Training Session",
+    "message": "All tutors are invited to join our upcoming training session on interactive teaching methods.",
+    "category": "event",
+    "audience": "tutors",
+    "priority": "important",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-02T14:00:00.000Z"
+  },
+  {
+    "title": "Admin Notice",
+    "message": "Admins, please review the new platform guidelines and update your dashboard settings.",
+    "category": "alert",
+    "audience": "admins",
+    "priority": "important",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-03T12:00:00.000Z"
+  },
+  {
+    "title": "Platform Maintenance",
+    "message": "Edu Sync will be under maintenance on July 4th from 2:00 AM to 4:00 AM UTC.",
+    "category": "alert",
+    "audience": "",
+    "priority": "important",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-04T08:00:00.000Z"
+  },
+  {
+    "title": "New Features Released!",
+    "message": "We have added new features for everyone. Check out the dashboard for details and tutorials.",
+    "category": "update",
+    "audience": "",
+    "priority": "featured",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-05T10:30:00.000Z"
+  },
+  {
+    "title": "Student Survey",
+    "message": "Students, please complete the feedback survey to help us improve your learning experience.",
+    "category": "general",
+    "audience": "students",
+    "priority": "important",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-06T11:00:00.000Z"
+  },
+  {
+    "title": "Tutor Q&A",
+    "message": "Join our live Q&A session for tutors this Friday at 5 PM.",
+    "category": "event",
+    "audience": "tutors",
+    "priority": "featured",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-07T17:00:00.000Z"
+  },
+  {
+    "title": "Admin System Check",
+    "message": "Admins, please verify all user accounts by July 8th.",
+    "category": "alert",
+    "audience": "admins",
+    "priority": "important",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-08T09:00:00.000Z"
+  },
+  {
+    "title": "Summer Break Notice",
+    "message": "Edu Sync will be closed for summer break from July 10th to July 15th.",
+    "category": "alert",
+    "audience": "",
+    "priority": "important",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-09T08:00:00.000Z"
+  },
+  {
+    "title": "Resource Update",
+    "message": "New study materials have been added for all users.",
+    "category": "update",
+    "audience": "",
+    "priority": "featured",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-10T10:00:00.000Z"
+  },
+  {
+    "title": "Student Webinar",
+    "message": "Students, join our webinar on effective study habits next week.",
+    "category": "event",
+    "audience": "students",
+    "priority": "important",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-11T15:00:00.000Z"
+  },
+  {
+    "title": "Tutor Appreciation",
+    "message": "Thank you to all our tutors for your dedication and hard work!",
+    "category": "general",
+    "audience": "tutors",
+    "priority": "featured",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-12T09:00:00.000Z"
+  },
+  {
+    "title": "Admin Meeting",
+    "message": "Admins, please attend the monthly meeting on July 13th at 3 PM.",
+    "category": "event",
+    "audience": "admins",
+    "priority": "important",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-13T15:00:00.000Z"
+  },
+  {
+    "title": "Platform Security Update",
+    "message": "We have enhanced our security protocols for all users.",
+    "category": "update",
+    "audience": "",
+    "priority": "important",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-14T10:00:00.000Z"
+  },
+  {
+    "title": "Student Orientation",
+    "message": "Orientation for new students will be held on July 15th at 10 AM.",
+    "category": "event",
+    "audience": "students",
+    "priority": "featured",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-15T10:00:00.000Z"
+  },
+  {
+    "title": "Tutor Resource Pack",
+    "message": "Tutors, download the new resource pack from your dashboard.",
+    "category": "update",
+    "audience": "tutors",
+    "priority": "important",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-16T09:00:00.000Z"
+  },
+  {
+    "title": "Admin Dashboard Update",
+    "message": "The admin dashboard has been updated with new analytics features.",
+    "category": "update",
+    "audience": "admins",
+    "priority": "featured",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-17T11:00:00.000Z"
+  },
+  {
+    "title": "All Users: Feedback Request",
+    "message": "We value your feedback! Please fill out the feedback form on your dashboard.",
+    "category": "general",
+    "audience": "",
+    "priority": "important",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-18T12:00:00.000Z"
+  },
+  {
+    "title": "Student Scholarship Info",
+    "message": "Scholarship applications are now open for eligible students.",
+    "category": "alert",
+    "audience": "students",
+    "priority": "important",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-19T09:00:00.000Z"
+  },
+  {
+    "title": "Tutor Peer Review",
+    "message": "Tutors, participate in the peer review program to enhance your teaching skills.",
+    "category": "event",
+    "audience": "tutors",
+    "priority": "featured",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-20T14:00:00.000Z"
+  },
+  {
+    "title": "Admin: System Audit",
+    "message": "Admins, the annual system audit will take place on July 21st.",
+    "category": "alert",
+    "audience": "admins",
+    "priority": "important",
+    "imageUrl": "https://i.ibb.co/jkw0Z2hd/announcement.jpg",
+    "created_at": "2025-07-21T10:00:00.000Z"
+  }
+]

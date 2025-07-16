@@ -145,16 +145,16 @@ const AnnouncementsList = () => {
                                             <FaBullhorn className="text-primary" />
                                             <span className="font-bold text-lg">{a.title}</span>
                                             {a.priority && a.priority !== 'normal' && (
-                                                <span className={`badge ml-2 flex items-center gap-1 ${a.priority === 'featured' ? 'bg-secondary/80 text-secondary-content' : 'bg-warning/80 text-warning-content'}`}><FaExclamationCircle /> {a.priority}</span>
+                                                <span className={`badge rounded ml-2 flex items-center gap-1 ${a.priority === 'featured' ? 'bg-secondary/80 text-secondary-content' : 'bg-warning/80 text-warning-content'}`}><FaExclamationCircle /> {a.priority}</span>
                                             )}
                                         </div>
                                         <div className="text-base-content/80 mb-2 whitespace-pre-line">{a.message}</div>
                                         <div className="flex flex-wrap gap-3 text-xs text-base-content/60 mt-2">
                                             {a.category && (
-                                                <span className="badge bg-primary/80 text-primary-content px-2 py-1 rounded-full flex items-center gap-1 font-semibold"><FaTag /> {a.category}</span>
+                                                <span className="badge rounded bg-primary/80 text-primary-content px-2 py-1 flex items-center gap-1 font-semibold"><FaTag /> {a.category}</span>
                                             )}
                                             {a.audience && (
-                                                <span className="badge bg-secondary/80 text-secondary-content px-2 py-1 rounded-full flex items-center gap-1 font-semibold"><FaUsers /> {a.audience}</span>
+                                                <span className="badge rounded bg-secondary/80 text-secondary-content px-2 py-1 flex items-center gap-1 font-semibold"><FaUsers /> {a.audience}</span>
                                             )}
                                             {a.link && (
                                                 <a href={a.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 link link-primary"><FaLink /> Link</a>
@@ -191,16 +191,16 @@ const AnnouncementsList = () => {
                                             <FaBullhorn className="text-primary" />
                                             <span className="font-bold text-lg">{a.title}</span>
                                             {a.priority && a.priority !== 'normal' && (
-                                                <span className={`badge ml-2 flex items-center gap-1 ${a.priority === 'featured' ? 'bg-secondary/80 text-secondary-content' : 'bg-warning/80 text-warning-content'}`}><FaExclamationCircle /> {a.priority}</span>
+                                                <span className={`badge rounded ml-2 flex items-center gap-1 ${a.priority === 'featured' ? 'bg-secondary/80 text-secondary-content' : 'bg-warning/80 text-warning-content'}`}><FaExclamationCircle /> {a.priority}</span>
                                             )}
                                         </div>
                                         <div className="text-base-content/80 mb-2 whitespace-pre-line">{a.message}</div>
                                         <div className="flex flex-wrap gap-3 text-xs text-base-content/60 mt-2">
                                             {a.category && (
-                                                <span className="badge bg-primary/80 text-primary-content px-2 py-1 rounded-full flex items-center gap-1 font-semibold"><FaTag /> {a.category}</span>
+                                                <span className="badge rounded bg-primary/80 text-primary-content px-2 py-1 flex items-center gap-1 font-semibold"><FaTag /> {a.category}</span>
                                             )}
                                             {a.audience && (
-                                                <span className="badge bg-secondary/80 text-secondary-content px-2 py-1 rounded-full flex items-center gap-1 font-semibold"><FaUsers /> {a.audience}</span>
+                                                <span className="badge rounded bg-secondary/80 text-secondary-content px-2 py-1 flex items-center gap-1 font-semibold"><FaUsers /> {a.audience}</span>
                                             )}
                                             {a.link && (
                                                 <a href={a.link} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 link link-primary"><FaLink /> Link</a>

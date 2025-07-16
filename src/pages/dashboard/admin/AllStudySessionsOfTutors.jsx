@@ -9,6 +9,7 @@ import ApproveSessionModal from '../../../components/modals/ApproveSessionModal'
 import RejectSessionModal from '../../../components/modals/RejectSessionModal';
 import { useNavigate } from 'react-router';
 import AdminAllStudyPagination from '../../../components/paginations/AdminAllStudyPagination';
+import { inputBase } from '../../../utils/inputBase';
 
 const AllStudySessionsOfTutors = () => {
     const axiosSecure = useAxiosSecure();
@@ -36,6 +37,7 @@ const AllStudySessionsOfTutors = () => {
     const [paidFilter, setPaidFilter] = useState('all');
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 10;
+    const [searchTerm, setSearchTerm] = useState('');
 
     // Fetch paginated sessions
     const { data: sessionsData = { sessions: [], totalPages: 0, totalItems: 0 }, isLoading, refetch } = useQuery({
@@ -53,6 +55,17 @@ const AllStudySessionsOfTutors = () => {
         const statusMatch = filter === 'all' || session.status === filter;
         const paidMatch = paidFilter === 'all' || (paidFilter === 'paid' ? session.paid : !session.paid);
         return statusMatch && paidMatch;
+    });
+
+    // Further filter by search term (title or tutor)
+    const searchedSessions = filteredSessions.filter(session => {
+        const search = searchTerm.trim().toLowerCase();
+        if (!search) return true;
+        return (
+            (session.title && session.title.toLowerCase().includes(search)) ||
+            (session.tutorName && session.tutorName.toLowerCase().includes(search)) ||
+            (session.tutorEmail && session.tutorEmail.toLowerCase().includes(search))
+        );
     });
 
     // Format date
@@ -210,10 +223,21 @@ const AllStudySessionsOfTutors = () => {
                         ))}
                     </div>
                 </div>
+                {/* Search Bar */}
+                <div className="mt-4 w-full max-w-xs relative">
+                    <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-base-content/60 text-lg pointer-events-none" />
+                    <input
+                        type="text"
+                        value={searchTerm}
+                        onChange={e => setSearchTerm(e.target.value)}
+                        placeholder="Search by title or tutor..."
+                        className={inputBase + ' w-full pl-10'}
+                    />
+                </div>
             </div>
 
             {/* Table Section */}
-            {filteredSessions.length === 0 ? (
+            {searchedSessions.length === 0 ? (
                 <div className="bg-base-100 rounded-md shadow-md border border-base-300 p-12">
                     <div className="flex flex-col items-center justify-center text-center">
                         <FaInfoCircle className="text-6xl text-base-content/30 mb-4" />
@@ -235,7 +259,7 @@ const AllStudySessionsOfTutors = () => {
                             <h3 className="text-lg font-semibold">Study Sessions Management</h3>
                             <div className="flex items-center gap-2 text-sm text-base-content/70">
                                 <FaSearch />
-                                <span>{filteredSessions.length} session{filteredSessions.length !== 1 ? 's' : ''}</span>
+                                <span>{searchedSessions.length} session{searchedSessions.length !== 1 ? 's' : ''}</span>
                             </div>
                         </div>
                     </div>
@@ -257,7 +281,7 @@ const AllStudySessionsOfTutors = () => {
                             </thead>
                             {/* Table Body */}
                             <tbody>
-                                {filteredSessions.map(session => (
+                                {searchedSessions.map(session => (
                                     <tr key={session._id} className="hover:bg-base-50">
                                         <td>
                                             <div className="flex items-center gap-3">
@@ -392,7 +416,7 @@ const AllStudySessionsOfTutors = () => {
                     {/* Table Footer */}
                     <div className="bg-base-200 px-6 py-3 border-t border-base-300">
                         <div className="flex flex-wrap items-center justify-between text-sm text-base-content/70">
-                            <span>Showing {filteredSessions.length} of {totalItems} sessions</span>
+                            <span>Showing {searchedSessions.length} of {totalItems} sessions</span>
                             <span>Last updated: {new Date().toLocaleString()}</span>
                         </div>
                     </div>
