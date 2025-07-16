@@ -48,9 +48,9 @@ const PaymentForm = () => {
     const amount = session.registrationFee || 0;
     const amountInCents = Math.round(amount * 100);
     
-    console.log('Session:', session);
-    console.log('Amount:', amount);
-    console.log('Amount in cents:', amountInCents);
+    // console.log('Session:', session);
+    // console.log('Amount:', amount);
+    // console.log('Amount in cents:', amountInCents);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -81,7 +81,7 @@ const PaymentForm = () => {
                 return;
             }
 
-            console.log('Processing payment for amount:', amountInCents, 'cents');
+            // console.log('Processing payment for amount:', amountInCents, 'cents');
 
             // Step 1: Create payment intent
             const paymentIntentRes = await axiosSecure.post('/create-payment-intent', {
@@ -94,7 +94,7 @@ const PaymentForm = () => {
             }
             
             const clientSecret = paymentIntentRes.data.clientSecret;
-            console.log('Payment intent created, client secret received');
+            // console.log('Payment intent created, client secret received');
 
             // Step 2: Confirm payment
             const result = await stripe.confirmCardPayment(clientSecret, {
@@ -113,10 +113,10 @@ const PaymentForm = () => {
                 return;
             }
 
-            console.log('Payment result:', result);
+            // console.log('Payment result:', result);
 
             if (result.paymentIntent && result.paymentIntent.status === 'succeeded') {
-                console.log('Payment Succeeded');
+                // console.log('Payment Succeeded');
                 const transactionId = result.paymentIntent.id;
 
                 // Step 4: Create booking first
