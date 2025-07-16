@@ -10,7 +10,7 @@ import DashboardHeading from '../../../components/shared/DashboardHeading';
 const fetchTutorStats = async (axiosSecure, email) => {
     // 1. Fetch all sessions for this tutor
     const sessionsRes = await axiosSecure.get(`/sessions?email=${email}`);
-    const sessions = sessionsRes.data || [];
+    const sessions = sessionsRes.data.sessions || [];
     const totalSessions = sessions.length;
     const approvedSessions = sessions.filter(s => s.status === 'approved').length;
     const pendingSessions = sessions.filter(s => s.status === 'pending').length;

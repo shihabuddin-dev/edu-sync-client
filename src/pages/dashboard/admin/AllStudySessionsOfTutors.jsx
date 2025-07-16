@@ -8,6 +8,7 @@ import Swal from 'sweetalert2';
 import ApproveSessionModal from '../../../components/modals/ApproveSessionModal';
 import RejectSessionModal from '../../../components/modals/RejectSessionModal';
 import { useNavigate } from 'react-router';
+import AdminAllStudyPagination from '../../../components/paginations/AdminAllStudyPagination';
 
 const AllStudySessionsOfTutors = () => {
     const axiosSecure = useAxiosSecure();
@@ -33,15 +34,19 @@ const AllStudySessionsOfTutors = () => {
         { label: 'Free', value: 'free' },
     ];
     const [paidFilter, setPaidFilter] = useState('all');
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 10;
 
-    // Fetch all sessions
-    const { data: sessions = [], isLoading, refetch } = useQuery({
-        queryKey: ['allSessions'],
+    // Fetch paginated sessions
+    const { data: sessionsData = { sessions: [], totalPages: 0, totalItems: 0 }, isLoading, refetch } = useQuery({
+        queryKey: ['allSessions', currentPage, itemsPerPage],
         queryFn: async () => {
-            const res = await axiosSecure.get('/sessions');
+            const res = await axiosSecure.get(`/sessions?page=${currentPage}&limit=${itemsPerPage}`);
             return res.data;
         }
     });
+
+    const { sessions = [], totalPages = 0, totalItems = 0 } = sessionsData;
 
     // Filter sessions based on selected filter and paid/free
     const filteredSessions = sessions.filter(session => {
@@ -376,11 +381,18 @@ const AllStudySessionsOfTutors = () => {
                             </tbody>
                         </table>
                     </div>
-
+                    {/* pagination  */}
+                    <AdminAllStudyPagination
+                        currentPage={currentPage}
+                        totalPages={totalPages}
+                        onPageChange={setCurrentPage}
+                        totalItems={totalItems}
+                        itemsPerPage={itemsPerPage}
+                    />
                     {/* Table Footer */}
                     <div className="bg-base-200 px-6 py-3 border-t border-base-300">
                         <div className="flex flex-wrap items-center justify-between text-sm text-base-content/70">
-                            <span>Showing {filteredSessions.length} of {sessions.length} sessions</span>
+                            <span>Showing {filteredSessions.length} of {totalItems} sessions</span>
                             <span>Last updated: {new Date().toLocaleString()}</span>
                         </div>
                     </div>

@@ -1,10 +1,8 @@
 import { useQuery } from '@tanstack/react-query';
-import { useParams } from 'react-router';
 import useAxios from '../../hooks/useAxios';
 import StudySessionCard from '../../components/card/StudySessionCard';
 
-const Recomanded = () => {
-    const { id } = useParams();
+const Recommended = ({ sessionId }) => {
     const axiosInstance = useAxios();
 
     // Fetch available sessions (approved only, limited, sorted)
@@ -16,16 +14,9 @@ const Recomanded = () => {
         },
     });
 
-    // Filter out the current session and pick up to 3 others that are ongoing
-    const now = new Date();
     const recommended = Array.isArray(sessions)
         ? sessions
-            .filter((s) => {
-                if (s._id === id) return false;
-                const regStart = new Date(s.registrationStart);
-                const regEnd = new Date(s.registrationEnd);
-                return now >= regStart && now <= regEnd; // Only ongoing
-            })
+            .filter((s) => String(s._id) !== String(sessionId))
             .slice(0, 3)
         : [];
 
@@ -40,7 +31,7 @@ const Recomanded = () => {
     return (
         <div className="mt-12">
             <h2 className="text-xl md:text-2xl font-bold mb-6 text-primary">Recommended Sessions</h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
                 {recommended.map((session) => (
                     <StudySessionCard
                         key={session._id}
@@ -52,4 +43,4 @@ const Recomanded = () => {
     );
 };
 
-export default Recomanded;
+export default Recommended;

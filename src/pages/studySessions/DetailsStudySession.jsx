@@ -22,7 +22,7 @@ import Button from '../../components/ui/Button';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 import Reviews from './Reviews';
-import Recomanded from './Recomanded';
+import Recommended from './Recommended';
 
 const DetailsStudySession = () => {
     const { user } = useAuth();
@@ -357,7 +357,8 @@ const DetailsStudySession = () => {
 
                 {/* Reviews section left as-is */}
                 <Reviews />
-                <Recomanded />
+                {/* <Recommended/> */}
+                <Recommended sessionId={session._id} />
             </div>
         </div>
     );

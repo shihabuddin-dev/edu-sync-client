@@ -34,14 +34,16 @@ const MyAllStudySessions = () => {
     const navigate = useNavigate();
     // No need for modal state, use SweetAlert2
 
-    // Fetch all sessions for this tutor
-    const { data: sessions = [], refetch, isLoading } = useQuery({
+    // Fetch all sessions for this tutor (paginated API returns an object)
+    const { data = {}, refetch, isLoading } = useQuery({
         queryKey: ['sessions', user.email],
         queryFn: async () => {
             const res = await axiosSecure.get('/sessions');
             return res.data;
         }
     });
+
+    const { sessions = [] } = data;
 
     // Format date
     const formatDate = (dateString) => {
@@ -222,7 +224,7 @@ const MyAllStudySessions = () => {
                                 </thead>
                                 {/* Table Body */}
                                 <tbody>
-                                    {filteredSessions.map(session => (
+                                    {filteredSessions?.map(session => (
                                         <tr key={session._id} className="hover:bg-base-50">
                                             <td>
                                                 <div className="flex items-center gap-3">

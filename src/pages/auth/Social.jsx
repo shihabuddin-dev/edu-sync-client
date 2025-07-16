@@ -24,6 +24,8 @@ const Social = () => {
             if (user && user.email) {
                 await axiosInstance.post('/users', {
                     email: user.email,
+                    name: user.displayName || user.name || '', // Google user name
+                    photoURL: user.photoURL || '',             // Google user photo
                     role: 'student',
                     created_at: new Date().toISOString(),
                     last_log_in: new Date().toISOString(),

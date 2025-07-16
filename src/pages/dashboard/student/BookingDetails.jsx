@@ -20,7 +20,7 @@ import {
 import { MdMenuBook, MdVerified } from 'react-icons/md';
 import Button from '../../../components/ui/Button';
 import Reviews from '../../studySessions/Reviews';
-import Recomanded from '../../studySessions/Recomanded';
+import Recommended from '../../studySessions/Recommended';
 
 const BookingDetails = () => {
     const { id: bookingId } = useParams();
@@ -290,7 +290,7 @@ const BookingDetails = () => {
                 </div>
             </div>
             <Reviews />
-            <Recomanded />
+            {booking.sessionId && <Recommended sessionId={booking.sessionId} />}
         </div>
     );
 };

@@ -12,13 +12,15 @@ const MyApprovedSessions = () => {
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
 
-  const { data: sessions = [], isLoading } = useQuery({
+  const { data = {}, isLoading } = useQuery({
     queryKey: ['approvedSessions', user.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/sessions?email=${user.email}`);
-      return res.data.filter(session => session.status === 'approved');
+      return res.data;
     }
   });
+
+  const sessions = (data.sessions || []).filter(session => session.status === 'approved');
 
   if (isLoading) return <Spinner />
 
