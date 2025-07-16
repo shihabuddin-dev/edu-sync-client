@@ -56,7 +56,7 @@ const positions = [
 
 const HowEduSyncWork = () => {
   return (
-    <section data-aos="zoom-in"  className="bg-base-200/40 py-16 px-4">
+    <section data-aos="zoom-in" className="bg-base-200/40 py-16 px-4 rounded-md">
       <h2 className='mb-10 md:mb-12 text-center text-2xl md:text-3xl font-bold'>How EduSync Works</h2>
       {/* Desktop: Circular Layout */}
       <div className="relative w-full max-w-2xl mx-auto h-[450px] hidden md:block">
