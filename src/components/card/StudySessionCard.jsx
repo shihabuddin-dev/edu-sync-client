@@ -1,20 +1,20 @@
 import React from 'react';
 import { Link } from 'react-router';
-import {  FaStar, FaBook } from 'react-icons/fa';
+import { FaStar, FaBook } from 'react-icons/fa';
 import Button from '../ui/Button';
 
 import { useQuery } from '@tanstack/react-query';
 import useAxiosSecure from '../../hooks/useAxiosSecure';
 
 const getStatus = (session) => {
-  const now = new Date();
-  const regStart = new Date(session.registrationStart);
-  const regEnd = new Date(session.registrationEnd);
-  if (now >= regStart && now <= regEnd) {
-    return 'Ongoing';
-  } else {
-    return 'Closed';
-  }
+    const now = new Date();
+    const regStart = new Date(session.registrationStart);
+    const regEnd = new Date(session.registrationEnd);
+    if (now >= regStart && now <= regEnd) {
+        return 'Ongoing';
+    } else {
+        return 'Closed';
+    }
 };
 
 const statusColors = {
@@ -53,7 +53,7 @@ const StudySessionCard = ({ session }) => {
     return (
         <div className="relative card bg-gradient-to-br from-primary/10 via-base-100 to-base-200 rounded-md shadow-md border border-primary/20 overflow-hidden flex flex-col transition-transform duration-400 hover:-translate-y-2 hover:shadow-primary/40 hover:border-primary/60 group cursor-pointer">
             {/* Background watermark icon */}
-            <FaBook className="absolute right-4 bottom-4 text-primary/10 text-8xl pointer-events-none z-0 group-hover:text-primary/20 transition-all duration-300" />
+            <FaBook className="absolute right-4 bottom-4 text-primary/5 text-8xl pointer-events-none z-0 group-hover:text-primary/10 transition-all duration-300" />
             {/* Image section */}
             {sessionImage && (
                 <div className="relative h-40 w-full overflow-hidden z-10">
@@ -63,7 +63,7 @@ const StudySessionCard = ({ session }) => {
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300 rounded-t-md"
                     />
                     {/* Registration end badge (top left) */}
-                   {status==='Ongoing'&& registrationEnd && (
+                    {status === 'Ongoing' && registrationEnd && (
                         <span className="absolute top-3 left-3 badge badge-outline rounded border-primary badge-sm text-xs text-base-content/60 bg-base-100/80 backdrop-blur-sm">
                             Ends: {formatDate(registrationEnd)}
                         </span>

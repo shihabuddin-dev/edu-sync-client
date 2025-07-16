@@ -21,7 +21,7 @@ const NewsLetter = () => {
 
     return (
         <section className="max-w-5xl mx-auto">
-            <div className="relative flex flex-col-reverse md:flex-row items-center bg-base-100 rounded-md shadow-md border border-base-300 overflow-hidden p-4">
+            <div className="relative flex flex-col-reverse md:flex-row items-center bg-base-100 rounded-md shadow-md border border-base-300 overflow-hidden px-4 py-8">
                 {/* Animated Gradient Background */}
                 <div className="absolute inset-0 -z-10 animate-gradient bg-gradient-to-br from-primary via-pink-400 to-secondary opacity-30" />
                 {/* Animated Blob */}
@@ -36,7 +36,7 @@ const NewsLetter = () => {
                 </svg>
                 {/* Content Left */}
                 <div className="w-full md:w-1/2 p-8 flex flex-col justify-center items-start text-left z-10">
-                    <h2 className="text-2xl md:text-3xl font-bold mb-2 ">Get the latest updates and free resources.</h2>
+                    <h2 className="text-2xl md:text-3xl font-bold mb-2">Get the latest updates and free resources.</h2>
                     <p className="text-base-content/80 mb-6">Subscribe to our newsletter and never miss out!</p>
                     {submitted ? (
                         <div className="text-success font-semibold py-4">Thank you for subscribing!</div>
@@ -69,16 +69,16 @@ const NewsLetter = () => {
                 </div>
                 {/* Image Right - reduced height, fixed to bottom */}
                 <div className="w-full md:w-1/2 flex items-center justify-center md:items-end relative p-0 md:p-0 z-10 min-h-[180px] md:min-h-[250px]" style={{ height: '100%' }}>
-                    <div className="absolute -left-10 top-1/2 -translate-y-1/2 w-40 h-40 bg-gradient-to-br from-primary/20 to-pink-400/10 rounded-full blur-2xl opacity-50 -z-10" />
+                    <div className="absolute -left-10 top-1/2 -translate-y-1/2 w-40 h-54 bg-gradient-to-br from-primary/20 to-pink-400/10 rounded-full blur-2xl opacity-50 -z-10" />
                     <img
                         src={NewsLatterMan}
                         alt="Newsletter signup illustration"
-                        className="w-auto h-48 sm:h-64 md:h-78 object-contain md:rounded-none rounded-b-md drop-shadow-md
-            md:absolute md:bottom-[-16px] md:left-0 md:right-0 md:mx-auto
+                        className="w-auto h-48 sm:h-64 md:h-86 object-contain md:rounded-none rounded-b-md drop-shadow-md
+            md:absolute md:bottom-[-32px] md:left-0 md:right-0 md:mx-auto
         "
                         style={{
-                            minHeight: 120,
-                            maxHeight: 230,
+                            minHeight: 180,
+                            maxHeight: 280,
                             // Only apply absolute positioning on md and up
                             position: undefined
                         }}
