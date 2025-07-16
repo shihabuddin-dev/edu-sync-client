@@ -4,9 +4,6 @@
 
 **Live Site:** [https://edu-sync-pro.web.app/](https://edu-sync-pro.web.app/)
 
-**Admin Login:**
-- **Email:** admin@edusync.com
-- **Password:** admin@EDU#
 
 ---
 
