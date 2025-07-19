@@ -1,9 +1,22 @@
 # Edu Sync
+![EdySync Hub Screenshot](https://i.ibb.co/Kp3bghpR/edu-sync.png)
+
 
 [![Live Website](https://img.shields.io/badge/Live%20Demo-edu--sync--pro.web.app-brightgreen?style=for-the-badge&logo=google-chrome)](https://edu-sync-pro.web.app/)
 
 **Live Site:** [https://edu-sync-pro.web.app/](https://edu-sync-pro.web.app/)
 
+---
+
+## 🚀 Project Overview
+
+**Edu Sync** is a modern, collaborative platform designed to connect students, tutors, and administrators for a seamless educational experience. Our mission is to make learning accessible, engaging, and effective for everyone, everywhere. Edu Sync streamlines study session scheduling, resource sharing, and progress tracking—all in a secure, user-friendly environment.
+
+- **Connect** with expert tutors and a global community of learners
+- **Schedule** and manage study sessions with ease
+- **Share** and access study materials and resources
+- **Track** your learning journey and achievements
+- **Enjoy** a responsive, modern UI/UX built for all devices
 
 ---
 

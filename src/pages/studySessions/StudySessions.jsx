@@ -27,7 +27,7 @@ const StudySessions = () => {
 
   const { sessions = [], totalPages = 0, totalItems = 0 } = sessionsData;
 
-  if (isLoading) return <Spinner/>
+  if (isLoading) return <Spinner />
   if (isError) return <div className="text-center py-8 text-error">Error: {error.message}</div>;
 
   // Prepare stats data for the component
@@ -63,6 +63,7 @@ const StudySessions = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-base-100 to-base-200">
+      <title>Study Sessions | Edu Sync</title>
       {/* Header Section */}
       <div className="bg-base-100 shadow-md pb-2" data-aos="fade-up-right">
         <div className="max-w-4xl mx-auto px-4 py-4 text-center">
@@ -72,7 +73,7 @@ const StudySessions = () => {
           </p>
         </div>
       </div>
-      
+
       <div className="max-w-6xl mx-auto px-2 sm:px-4 py-12">
         {/* Stats Section */}
         <StatsSection
@@ -90,7 +91,7 @@ const StudySessions = () => {
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mb-8">
                 {sessions.map(session => {
-                  
+
                   return (
                     <StudySessionCard
                       key={session._id}
@@ -99,7 +100,7 @@ const StudySessions = () => {
                   );
                 })}
               </div>
-              
+
               {/* Pagination */}
               <div className="border-t border-base-300 pt-6">
                 <StudyPagination
