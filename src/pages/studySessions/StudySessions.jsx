@@ -81,10 +81,12 @@ const StudySessions = () => {
           stats={sessionStats}
           className="mb-8"
         />
+        {/* make sorting function  */}
 
         {/* Sessions Grid Section */}
         <section className="bg-base-100 rounded-md shadow-md border border-base-300 p-4 sm:p-6 md:p-8 mb-8" data-aos="fade-up">
-          <h2 className="text-xl md:text-2xl font-semibold text-base-content mb-6 text-center">Available Sessions</h2>
+          <h2 className='mb-2 md:mb-2 text-center text-xl md:text-2xl font-semibold text-base-content'>Available Study Sessions</h2>
+          <p className="text-center text-base-content/80 mb-8 md:mb-10 text-sm max-w-2xl mx-auto">Browse and join a variety of upcoming study sessions tailored to your interests and schedule.</p>
           {!sessions.length ? (
             <div className="text-center py-8 text-base-content/70">No available study sessions at the moment.</div>
           ) : (
