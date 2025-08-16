@@ -21,7 +21,8 @@ const teamImages2 = [img14, img13, img12, img11, img10, img9, img8, img7, img6, 
 const SponsoredTeams = () => {
   return (
     <div className="overflow-y-hidden space-y-2">
-      <h2 className='mb-10 md:mb-12 text-center text-2xl md:text-3xl font-bold'>Sponsored And Teams</h2>
+      <h2 className='mb-2 md:mb-4 text-center text-2xl md:text-3xl font-bold'>Sponsored Teams</h2>
+      <p className="text-center text-base-content/80 mb-8 md:mb-10 text-base md:text-lg max-w-2xl mx-auto">Proudly showcasing our partners and teams who support and collaborate with EduSync.</p>
       <Marquee gradient={true} gradientWidth={60} speed={40} pauseOnHover={true} className="py-4 overflow-y-hidden">
         {teamImages.map((img, idx) => (
           <div key={idx} className="mx-4 flex items-center justify-center">

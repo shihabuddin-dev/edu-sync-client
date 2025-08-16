@@ -22,7 +22,8 @@ const AvailableStudySessions = () => {
 
     return (
         <section>
-            <h2 className='mb-10 md:mb-12 text-center text-2xl md:text-3xl font-bold'>Available Study Sessions</h2>
+            <h2 className='mb-2 md:mb-4 text-center text-2xl md:text-3xl font-bold'>Available Study Sessions</h2>
+            <p className="text-center text-base-content/80 mb-8 md:mb-10 text-base md:text-lg max-w-2xl mx-auto">Browse and join a variety of upcoming study sessions tailored to your interests and schedule.</p>
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
                 {sessions?.map(session => (
                     // <AvailableStudySessionsCard

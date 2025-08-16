@@ -5,6 +5,7 @@ import WhatOurUserSays from "../../components/homePage/WhatOurUserSays";
 import WhyChooseEduSync from "../../components/homePage/WhyChooseEduSync";
 import NewsLetter from "../../components/homePage/NewsLetter";
 import Faqs from "../../components/homePage/Faqs";
+import DeviceSupport from "../../components/homePage/DeviceSupport";
 
 const Home = () => {
 
@@ -19,6 +20,7 @@ const Home = () => {
       <WhatOurUserSays />
       <Faqs/>
       <NewsLetter/>
+      <DeviceSupport/>
      
     </div>
   </>;

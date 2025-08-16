@@ -68,12 +68,12 @@ const Banner = () => {
                 <FaGlobeAmericas className="text-green-500 text-5xl drop-shadow-lg opacity-90" />
             </motion.div>
             {/* Content */}
-            <div className="backdrop-blur-xs text-white relative rounded-md z-20 max-w-2xl mx-auto px-4 py-12 text-center flex flex-col items-center justify-center">
+            <div className="backdrop-blur-xs text-white relative rounded-ms z-20 max-w-2xl mx-auto px-4 py-12 text-center flex flex-col items-center justify-center">
                 <h1 className="text-3xl md:text-5xl font-extrabold drop-shadow-lg mb-4">
                     Empower Your Learning Journey
                 </h1>
                 <p className="text-base md:text-lg text-white/90 mb-6 drop-shadow">
-                    Connect with students and tutors, schedule collaborative study sessions, and access shared resources—all in one modern platform.
+                    Connect with students and tutors, schedule collaborative study sessions, and access shared resources all in one modern platform.
                 </p>
                 <Button onClick={() => window.scrollTo({ top: 500, behavior: 'smooth' })}>
                     Get Started

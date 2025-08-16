@@ -37,12 +37,14 @@ const features = [
 
 const WhyChooseEduSync = () => (
     <section>
-        <h2 className='mb-10 md:mb-12 text-center text-2xl md:text-3xl font-bold'>Why Choose EduSync?</h2>
+        <h2 className='mb-2 md:mb-4 text-center text-2xl md:text-3xl font-bold'>Why Choose EduSync?</h2>
+        <p className="text-center text-base-content/80 mb-8 md:mb-10 text-base md:text-lg max-w-2xl mx-auto">Empowering your learning journey with trusted tutors, flexible sessions, and a vibrant community.</p>
+
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
             {features.map((feature, idx) => (
                 <div data-aos="flip-left"
                     data-aos-easing="ease-out-cubic"
-                    data-aos-duration="1500" key={idx} className="flex flex-col items-center bg-base-100 rounded-md shadow p-6 hover:shadow-md transition">
+                    data-aos-duration="1500" key={idx} className="flex flex-col items-center bg-base-200/60 rounded-md shadow px-6 py-8 hover:shadow-md transition">
                     {feature.icon}
                     <h3 className="mt-4 font-bold text-lg text-center">{feature.title}</h3>
                     <p className="text-base-content/80 text-center text-sm mt-2">{feature.desc}</p>
