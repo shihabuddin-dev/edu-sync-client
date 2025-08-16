@@ -25,7 +25,7 @@ const DeviceSupport = () => {
         tablet: {
             title: 'Tablet Learning Experience',
             description:
-                'Enjoy EduSync on your tablet with a spacious, responsive interface. Perfect for group study, interactive lessons, and multitasking with split-screen features.',
+                'Enjoy EduSync on your tablet with a spacious, responsive interface. Perfect for group study, interactive lessons, and multitasking with split screen features.',
             img: tab,
             details: [
                 'Large, touch-friendly controls for easy navigation',
@@ -83,10 +83,10 @@ const DeviceSupport = () => {
                         ))}
                     </div>
                 </div>
-                <div className="border border-primary/20 rounded-xl shadow p-6 md:p-10 flex flex-col md:flex-row items-center gap-8 bg-base-100">
+                <div className="border border-primary/20 rounded-md shadow p-6 md:p-10 flex flex-col md:flex-row items-center gap-8 bg-base-100">
                     <div className="md:w-1/2 flex justify-center">
-                        <div className="w-full max-w-xs md:max-w-sm rounded-lg p-4 bg-gradient-to-br from-primary/10 via-secondary/10 to-accent/10 flex items-center justify-center">
-                            <img src={img} alt={title} className="rounded-lg w-full object-contain drop-shadow-md" />
+                        <div className="w-full max-w-xs md:max-w-sm rounded-md p-4 bg-gradient-to-br from-primary/10 via-secondary/10 to-primary/5 flex items-center justify-center">
+                            <img src={img} alt={title} className="rounded-md w-full object-contain drop-shadow-md" />
                         </div>
                     </div>
                     <div className="md:w-1/2">
@@ -99,12 +99,16 @@ const DeviceSupport = () => {
                         </ul>
                         {activeTab === 'mobile' && (
                             <div className="flex gap-3 mt-4">
-                                <Button type="button" className="btn">
-                                    <FaGooglePlay /> Google Play
-                                </Button>
-                                <Button type="button" className="btn">
-                                    <FaApple /> App Store
-                                </Button>
+                                <a href="https://play.google.com/" target='blank'>
+                                    <Button type="button" className="btn">
+                                        <FaGooglePlay /> Google Play
+                                    </Button>
+                                </a>
+                                <a href="https://www.apple.com/app-store/" target='blank'>
+                                    <Button type="button" className="btn">
+                                        <FaApple /> App Store
+                                    </Button>
+                                </a>
                             </div>
                         )}
                     </div>
