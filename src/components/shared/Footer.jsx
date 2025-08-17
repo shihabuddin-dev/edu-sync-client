@@ -13,7 +13,8 @@ import {
   FaUsers,
   FaBookOpen,
   FaChartLine,
-  FaHeart
+  FaHeart,
+  FaDev
 } from 'react-icons/fa';
 import Logo from './Logo';
 
@@ -34,25 +35,25 @@ const Footer = () => {
               Join our community of learners and educators.
             </p>
             <div className="flex space-x-4">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer"
+              <a href="https://www.facebook.com/shihabuddinReal/" target="_blank" rel="noopener noreferrer"
                 className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
                 <FaFacebook size={18} />
               </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"
+              <a href="https://x.com/shihab_dev" target="_blank" rel="noopener noreferrer"
                 className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
                 <FaTwitter size={18} />
               </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer"
+              <a href="https://www.instagram.com/shihabuddin.real/" target="_blank" rel="noopener noreferrer"
                 className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
                 <FaInstagram size={18} />
               </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
+              <a href="https://www.linkedin.com/in/shihab-dev" target="_blank" rel="noopener noreferrer"
                 className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
                 <FaLinkedin size={18} />
               </a>
-              <a href="https://youtube.com" target="_blank" rel="noopener noreferrer"
+              <a href="https://shihab-dev.web.app/" target="_blank" rel="noopener noreferrer"
                 className="w-10 h-10 bg-primary/10 rounded-full flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all duration-300">
-                <FaYoutube size={18} />
+                <FaDev size={18} />
               </a>
             </div>
           </div>
@@ -129,9 +130,9 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="/reviews" className="text-base-content/70 hover:text-primary transition-colors duration-300 flex items-center gap-2">
+                <Link to="/statistic" className="text-base-content/70 hover:text-primary transition-colors duration-300 flex items-center gap-2">
                   <span className="w-1 h-1 bg-primary rounded-full"></span>
-                  Reviews & Ratings
+                  Site Statistic
                 </Link>
               </li>
             </ul>
