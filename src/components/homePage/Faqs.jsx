@@ -42,7 +42,9 @@ const Faqs = () => {
     };
 
     return (
-        <section className="relative rounded-md py-16 px-4 bg-base-200/40">
+        <div className="relative rounded-md py-16 px-4 bg-base-200/40" data-aos="fade-down"
+     data-aos-easing="linear"
+     data-aos-duration="1000">
             <h2 className='mb-2 md:mb-4 text-center text-2xl md:text-3xl font-bold'>Frequently Asked Questions</h2>
             <p className="text-center text-base-content/80 mb-8 md:mb-10 text-base md:text-lg max-w-2xl mx-auto">Find answers to common questions about EduSync, our features, and how to get the most out of your learning experience.</p>
             <div className="max-w-4xl mx-auto flex flex-col-reverse md:flex-row items-center gap-8 md:gap-10 w-full">
@@ -91,7 +93,7 @@ const Faqs = () => {
                     />
                 </div>
             </div>
-        </section>
+        </div>
     );
 };
 

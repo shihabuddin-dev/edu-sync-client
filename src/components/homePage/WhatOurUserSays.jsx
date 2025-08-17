@@ -100,10 +100,10 @@ const WhatOurUserSays = () => {
                         See what our users are saying about their EduSync experience.
                     </p>
                     <div className="flex gap-3">
-                        <button className="swiper-button-prev-custom w-8 md:w-10 h-8 md:h-10 flex items-center justify-center rounded-full pl-2 border border-primary hover:bg-secondary/10 transition">
+                        <button className="swiper-button-prev-custom w-8 md:w-10 h-8 md:h-10 flex items-center justify-center rounded-full pl-2 border border-primary hover:bg-primary/10 transition">
                             <MdArrowBackIos size={20} />
                         </button>
-                        <button className="swiper-button-next-custom w-8 md:w-10 h-8 md:h-10 flex items-center justify-center rounded-full border border-primary hover:bg-secondary/10 transition">
+                        <button className="swiper-button-next-custom w-8 md:w-10 h-8 md:h-10 flex items-center justify-center rounded-full border border-primary hover:bg-primary/10 transition">
                             <MdArrowForwardIos size={20} />
                         </button>
                     </div>

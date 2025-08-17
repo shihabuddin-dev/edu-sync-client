@@ -59,7 +59,9 @@ const DeviceSupport = () => {
     const { title, description, img, details } = tabData[activeTab];
 
     return (
-        <div className="max-w-7xl mx-auto px-4 bg-base-100">
+        <div className="max-w-7xl mx-auto px-4 bg-base-100" data-aos="flip-left"
+            data-aos-easing="ease-out-cubic"
+            data-aos-duration="2000">
             <div className="max-w-5xl mx-auto">
 
                 <h2 className='mb-2 md:mb-4 text-center text-2xl md:text-3xl font-bold'>Device Support</h2>

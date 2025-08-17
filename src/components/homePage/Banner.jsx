@@ -27,7 +27,7 @@ const Banner = () => {
 
     return (
         <section
-            className="-mt-5 md:-mt-8 relative w-full min-h-[65vh] flex items-center justify-center overflow-hidden rounded-b-md shadow-md border border-base-content/10 my-6"
+            className="-mt-5 md:-mt-10 relative w-full min-h-[68vh] flex items-center justify-center overflow-hidden rounded-b-md shadow-md border border-base-content/10 my-6"
         >
             {/* Background image */}
             <img
