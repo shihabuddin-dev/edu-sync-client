@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { FaMobileAlt, FaGooglePlay, FaApple, FaTablet, FaDesktop } from 'react-icons/fa';
+import { FaMobileAlt, FaGooglePlay, FaApple, FaTablet, FaDesktop }
+    from 'react-icons/fa';
 import Button from '../ui/Button';
 import phone from '../../assets/devices/phone.png'
 import tab from '../../assets/devices/tablet.png'
@@ -61,12 +62,10 @@ const DeviceSupport = () => {
     return (
         <div className="max-w-7xl mx-auto px-4 bg-base-100" data-aos="flip-left"
             data-aos-easing="ease-out-cubic"
-            data-aos-duration="2000">
+            data-aos-duration="1000">
             <div className="max-w-5xl mx-auto">
-
                 <h2 className='mb-2 md:mb-4 text-center text-2xl md:text-3xl font-bold'>Device Support</h2>
                 <p className="text-center text-base-content/80 mb-8 md:mb-10 text-base md:text-lg max-w-2xl mx-auto">Access EduSync seamlessly on mobile, tablet, or desktop anytime, anywhere, on any device.</p>
-
                 <div className="flex justify-center mb-8 md:mb-12">
                     <div className="flex rounded-md border border-secondary/20 overflow-hidden bg-base-100 shadow-sm">
                         {tabs.map((tab) => (

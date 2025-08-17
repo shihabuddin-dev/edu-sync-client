@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { NavLink, Outlet } from "react-router";
-import { FaBars, FaTimes, FaUserCircle, FaSignOutAlt, FaUsers, FaBook, FaChalkboardTeacher, FaBullhorn, FaLayerGroup, FaGraduationCap, FaRegCalendarPlus, FaListAlt, FaCloudUploadAlt, FaFolderOpen, FaHome } from "react-icons/fa";
+import { FaBars, FaTimes, FaUserCircle, FaSignOutAlt, FaUsers, FaBook, FaChalkboardTeacher, FaBullhorn, FaLayerGroup, FaGraduationCap, FaRegCalendarPlus, FaListAlt, FaCloudUploadAlt, FaFolderOpen, FaHome, FaUser } from "react-icons/fa";
 import useAuth from "../hooks/useAuth";
 import Swal from "sweetalert2";
 import useUserRole from "../hooks/useUserRole";
@@ -40,6 +40,11 @@ const adminLinks = [
     label: "Students",
     icon: <FaUsers />,
   },
+  {
+    to: "/dashboard/admin/my-profile",
+    label: "My Profile",
+    icon: <FaUser />,
+  },
 ];
 
 const tutorLinks = [
@@ -73,6 +78,11 @@ const tutorLinks = [
     label: "Students",
     icon: <FaUsers />,
   },
+  {
+    to: "/dashboard/tutor/my-profile",
+    label: "My Profile",
+    icon: <FaUser />,
+  },
 ];
 
 const studentLinks = [
@@ -105,6 +115,11 @@ const studentLinks = [
     to: "/dashboard/student/all-student",
     label: "All Student",
     icon: <FaUsers />,
+  },
+  {
+    to: "/dashboard/student/my-profile",
+    label: "My Profile",
+    icon: <FaUser />,
   },
 ];
 

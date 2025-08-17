@@ -16,7 +16,7 @@ import ThemeToggle from "../ui/ThemeToggle";
 import userLogo from "../../assets/user-logo.png";
 
 import useAuth from "../../hooks/useAuth";
-import { FaUser, FaBullhorn, FaChartBar, FaHome } from "react-icons/fa";
+import { FaBullhorn, FaHome } from "react-icons/fa";
 import Logo from "./Logo";
 // import Logo from "./Logo";
 
@@ -140,16 +140,6 @@ const Navbar = () => {
                   Hi, {user?.displayName}
                 </p>
                 <p>
-                  <p>
-                    <NavLink
-                      to='/my-profile'
-                      className="px-4 py-2 text-sm font-medium hover:text-primary flex items-center gap-1"
-                      onClick={() => setShowDropdown(false)}
-                    >
-                      <FaUser />
-                      My Profile
-                    </NavLink>
-                  </p>
                   <NavLink
                     to='/dashboard'
                     className="px-4 py-2 text-sm font-medium hover:text-primary flex items-center gap-1"

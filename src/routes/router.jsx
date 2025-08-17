@@ -120,6 +120,10 @@ const router = createBrowserRouter([
         path: 'student/study-materials',
         element: <StudentRoutes><StudyMaterials /></StudentRoutes>
       },
+      {
+        path: 'student/my-profile',
+        element: <StudentRoutes><MyProfile /></StudentRoutes>
+      },
 
       // tutor routes
       {
@@ -150,6 +154,10 @@ const router = createBrowserRouter([
         path: 'tutor/students',
         element: <TutorRoutes><AllStudent /></TutorRoutes>
       },
+      {
+        path: 'tutor/my-profile',
+        element: <TutorRoutes><MyProfile /></TutorRoutes>
+      },
 
       // admin Routes
       {
@@ -179,6 +187,10 @@ const router = createBrowserRouter([
       {
         path: 'admin/students',
         element: <AdminRoutes><AllStudent /></AdminRoutes>
+      },
+      {
+        path: 'admin/my-profile',
+        element: <AdminRoutes><MyProfile /></AdminRoutes>
       },
     ]
   },

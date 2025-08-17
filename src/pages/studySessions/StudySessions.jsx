@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import useAxios from '../../hooks/useAxios';
+import useAxiosSecure from '../../hooks/useAxiosSecure';
 import StudySessionCard from '../../components/card/StudySessionCard';
 import SectionTitle from '../../components/shared/SectionTitle';
 import StatsSection from '../../components/extra/StatsSection';
@@ -14,6 +15,10 @@ const StudySessions = () => {
   const axiosInstance = useAxios();
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8; // Number of sessions per page
+  const [sortType, setSortType] = useState('reviews-desc'); // 'reviews-desc', 'reviews-asc'
+  const [durationFilter, setDurationFilter] = useState('all'); // 'all', 'lt1', '1to2', 'gt2'
+  const axiosSecure = useAxiosSecure();
+  const [reviewCounts, setReviewCounts] = useState({});
 
   const fetchSessions = async () => {
     const res = await axiosInstance(`/public-sessions?page=${currentPage}&limit=${itemsPerPage}`);
@@ -26,6 +31,53 @@ const StudySessions = () => {
   });
 
   const { sessions = [], totalPages = 0, totalItems = 0 } = sessionsData;
+
+
+  // Fetch review counts for all sessions on page
+  useEffect(() => {
+    if (!sessions.length) return;
+    let isMounted = true;
+    const fetchCounts = async () => {
+      const counts = {};
+      await Promise.all(sessions.map(async (session) => {
+        try {
+          const res = await axiosSecure.get(`/reviews/session/${session._id}`);
+          counts[session._id] = Array.isArray(res.data) ? res.data.length : 0;
+        } catch {
+          counts[session._id] = 0;
+        }
+      }));
+      if (isMounted) setReviewCounts(counts);
+    };
+    fetchCounts();
+    return () => { isMounted = false; };
+  }, [sessions, axiosSecure]);
+
+  // Filter sessions by duration using durationValue and durationUnit
+  const filteredSessions = sessions.filter(session => {
+    let minutes = 0;
+    const value = Number(session.durationValue);
+    const unit = (session.durationUnit || '').toLowerCase();
+    if (!isNaN(value)) {
+      if (unit === 'days') minutes = value * 24 * 60;
+      else if (unit === 'hours') minutes = value * 60;
+      else if (unit === 'minutes') minutes = value;
+    }
+    if (durationFilter === 'all') return true;
+    if (!minutes) return false;
+    if (durationFilter === 'lt1') return minutes < 60;
+    if (durationFilter === '1to2') return minutes >= 60 && minutes <= 120;
+    if (durationFilter === 'gt2') return minutes > 120;
+    return true;
+  });
+
+  // Sort filtered sessions by review count only
+  const sortedSessions = [...filteredSessions].sort((a, b) => {
+    const aReviews = reviewCounts[a._id] || 0;
+    const bReviews = reviewCounts[b._id] || 0;
+    if (sortType === 'reviews-asc') return aReviews - bReviews;
+    return bReviews - aReviews; // default to desc
+  });
 
   if (isLoading) return <Spinner />
   if (isError) return <div className="text-center py-8 text-error">Error: {error.message}</div>;
@@ -81,26 +133,67 @@ const StudySessions = () => {
           stats={sessionStats}
           className="mb-8"
         />
-        {/* make sorting function  */}
+
+        {/* Filter and Sorting Controls */}
+        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-4">
+          {/* Duration Filter */}
+          <div className="flex items-center gap-2">
+            <label className="font-medium text-base-content/80">Filter by duration:</label>
+            <select
+              className="select select-bordered select-sm w-40 focus:outline-0"
+              value={durationFilter}
+              onChange={e => setDurationFilter(e.target.value)}
+            >
+              <option value="all">All Durations</option>
+              <option value="lt1">Less than 1 hour</option>
+              <option value="1to2">1-2 hours</option>
+              <option value="gt2">More than 2 hours</option>
+            </select>
+          </div>
+          {/* Sorting Dropdown (Reviews only) */}
+          <div className="flex items-center gap-2">
+            <label className="font-medium text-base-content/80">Sort by reviews:</label>
+            <select
+              className="select select-bordered select-sm w-44 focus:outline-0"
+              value={sortType}
+              onChange={e => setSortType(e.target.value)}
+            >
+              <option value="reviews-desc">Most Reviews</option>
+              <option value="reviews-asc">Fewest Reviews</option>
+            </select>
+          </div>
+        </div>
 
         {/* Sessions Grid Section */}
         <section className="bg-base-100 rounded-md shadow-md border border-base-300 p-4 sm:p-6 md:p-8 mb-8" data-aos="fade-up">
           <h2 className='mb-2 md:mb-2 text-center text-xl md:text-2xl font-semibold text-base-content'>Available Study Sessions</h2>
           <p className="text-center text-base-content/80 mb-8 md:mb-10 text-sm max-w-2xl mx-auto">Browse and join a variety of upcoming study sessions tailored to your interests and schedule.</p>
-          {!sessions.length ? (
-            <div className="text-center py-8 text-base-content/70">No available study sessions at the moment.</div>
+          {sortedSessions.length === 0 ? (
+            <div className="text-center py-8 text-base-content/70">
+              No study sessions match your filter.
+              {(durationFilter !== 'all' || sortType !== 'reviews-desc') && (
+                <div className="mt-4">
+                  <button
+                    onClick={() => {
+                      setDurationFilter('all');
+                      setSortType('reviews-desc');
+                    }}
+                    className="btn btn-primary btn-sm"
+                  >
+                    Clear Filters
+                  </button>
+                </div>
+              )}
+            </div>
           ) : (
             <>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mb-8">
-                {sessions.map(session => {
-
-                  return (
-                    <StudySessionCard
-                      key={session._id}
-                      session={session}
-                    />
-                  );
-                })}
+                {sortedSessions.map(session => (
+                  <StudySessionCard
+                    key={session._id}
+                    session={session}
+                  />
+                ))}
               </div>
 
               {/* Pagination */}
