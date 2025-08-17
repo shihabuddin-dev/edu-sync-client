@@ -124,7 +124,7 @@ const MyProfile = () => {
     }
   };
 
-  if (isLoading) return <Spinner/>;
+  if (isLoading) return <Spinner />;
 
   return (
     <div className="flex items-center justify-center min-h-screen py-4 px-2">
@@ -143,11 +143,9 @@ const MyProfile = () => {
               <FaUserCircle className="w-28 h-28 text-base-content/40" />
             )}
           </div>
-          {user.emailVerified ? (
+          {user.emailVerified &&
             <FaCheckCircle className="absolute bottom-3 right-2 text-success bg-base-100 rounded-full text-2xl border-2 border-base-100" title="Email Verified" />
-          ) : (
-            <FaTimesCircle className="absolute bottom-3 right-2 text-error bg-base-100 rounded-full text-2xl border-2 border-base-100" title="Email Not Verified" />
-          )}
+          }
         </div>
         {/* Name & Email */}
         <h2 className="text-3xl font-bold text-primary flex items-center gap-2">
@@ -233,7 +231,7 @@ const MyProfile = () => {
             </span>
           </div>
         </div>
-         {/* Social Media Links */}
+        {/* Social Media Links */}
         <div className="w-full flex flex-wrap justify-center gap-4 mt-4">
           {editMode ? (
             <>
